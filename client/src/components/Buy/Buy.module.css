@@ -1,0 +1,90 @@
+#buy-page {
+    padding-top: 1%;
+    min-height: calc(100vh - 84px - 79.33px);
+}
+
+#buy-page h1 {
+    text-align: center;
+    padding: 0;
+    margin-bottom: 30px;
+    height: 60px;
+    font-size: 50px;
+    color: #24252A;
+    opacity: 0.6;
+}
+
+#buy-wrapper {
+    margin: 0px auto 0px auto;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 20px;
+    max-width: 500px;
+    max-height: 700px;
+    background-color: rgba(2, 2, 2, 0.5);
+    border-radius: 30px
+}
+
+#buy-wrapper form {
+    text-align: center;
+    margin-top: 15px;
+    width: 390px;
+}
+
+#buy-wrapper form label {
+    font-size: 17px;
+    margin-bottom: 10px;
+    color: #ffff;
+}
+
+#buy-wrapper form input {
+    text-align: center;
+    border: none;
+    border-bottom: 1px solid #ffff;
+    background: transparent;
+    outline: none;
+    height: 30px;
+    width: 390px;
+    font-size: 17px;
+    color: #ffff;
+    margin-bottom: 35px;
+    margin-top: 10px;
+}
+
+#buy-wrapper input::-webkit-outer-spin-button,
+#buy-wrapper input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#buy-wrapper form button {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    padding: 20px 40px
+}
+
+#buy-wrapper form button:hover {
+    transition: all 0.5s ease 0s;
+    background-color: #3a86ff;
+    border: none;
+    cursor: pointer;
+}
+
+#buy-wrapper form select {
+    font-size: 20px;
+    text-align: center;
+    border: none;
+    border-bottom: 1px solid #ffff;
+    background: transparent;
+    outline: none;
+    color: #ffff;
+    width: 390px;
+}
+
+#buy-wrapper form option {
+    color: black;
+}

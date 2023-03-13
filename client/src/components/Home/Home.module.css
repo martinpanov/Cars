@@ -1,0 +1,43 @@
+#home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 800px;
+    background-image: url("../../assets/bmw-header-webp.webp");
+    background-size: cover;
+    background-position: bottom -100px right 0;
+    background-repeat: no-repeat;
+    background-color: #24252A;
+}
+
+#home h1 {
+    margin: 0;
+    font-size: 80px;
+    color: white;
+    text-shadow: 0px 0px 5px black;
+}
+
+#home a button {
+    padding: 15px 30px;
+    border-radius: 20px;
+    border: none;
+    background-color: white;
+    font-size: 25px;
+}
+
+#home a button:hover {
+    background-color: #3a86ff;
+    transition: all 0.5s ease 0s;
+    cursor: pointer;
+}
+
+#home a {
+    text-decoration: none;
+    outline: none;
+    color: #24252A;
+}
+
+#home-2 {
+    height: 500px;
+}

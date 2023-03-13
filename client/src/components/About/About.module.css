@@ -1,0 +1,40 @@
+#about-page {
+    margin: 0;
+    padding: 0;
+    padding-top: 1%;
+    min-height: calc(100vh - 84px - 79.33px);
+    width: 100%;
+    background-image: url('../../assets/black-car-webp.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+#about-page h1 {
+    text-align: center;
+    color: #ffff;
+    text-decoration: underline;
+    text-underline-position: under;
+    margin-top: 10%;
+    font-size: 70px;
+    text-shadow: 0px 0px 5px black;
+}
+
+.about-card {
+    display: relative;
+    float: left;
+    margin-top: 5%;
+    width: 33.33%;
+    text-align: center;
+}
+
+.about-card h4,
+.about-card p {
+    display: block;
+    color: #ffff;
+    text-shadow: 0px 0px 5px black;
+}
+
+.about-card h4 {
+    font-size: 30px;
+}

@@ -1,0 +1,25 @@
+#chetiri-page {
+    padding-top: 1%;
+    min-height: calc(100vh - 84px - 79.33px);
+    background-color: #24252A;
+}
+
+#chetiri-page div {
+    margin-top: 10%
+}
+
+#chetiri-page h1 {
+    text-align: center;
+    color: #ffff;
+    margin-bottom: 10px;
+    font-size: 140px;
+    opacity: 0.5;
+}
+
+#chetiri-page p {
+    text-align: center;
+    color: #ffff;
+    font-size: 60px;
+    margin-top: 40px;
+    opacity: 0.5;
+}

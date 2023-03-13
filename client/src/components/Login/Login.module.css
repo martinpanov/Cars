@@ -1,0 +1,133 @@
+#login-register-page {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.image-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+    background-image: url('../../assets/audi-webp.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.image-section button {
+    height: 5%;
+}
+
+.image-section button a {
+    color: #24252A;
+}
+
+
+.login-register-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+    background-color: #f9f9f9;
+}
+
+.login-register-section img {
+    height: 100px;
+    width: 300px;
+}
+
+.login-register-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+    width: 500px;
+    margin: 30px 0px 100px;
+    padding: 30px 58px 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    background-color: #ffff;
+}
+
+.login-register-form-wrapper p {
+    font-weight: bold;
+    color:#e63946;
+}
+
+.login-register-form-wrapper form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 80%;
+}
+
+.login-register-form-wrapper form button {
+    font-size: 20px;
+    padding: 15px 30px;
+    margin-top: 10px;
+    border-radius: 20px;
+    border: none;
+    color: #ffff;
+    background-color: #24252A;
+}
+
+.login-register-form-wrapper form button:hover {
+    background-color: #3a86ff;
+    transition: all 0.5s ease 0s;
+    cursor: pointer;
+}
+
+.login-register-form-wrapper form input {
+    margin-bottom: 10px;
+    padding: 15px 30px;
+    border-radius: 20px;
+    font-size: 18px;
+    border-width: 1px;
+}
+
+.login-register-form-wrapper form input:focus {
+    outline: none;
+}
+
+.login-register-form-wrapper form label span {
+    font-size: 20px;
+}
+
+.login-register-form-wrapper form label {
+    margin-bottom: 5px;
+}
+
+
+.text-and-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.text-and-button span {
+    color: white;
+    font-size: 30px;
+    text-shadow: 0px 0px 5px black;
+}
+
+.text-and-button button {
+    font-size: 20px;
+    padding: 15px 20px;
+    width: 250px;
+    height: 55px;
+    border-radius: 20px;
+    border: none;
+    color: #24252A;
+    background-color: #ffff;
+}
+
+.text-and-button button:hover {
+    background-color: #3a86ff;
+    transition: all 0.5s ease 0s;
+    cursor: pointer;
+}
