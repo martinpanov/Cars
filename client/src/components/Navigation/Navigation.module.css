@@ -2,14 +2,47 @@ nav {
     font-weight: 500;
     font-size: 17px;
     display: flex;
+    height: auto;
     align-items: center;
     justify-content: space-between;
-    padding: 15px;
+    padding: 25px 50px;
     background-color: #24252A;
+}
+
+.login,
+nav ul li a {
+    text-decoration: none;
+    padding: 15px 30px;
+    color: #ffff;
+}
+
+
+.login:hover,
+nav ul li a:hover {
+    transition: all 0.5s ease 0s;
+    color: #3a86ff;
+    border: none;
+}
+
+.register {
+    text-decoration: none;
+    color: #24252A;
+    font-weight: 700;
+    box-shadow: 0 0 5px 0 rgba(58, 134, 255);
+    background-color: #3a86ff;
+    padding: 15px 30px;
+}
+
+.register:hover {
+    color: white;
+    box-shadow: 0 0 15px 0 rgba(58, 134, 255);
+    transition: all 0.5s ease 0s;
+    border: none;
 }
 
 nav ul {
     display: flex;
+    justify-content: space-between;
     list-style: none;
     margin-right: -5px;
 }
@@ -18,21 +51,6 @@ nav ul li {
     padding: 0px 30px;
     margin-right: -10px;
     margin-left: -50px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    background-color: #24252A;
-    padding: 15px 30px;
-    color: #ffff;
-    border-radius: 20px;
-}
-
-nav ul li a:hover {
-    transition: all 0.5s ease 0s;
-    background-color: #3a86ff;
-    border: none;
-    border-radius: 20px;
 }
 
 .logo {

@@ -9,7 +9,7 @@
 #sell-page {
     padding: 0;
     padding-top: 1%;
-    min-height: calc(100vh - 84px - 79.33px);
+    min-height: 100vh;
     background-image: url('../../assets/cool-background.png');
     background-size: cover;
     background-repeat: no-repeat;

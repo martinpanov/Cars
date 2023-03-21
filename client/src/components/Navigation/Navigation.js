@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import styles from './Navigation.module.css';
-import logo from '../../assets/logo-no-background-webp.webp'
+import logo from '../../assets/logo-no-background-webp.webp';
 
 export default function Navigation() {
     return (
@@ -14,9 +14,11 @@ export default function Navigation() {
                 <li><Link to="/sell">Sell My Car</Link></li>
                 <li><Link to="/search">Buy A Car</Link></li>
                 <li><Link to="/auth/logout">Logout</Link></li>
-                <li><Link to="/login">Login</Link></li>
-                <li><Link to="/register">Register</Link></li>
             </ul>
+            <div className={styles["login-register"]}>
+                <Link className={styles["login"]} to="/login">Login</Link>
+                <Link className={styles["register"]} to="/register">Register</Link>
+            </div>
         </nav>
     );
 }

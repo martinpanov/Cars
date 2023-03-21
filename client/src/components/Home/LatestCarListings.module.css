@@ -1,0 +1,60 @@
+.latest-listings {
+    display: flex;
+    height: 800px;
+}
+
+.latest-car-listing {
+    height: 400px;
+    width: 300px;
+    margin-right: 50px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    background-color: white
+}
+
+.latest-car-listing:hover {
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+}
+
+.latest-car-listing h2 span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    font-size: 30px;
+    text-decoration: none;
+    color: #3a86ff;
+}
+
+.car-listing-image img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.car-specs-km-hp,
+.car-specs-gearbox-fuel,
+.car-listing-price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.car-specs-km-hp span,
+.car-specs-gearbox-fuel span {
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+.car-specs-km-hp i {
+    margin-left: 10px;
+}
+
+.car-specs-gearbox-fuel i {
+    margin-left: 7px;
+}
+
+.car-listing-price {
+    font-size: 25px;
+    font-weight: 600;
+}
