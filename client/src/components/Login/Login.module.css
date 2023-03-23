@@ -54,9 +54,19 @@
     background-color: #ffff;
 }
 
-.login-register-form-wrapper p {
+.errors {
     font-weight: bold;
-    color:#e63946;
+    color: #e63946;
+}
+
+.errors > *:not(:last-of-type) {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.errors p:last-of-type {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .login-register-form-wrapper form {

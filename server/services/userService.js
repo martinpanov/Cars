@@ -4,10 +4,16 @@ const User = require('../models/User');
 
 const jwtSecret = 'VerySecretMarto%#@!';
 
-async function register(username, password) {
-    const existing = User.findOne({ username }).collation({ locale: 'en', strength: 2 });
+const tokenBlacklist = new Set()
+
+async function register(username, password, repass) {
+    const existing = await User.findOne({ username }).collation({ locale: 'en', strength: 2 });
     if (existing) {
         throw new Error('Username is taken');
+    }
+
+    if (password !== repass) {
+        throw new Error('Passwords do not match');
     }
 
     const user = await User.create({
@@ -23,7 +29,7 @@ async function register(username, password) {
 }
 
 async function login(username, password) {
-    const user = User.findOne({ username }).collation({ locale: 'en', strength: 2 });
+    const user = await User.findOne({ username }).collation({ locale: 'en', strength: 2 });
     if (!user) {
         throw new Error('Incorrect username or password');
     }
@@ -33,6 +39,16 @@ async function login(username, password) {
     if (!match) {
         throw new Error('Incorrect username or password');
     }
+
+    return {
+        _id: user._id,
+        username: user.username,
+        accessToken: createToken(user)
+    }
+}
+
+async function logout(token) {
+    tokenBlacklist.add(token)
 }
 
 function createToken(user) {
@@ -55,5 +71,6 @@ function parseToken(token) {
 module.exports = {
     register,
     login,
+    logout,
     parseToken
 };

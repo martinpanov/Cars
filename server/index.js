@@ -9,7 +9,7 @@ async function start() {
     expressConfig(app);
 
 
-    app.listen(3000, () => console.log('server listening on port 3000'));
+    app.listen(3003, () => console.log('server listening on port 3003'));
 }
 
 start();

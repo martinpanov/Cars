@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 import styles from './Navigation.module.css';
 import logo from '../../assets/logo-no-background-webp.webp';
+import { useContext } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 
 export default function Navigation() {
+    const [user] = useContext(UserContext);
     return (
         <nav>
 
@@ -11,14 +14,20 @@ export default function Navigation() {
             <ul>
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/about">About</Link></li>
-                <li><Link to="/sell">Sell My Car</Link></li>
+                {user ? <li><Link to="/sell">Sell My Car</Link></li> : <li><Link to="/login">Sell My Car</Link></li>}
                 <li><Link to="/search">Buy A Car</Link></li>
-                <li><Link to="/auth/logout">Logout</Link></li>
             </ul>
-            <div className={styles["login-register"]}>
-                <Link className={styles["login"]} to="/login">Login</Link>
-                <Link className={styles["register"]} to="/register">Register</Link>
-            </div>
+            {!user ? (
+                <div className={styles["login-register"]}>
+                    <Link className={styles["login"]} to="/login">Login</Link>
+                    <Link className={styles["register"]} to="/register">Register</Link>
+                </div>
+            ) : (
+                <div className={styles["login-register"]}>
+                    <Link className={styles["login"]} to="/logout">Logout</Link>
+                    <Link className={styles["register"]} to="/">{user.username}</Link>
+                </div>
+            )}
         </nav>
     );
 }

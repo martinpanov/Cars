@@ -1,9 +1,48 @@
-import styles from './Register.module.css'
-import logo from '../../assets/logo-3-webp.webp'
-import { Link } from "react-router-dom";
+import styles from './Register.module.css';
+import logo from '../../assets/logo-3-webp.webp';
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useContext, useEffect } from 'react';
+import { register } from '../../services/authService';
+import { UserContext } from '../../contexts/UserContext';
 
 
 export default function Register() {
+    const [user, setUser] = useContext(UserContext);
+    const navigate = useNavigate();
+    const [values, setValues] = useState({
+        username: '',
+        password: '',
+        repass: ''
+    });
+    const [errors, setErrors] = useState([]);
+
+
+    useEffect(() => {
+        if (user) {
+            return navigate('/');
+        }
+    }, [user, navigate]);
+
+
+    const changeHandler = (e) => {
+        setValues(values => ({ ...values, [e.target.name]: e.target.value }));
+    };
+
+    const registerFormHandler = async (e) => {
+        e.preventDefault();
+        try {
+            const result = await register({ username: values.username, password: values.password, repass: values.repass });
+            setUser({
+                accessToken: result.accessToken.accessToken,
+                username: result.username,
+                userId: result._id
+            });
+            navigate('/');
+        } catch (error) {
+            setErrors(error.message);
+        }
+    };
+
     return (
         <div id={styles["login-register-page"]}>
 
@@ -19,16 +58,18 @@ export default function Register() {
                     <img src={logo} alt="logo" />
                 </Link>
                 <div className={styles["login-register-form-wrapper"]}>
-                    {/* {{ #if error }}
-                    <p>{{ error }}</p>
-                    {{/if}} */}
-                    <form action="/auth/register" method="post">
+
+                    <div className={styles["errors"]}>
+                        {errors.length > 0 ? errors.map((error, index) => <p key={index}>{error}</p>) : <p>{errors}</p>}
+                    </div>
+
+                    <form action="/register" method="post" onSubmit={registerFormHandler}>
                         <label><span>Username:</span></label>
-                        <input type="text" name="username" />
+                        <input type="text" name="username" value={values.username} onChange={changeHandler} />
                         <label><span>Password:</span></label>
-                        <input type="password" name="password" />
+                        <input type="password" name="password" value={values.password} onChange={changeHandler} />
                         <label><span>Repeat Password:</span></label>
-                        <input type="password" name="repass" />
+                        <input type="password" name="repass" value={values.repass} onChange={changeHandler} />
                         <button>Register</button>
                     </form>
                 </div>
