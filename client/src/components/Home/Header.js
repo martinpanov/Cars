@@ -2,7 +2,6 @@ import styles from './Header.module.css';
 import bmwNoBackground from '../../assets/bmw-no-background1.png';
 import { Link } from "react-router-dom";
 
-
 export default function Header() {
     return (
         <>

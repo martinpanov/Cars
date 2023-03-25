@@ -28,6 +28,7 @@ export default function Register() {
         setValues(values => ({ ...values, [e.target.name]: e.target.value }));
     };
 
+    // TODO Add validation
     const registerFormHandler = async (e) => {
         e.preventDefault();
         try {

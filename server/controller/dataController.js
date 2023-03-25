@@ -1,22 +1,50 @@
 const { hasUser } = require('../middlwares/guards');
-const { getAll, getById, deleteById, create, update } = require('../services/carService');
+const { getAll, getById, deleteById, create, update, getHomeCars, getFiltered } = require('../services/carService');
 const parseError = require('../util/parser');
 
 const dataController = require('express').Router();
 
-dataController.get('/catalog', async (req, res) => {
+dataController.get('/', async (req, res) => {
     try {
-        const cars = await getAll();
-
+        const cars = await getHomeCars();
         res.json(cars);
     } catch (error) {
-        if (error.name === 'CastError') {
-            error.message = 'Cars not found';
-        }
-
         const message = parseError(error);
-
         res.status(404).json({ message });
+    }
+});
+
+dataController.get('/catalog', async (req, res) => {
+    if (Object.keys(req.query).length === 0) {
+        try {
+            const cars = await getAll();
+
+            res.json(cars);
+        } catch (error) {
+            if (error.name === 'CastError') {
+                error.message = 'Cars not found';
+            }
+
+            const message = parseError(error);
+
+            res.status(404).json({ message });
+        }
+    } else {
+        try {
+            const manufacturer = req.query.manufacturer;
+            const model = req.query.model;
+            const fromPrice = Number(req.query.fromPrice) || 1;
+            const toPrice = Number(req.query.toPrice) || 99999999999;
+            const year = Number(req.query.year) || '';
+            const gearbox = req.query.gearbox;
+
+            const cars = await getFiltered(manufacturer, model, fromPrice, toPrice, year, gearbox);
+            
+            res.json(cars);
+        } catch (error) {
+            const message = parseError(error);
+            res.status(400).json({ message });
+        }
     }
 });
 
@@ -79,7 +107,7 @@ dataController.put('/edit/:id', async (req, res) => {
 
 });
 
-dataController.post('/sell/:id', hasUser(), async (req, res) => {
+dataController.post('/sell', hasUser(), async (req, res) => {
     try {
         const data = Object.assign({ _ownerId: req.user._id }, req.body);
 

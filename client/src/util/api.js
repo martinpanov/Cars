@@ -38,9 +38,9 @@ export async function get(url) {
 export async function post(url, data) {
     return api('POST', url, data);
 }
-export async function del(url, token) {
+export async function del(url) {
     return api('DELETE', url);
 }
-export async function put(url, token, data) {
+export async function put(url, data) {
     return api('PUT', url, data);
 }
