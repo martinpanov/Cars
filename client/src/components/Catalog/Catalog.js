@@ -5,7 +5,7 @@ import { getCars, searchCars } from '../../services/carService';
 import { useEffect, useState } from 'react';
 
 export default function Catalog() {
-    const [allCars, setAllCars] = useState(null)
+    const [allCars, setAllCars] = useState(null);
     const [displayCars, setDisplayCars] = useState(null);
     const [model, setModel] = useState(null);
     const [earliestYear, setEarliestYear] = useState(null);
@@ -16,7 +16,12 @@ export default function Catalog() {
         fromPrice: '',
         toPrice: '',
         gearbox: '',
-        city: ''
+        city: '',
+        fuelType: '',
+        fromHp: '',
+        toHp: '',
+        fromKm: '',
+        toKm: ''
     });
     const navigate = useNavigate();
 
@@ -25,7 +30,7 @@ export default function Catalog() {
         // If you access the catalog page using a query string in the URL, you will be provided with the cars that match the search criteria
         (async function catalogCars() {
             const cars = await getCars();
-            setAllCars(cars)
+            setAllCars(cars);
 
             if (window.location.search) {
                 const searchParams = new URLSearchParams(window.location.search);
@@ -64,9 +69,10 @@ export default function Catalog() {
     const searchFormHandler = async (e) => {
         e.preventDefault();
         try {
-            const searchParams = new URLSearchParams(searchFormValues);
+            const nonEmptyFormValues = Object.entries(searchFormValues).filter(([key, value]) => value !== '');
+            const searchParams = new URLSearchParams(Object.fromEntries(nonEmptyFormValues));
             const filteredCars = await searchCars(searchParams.toString());
-            
+
             setDisplayCars(filteredCars);
             navigate(`/catalog?${searchParams.toString()}`);
         } catch (error) {
@@ -82,57 +88,94 @@ export default function Catalog() {
 
                 <div className={styles["search-form"]}>
                     <form onSubmit={searchFormHandler} method="GET">
-                        <label>
-                            <i className="fa-solid fa-car"></i>
-                            <span> Manufacturer</span>
-                        </label>
-                        <select name="manufacturer" onChange={filterModelAndChangeHandler}>
-                            <option value="">Any</option>
-                            {allCars && [...new Set(allCars.map(car => car.manufacturer))].map((car, i) => <option key={i} value={car}>{car}</option>)}
-                        </select>
-                        <label>
-                            <i className="fa-solid fa-car"></i>
-                            <span> Model</span>
-                        </label>
-                        <select name="model" onChange={changeHandler} value={searchFormValues.model}>
-                            <option value="">Any</option>
-                            {model && model.map((model, i) => <option key={i} value={model}>{model}</option>)}
-                        </select>
-                        <label>
-                            <i className="fa fa-calendar"></i>
-                            <span> Year</span>
-                        </label>
-                        <select name="year" onChange={changeHandler}>
-                            <option value=''>Any</option>
-                            <option value={earliestYear}>After {earliestYear}</option>
-                        </select>
-                        <label>
-                            <i className="fa fa-money"></i>
-                            <span> From Price</span>
-                        </label>
-                        <input type="number" name="fromPrice" placeholder="From Price" onChange={changeHandler} />
-                        <label>
-                            <i className="fa fa-money"></i>
-                            <span> To Price</span>
-                        </label>
-                        <input type="number" name="toPrice" placeholder="To Price" onChange={changeHandler} />
-                        <label>
-                            <i className="fa fa-gears"></i>
-                            <span> Gearbox</span>
-                        </label>
-                        <select name="gearbox" onChange={changeHandler}>
-                            <option value="">Any</option>
-                            <option value="Manual">Manual</option>
-                            <option value="Automatic">Automatic</option>
-                        </select>
-                        <label>
-                            <i className="fa fa-city"></i>
-                            <span> City</span>
-                        </label>
-                        <select name="city" onChange={changeHandler}>
-                            <option value="">Any</option>
-                            <option value="Plovdiv">Plovdiv</option>
-                        </select>
+                        <div className={styles["form-container"]}>
+                            <div className={styles["form-column"]}>
+                                <label>
+                                    <i className="fa-solid fa-car"></i>
+                                    <span> Manufacturer</span>
+                                </label>
+                                <select name="manufacturer" onChange={filterModelAndChangeHandler}>
+                                    <option value="">Any</option>
+                                    {allCars && [...new Set(allCars.map(car => car.manufacturer))].map((car, i) => <option key={i} value={car}>{car}</option>)}
+                                </select>
+                                <label>
+                                    <i className="fa-solid fa-car"></i>
+                                    <span> Model</span>
+                                </label>
+                                <select name="model" onChange={changeHandler} value={searchFormValues.model}>
+                                    <option value="">Any</option>
+                                    {model && model.map((model, i) => <option key={i} value={model}>{model}</option>)}
+                                </select>
+                                <label>
+                                    <i className="fa fa-calendar"></i>
+                                    <span> Year</span>
+                                </label>
+                                <select name="year" onChange={changeHandler}>
+                                    <option value=''>Any</option>
+                                    <option value={earliestYear}>After {earliestYear}</option>
+                                </select>
+                                <label>
+                                    <i className="fa fa-money"></i>
+                                    <span> From Price</span>
+                                </label>
+                                <input type="number" name="fromPrice" placeholder="From Price" onChange={changeHandler} />
+                                <label>
+                                    <i className="fa fa-money"></i>
+                                    <span> To Price</span>
+                                </label>
+                                <input type="number" name="toPrice" placeholder="To Price" onChange={changeHandler} />
+                                <label>
+                                    <i className="fa fa-gears"></i>
+                                    <span> Gearbox</span>
+                                </label>
+                                <select name="gearbox" onChange={changeHandler}>
+                                    <option value="">Any</option>
+                                    <option value="Manual">Manual</option>
+                                    <option value="Automatic">Automatic</option>
+                                </select>
+                            </div>
+
+                            <div className={styles['form-column']}>
+
+                                <label>
+                                    <i className="fa fa-city"></i>
+                                    <span> City</span>
+                                </label>
+                                <select name="city" onChange={changeHandler}>
+                                    <option value="">Any</option>
+                                    {allCars && [...new Set(allCars.map(car => car.city))].map((city, i) => <option key={i} value={city}>{city}</option>)}
+                                </select>
+                                <label>
+                                    <i className="fa fa-gas-pump"></i>
+                                    <span> Fuel Type</span>
+                                </label>
+                                <select name="type" onChange={changeHandler}>
+                                    <option value="">Any</option>
+                                    <option value="Plovdiv">Petrol</option>
+                                    <option value="Plovdiv">Diesel</option>
+                                </select>
+                                <label>
+                                    <i className="fa-solid fa-horse"></i>
+                                    <span> From HP</span>
+                                </label>
+                                <input type="number" name="fromHp" placeholder="From HP" onChange={changeHandler} />
+                                <label>
+                                    <i className="fa-solid fa-horse"></i>
+                                    <span> To HP</span>
+                                </label>
+                                <input type="number" name="toHp" placeholder="To HP" onChange={changeHandler} />
+                                <label>
+                                    <i className="fa-solid fa-road"></i>
+                                    <span> From KM</span>
+                                </label>
+                                <input type="number" name="fromKm" placeholder="From KM" onChange={changeHandler} />
+                                <label>
+                                    <i className="fa-solid fa-road"></i>
+                                    <span> To KM</span>
+                                </label>
+                                <input type="number" name="toKm" placeholder="To KM" onChange={changeHandler} />
+                            </div>
+                        </div>
                         <button>Search</button>
                     </form>
                 </div>

@@ -13,13 +13,28 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     padding: 30px 30px;
     margin: 50px 0px;
-    max-height: 720px;
+    max-height: 620px;
+    width: 380px;
 }
 
 .search-form form {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.form-container {
+    display: flex;
+}
+
+.form-column {
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+}
+
+.form-column:last-child {
+    margin-left: 20px;
 }
 
 .search-form form label {

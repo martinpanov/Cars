@@ -12,13 +12,19 @@ async function getById(id) {
     return Car.findById(id);
 }
 
-async function getFiltered(manufacturer, model, fromPrice, toPrice, year, gearbox) {
+async function getFiltered(manufacturer, model, fromPrice, toPrice, year, gearbox, city, fuelType, fromHp, toHp, fromKm, toKm) {
     let query = {};
     if (year) {
         query.year = { $gte: year };
     }
     if (fromPrice || toPrice) {
         query.price = { $gte: fromPrice, $lte: toPrice };
+    }
+    if (fromHp || toHp) {
+        query.hp = { $gte: fromHp, $lte: toHp };
+    }
+    if (fromKm || toKm) {
+        query.km = { $gte: fromKm, $lte: toKm };
     }
     if (manufacturer) {
         query.manufacturer = manufacturer;
@@ -28,6 +34,12 @@ async function getFiltered(manufacturer, model, fromPrice, toPrice, year, gearbo
     }
     if (gearbox) {
         query.gearbox = gearbox;
+    }
+    if (city) {
+        query.city = city;
+    }
+    if (fuelType) {
+        query.fuelType = fuelType;
     }
     return Car.find(query);
 }

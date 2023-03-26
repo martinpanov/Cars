@@ -18,6 +18,15 @@ const carSchema = new Schema({
             message: 'Gearbox must be either manual or automatic'
         }
     },
+    city: { type: String, required: true, minLength: [3, 'The city must be at least 3 characters long'] },
+    fuelType: {
+        type: String, required: true, validate: {
+            validator: value => value === 'Petrol' || value === 'Diesel',
+            message: 'Fuel type must be either petrol or diesel'
+        }
+    },
+    horsePower: { type: Number, required: true, min: [1, 'HP must be at least 1'] },
+    kilometers: { type: Number, required: true, min: [1, 'kilometers must be at least 1'] },
     images: { type: String, required: [true, 'At least 1 image is required'] },
     _ownerId: { type: ObjectId, ref: 'User', required: true },
     _createdAt: { type: Date, default: Date.now }

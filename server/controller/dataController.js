@@ -37,9 +37,15 @@ dataController.get('/catalog', async (req, res) => {
             const toPrice = Number(req.query.toPrice) || 99999999999;
             const year = Number(req.query.year) || '';
             const gearbox = req.query.gearbox;
+            const city = req.query.city;
+            const fuelType = req.query.fuelType;
+            const fromHp = req.query.fromHp || 1;
+            const toHp = req.query.toHp || 5000;
+            const fromKm = req.query.fromKm || 0;
+            const toKm = req.query.toKm || 99999999999;
 
-            const cars = await getFiltered(manufacturer, model, fromPrice, toPrice, year, gearbox);
-            
+            const cars = await getFiltered(manufacturer, model, fromPrice, toPrice, year, gearbox, city, fuelType, fromHp, toHp, fromKm, toKm);
+
             res.json(cars);
         } catch (error) {
             const message = parseError(error);
