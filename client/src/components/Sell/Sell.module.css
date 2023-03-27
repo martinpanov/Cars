@@ -9,7 +9,8 @@
 #sell-page {
     padding: 0;
     padding-top: 1%;
-    min-height: 100vh;
+    min-height: 1300px;
+    background-color: #f5f7fb;
     background-image: url('../../assets/cool-background.png');
     background-size: cover;
     background-repeat: no-repeat;
@@ -18,12 +19,12 @@
 
 
 .wrapper {
-    margin: 0px auto 0px auto;
+    margin: 0px auto 5px auto;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 600px;
-    height: 795px;
+    height: 1100px;
     color: white;
     padding: 50px 30px;
     box-shadow: 0 0 50rem 0 rgba(0, 0, 0, 0.2);

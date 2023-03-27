@@ -21,10 +21,10 @@ async function getFiltered(manufacturer, model, fromPrice, toPrice, year, gearbo
         query.price = { $gte: fromPrice, $lte: toPrice };
     }
     if (fromHp || toHp) {
-        query.hp = { $gte: fromHp, $lte: toHp };
+        query.horsePower = { $gte: fromHp, $lte: toHp };
     }
     if (fromKm || toKm) {
-        query.km = { $gte: fromKm, $lte: toKm };
+        query.kilometers = { $gte: fromKm, $lte: toKm };
     }
     if (manufacturer) {
         query.manufacturer = manufacturer;

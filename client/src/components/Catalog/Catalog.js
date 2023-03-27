@@ -54,7 +54,7 @@ export default function Catalog() {
 
     }, []);
 
-    // Set car models based on the chosen manufacturer and reset the model value after you've chosen the manufacturer
+    // Set car models based on the chosen manufacturer and reset the model value after you've changed the manufacturer
     const filterModelAndChangeHandler = (e) => {
         const filteredModelsByManufacturer = allCars.filter(car => car.manufacturer === e.target.value);
         setModel(filteredModelsByManufacturer.map(car => car.model));
@@ -149,10 +149,10 @@ export default function Catalog() {
                                     <i className="fa fa-gas-pump"></i>
                                     <span> Fuel Type</span>
                                 </label>
-                                <select name="type" onChange={changeHandler}>
+                                <select name="fuelType" onChange={changeHandler}>
                                     <option value="">Any</option>
-                                    <option value="Plovdiv">Petrol</option>
-                                    <option value="Plovdiv">Diesel</option>
+                                    <option value="Petrol">Petrol</option>
+                                    <option value="Diesel">Diesel</option>
                                 </select>
                                 <label>
                                     <i className="fa-solid fa-horse"></i>
@@ -195,10 +195,10 @@ export default function Catalog() {
                                         {car.description.slice(0, 66)}
                                     </p>
                                     <div className={styles["car-specs"]}>
-                                        <i className="fa-solid fa-road"></i><span> 40000 km </span>
-                                        <i className="fa-solid fa-horse"></i><span> 326 hp </span>
+                                        <i className="fa-solid fa-road"></i><span> {car.kilometers} km </span>
+                                        <i className="fa-solid fa-horse"></i><span> {car.horsePower} hp </span>
                                         <i className="fa fa-gears"></i><span> {car.gearbox} </span>
-                                        <i className="fa fa-gas-pump"></i><span> Petrol </span>
+                                        <i className="fa fa-gas-pump"></i><span> {car.fuelType} </span>
                                     </div>
                                 </div>
                                 <div className={styles["car-listing-price"]}>

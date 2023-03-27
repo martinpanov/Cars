@@ -12,6 +12,10 @@ export default function Sell() {
         phoneNumber: '',
         description: '',
         gearbox: '',
+        city: '',
+        fuelType: '',
+        horsePower: '',
+        kilometers: '',
         images: ''
     });
 
@@ -23,7 +27,7 @@ export default function Sell() {
     const sellFormHandler = async (e) => {
         e.preventDefault();
         try {
-            await sell({ ...values, price: Number(values.price), year: Number(values.year) });
+            await sell({ ...values, price: Number(values.price), year: Number(values.year), horsePower: Number(values.horsePower), kilometers: Number(values.kilometers) });
             return navigate('/catalog')
         } catch (error) {
             console.log(error);
@@ -55,6 +59,18 @@ export default function Sell() {
                         <option value="Manual">Manual</option>
                         <option value="Automatic">Automatic</option>
                     </select>
+                    <label><span>City: </span></label>
+                    <input type="text" name="city" placeholder="City" value={values.city} onChange={changeHandler} />
+                    <label><span>Fuel Type: </span></label>
+                    <select name="fuelType" value={values.fuelType} onChange={changeHandler} >
+                        <option value="" disabled></option>
+                        <option value="Petrol">Petrol</option>
+                        <option value="Diesel">Diesel</option>
+                    </select>
+                    <label><span>Horse Power: </span></label>
+                    <input type="number" name="horsePower" placeholder="Horse Power" value={values.horsePower} onChange={changeHandler} />
+                    <label><span>Kilometers: </span></label>
+                    <input type="number" name="kilometers" placeholder="Kilometers" value={values.kilometers} onChange={changeHandler} />
                     <label><span>Pictures: </span></label>
                     <input type="file" name="images" accept="images/*" value={values.images} onChange={changeHandler} />
                     <button>Post your ad</button>
