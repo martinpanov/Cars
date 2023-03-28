@@ -16,6 +16,7 @@ export default function Navigation() {
                 <li><Link to="/about">About</Link></li>
                 {user ? <li><Link to="/sell">Sell My Car</Link></li> : <li><Link to="/login">Sell My Car</Link></li>}
                 <li><Link to="/catalog">Catalog</Link></li>
+                <li><Link to="/rentcar">Rent Car</Link></li>
             </ul>
             {!user ? (
                 <div className={styles["login-register"]}>

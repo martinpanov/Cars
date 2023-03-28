@@ -1,6 +1,9 @@
 import './App.css';
-import Home from './components/Home/Home';
 import { Route, Routes, useLocation } from 'react-router-dom';
+import { UserContext } from './contexts/UserContext';
+import useSessionStorage from './hooks/useSessionStorage';
+
+import Home from './components/Home/Home';
 import Catalog from './components/Catalog/Catalog';
 import About from './components/About/About';
 import Login from './components/Login/Login';
@@ -12,8 +15,7 @@ import Navigation from './components/Navigation/Navigation';
 import Footer from './components/Footer/Footer';
 import Details from './components/Details/Details';
 import Edit from './components/Edit/Edit';
-import { UserContext } from './contexts/UserContext';
-import useSessionStorage from './hooks/useSessionStorage';
+import RentCar from './components/RentCar/RentCar';
 import Logout from './components/Logout/Logout';
 
 function App() {
@@ -33,6 +35,7 @@ function App() {
                         <Route path='/logout' element={<Logout />} />
                         <Route path='/' element={<Home />} />
                         <Route path='/catalog' element={<Catalog />} />
+                        <Route path='/rentcar' element={<RentCar />} />
                         <Route path='/sell' element={<Sell />} />
                         <Route path='/about' element={<About />} />
                         <Route path='/search' element={<Buy />} />
