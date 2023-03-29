@@ -1,5 +1,5 @@
 const { hasUser } = require('../middlwares/guards');
-const { getAll, getById, deleteById, create, update, getHomeCars, getFiltered } = require('../services/carService');
+const { getAll, getById, deleteById, create, update, getHomeCars, getFiltered, getRentCars } = require('../services/carService');
 const parseError = require('../util/parser');
 
 const dataController = require('express').Router();
@@ -66,6 +66,16 @@ dataController.get('/catalog/:id', async (req, res) => {
 
         const message = parseError(error);
 
+        res.status(404).json({ message });
+    }
+});
+
+dataController.get('/rentcar', async (req, res) => {
+    try {
+        const cars = await getRentCars();
+        res.json(cars);
+    } catch (error) {
+        const message = parseError(error);
         res.status(404).json({ message });
     }
 });

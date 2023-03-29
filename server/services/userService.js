@@ -4,7 +4,7 @@ const User = require('../models/User');
 
 const jwtSecret = 'VerySecretMarto%#@!';
 
-const tokenBlacklist = new Set()
+const tokenBlacklist = new Set();
 
 async function register(username, password, repass) {
     const existing = await User.findOne({ username }).collation({ locale: 'en', strength: 2 });
@@ -44,11 +44,11 @@ async function login(username, password) {
         _id: user._id,
         username: user.username,
         accessToken: createToken(user)
-    }
+    };
 }
 
 async function logout(token) {
-    tokenBlacklist.add(token)
+    tokenBlacklist.add(token);
 }
 
 function createToken(user) {

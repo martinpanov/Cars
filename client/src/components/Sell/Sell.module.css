@@ -11,7 +11,7 @@
     padding-top: 1%;
     min-height: 1300px;
     background-color: #f5f7fb;
-    background-image: url('../../assets/cool-background.png');
+    background-image: url('../../../public/assets/cool-background.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;

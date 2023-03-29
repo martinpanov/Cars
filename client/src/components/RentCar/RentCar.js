@@ -1,15 +1,25 @@
 import styles from './RentCar.module.css';
-import bmwImage from "../../assets/bmw-header-webp.webp";
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getRentCars } from '../../services/carService';
+import RentCarCard from './RentCarCard';
 
 export default function RentCar() {
+    const [cars, setCars] = useState(null);
+
+    useEffect(() => {
+        getRentCars()
+            .then(cars => {
+                setCars(cars);
+            });
+    }, []);
+
     return (
         <section id={styles['rent-car-page']}>
             <div className={styles['search-rental-cars-wrapper']}>
 
                 <div className={styles['search']}>
                     <form action="GET">
-                        <div className={styles["form-container"]}>
+                        <div className={styles['form-container']}>
                             <label>
                                 <i className="fa-solid fa-users"></i>
                                 <span> Seats</span>
@@ -54,85 +64,7 @@ export default function RentCar() {
                 </div>
 
                 <div className={styles['cars']}>
-                    <div className={styles["car"]}>
-                        <div className={styles["car-image"]}>
-                            <Link to='/catalog'><img src={bmwImage} alt="bmw" /></Link>
-                        </div>
-                        <h2>
-                            <Link to='/catalog'><span>BMW 340i</span></Link>
-                        </h2>
-
-                        <div className={styles["car-specs-km-hp"]}>
-                            <i className="fa-sharp fa-solid fa-users"></i><span> 5 seats </span>
-                            <i className="fa-solid fa-door-open"></i><span> 4/5 doors </span>
-                            <i className="fa-solid fa-snowflake"></i><span> A/C </span>
-                        </div>
-
-                        <div className={styles["car-specs-gearbox-fuel"]}>
-                            <i className="fa fa-gears"></i><span> manual </span>
-                            <i className="fa fa-gas-pump"></i><span> diesel </span>
-                        </div>
-
-                        <div className={styles["car-listing-price"]}>
-                            <span>$200</span>
-                        </div>
-                        <button>Rent Car</button>
-                    </div>
-
-
-                    <div className={styles["car"]}>
-                        <div className={styles["car-image"]}>
-                            <Link to='/catalog'><img src={bmwImage} alt="bmw" /></Link>
-                        </div>
-
-                        <h2>
-                            <Link to='/catalog'><span>BMW 340i</span></Link>
-                        </h2>
-
-                        <div className={styles["car-specs-km-hp"]}>
-                            <i className="fa-solid fa-road"></i><span> 200 km </span>
-                            <i className="fa-solid fa-horse"></i><span> 200 hp </span>
-                        </div>
-
-                        <div className={styles["car-specs-gearbox-fuel"]}>
-                            <i className="fa fa-gears"></i><span> manual </span>
-                            <i className="fa fa-gas-pump"></i><span> diesel </span>
-                        </div>
-
-                        <div className={styles["car-listing-price"]}>
-                            <span>$200</span>
-                        </div>
-                        <button>Rent Car</button>
-                    </div>
-
-
-                    <div className={styles["car"]}>
-                        <div className={styles["car-image"]}>
-                            <Link to='/catalog'><img src={bmwImage} alt="bmw" /></Link>
-                        </div>
-
-                        <h2>
-                            <Link to='/catalog'><span>BMW 340i</span></Link>
-                        </h2>
-
-                        <div className={styles["car-specs-km-hp"]}>
-                            <i className="fa-solid fa-road"></i><span> 200 km </span>
-                            <i className="fa-solid fa-horse"></i><span> 200 hp </span>
-                        </div>
-
-                        <div className={styles["car-specs-gearbox-fuel"]}>
-                            <i className="fa fa-gears"></i><span> manual </span>
-                            <i className="fa fa-gas-pump"></i><span> diesel </span>
-                        </div>
-
-                        <div className={styles["car-listing-price"]}>
-                            <span>$200</span>
-                        </div>
-                        <button>Rent Car</button>
-                    </div>
-
-
-                    
+                    {cars && cars.map(car => <RentCarCard key={car._id} carDetails={car} />)}
                 </div>
             </div>
 

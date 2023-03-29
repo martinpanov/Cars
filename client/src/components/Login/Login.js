@@ -1,5 +1,4 @@
 import styles from './Login.module.css';
-import logo from '../../assets/logo-3-webp.webp';
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from 'react';
 import { login } from '../../services/authService';
@@ -44,7 +43,7 @@ export default function Login() {
         <div id={styles["login-register-page"]}>
             <div className={styles["login-register-section"]}>
                 <Link to="/">
-                    <img src={logo} alt="logo" />
+                    <img src='/assets/logo-3-webp.webp' alt="logo" />
                 </Link>
                 <div className={styles["login-register-form-wrapper"]}>
                     <div className={styles["errors"]}>

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { sell } from '../../services/carService';
 import styles from './Sell.module.css';
 export default function Sell() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [values, setValues] = useState({
         manufacturer: '',
         model: '',
@@ -28,7 +28,7 @@ export default function Sell() {
         e.preventDefault();
         try {
             await sell({ ...values, price: Number(values.price), year: Number(values.year), horsePower: Number(values.horsePower), kilometers: Number(values.kilometers) });
-            return navigate('/catalog')
+            return navigate('/catalog');
         } catch (error) {
             console.log(error);
         }

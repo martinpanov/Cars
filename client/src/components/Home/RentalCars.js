@@ -1,9 +1,4 @@
 import styles from './RentalCars.module.css';
-import bmwImage from "../../assets/bmw-rental.png";
-import toyotaImage from '../../assets/toyota-corolla.png';
-import vwPassat from '../../assets/vw-passat.png';
-import mazda from '../../assets/mazda.png';
-import audi from '../../assets/audi-a1.png';
 import { Link } from "react-router-dom";
 import { useState } from 'react';
 
@@ -15,7 +10,7 @@ export default function RentalCars() {
         year: "2011",
         transmission: "Automatic",
         fuel: "Diesel",
-        image: bmwImage
+        image: '/assets/bmw-rental.png'
     });
 
     const bmwRentalAction = () => {
@@ -26,7 +21,7 @@ export default function RentalCars() {
             year: "2011",
             transmission: "Automatic",
             fuel: "Diesel",
-            image: bmwImage
+            image: '/assets/bmw-rental.png'
         });
     };
 
@@ -38,7 +33,7 @@ export default function RentalCars() {
             year: "2018",
             transmission: "Manual",
             fuel: "Diesel",
-            image: toyotaImage
+            image: '/assets/toyota-corolla.png'
         });
     };
 
@@ -50,7 +45,7 @@ export default function RentalCars() {
             year: "2013",
             transmission: "Automatic",
             fuel: "Diesel",
-            image: vwPassat
+            image: '/assets/vw-passat.png'
         });
     };
 
@@ -62,7 +57,7 @@ export default function RentalCars() {
             year: "2014",
             transmission: "Automatic",
             fuel: "Diesel",
-            image: mazda
+            image: '/assets/mazda.png'
         });
     };
 
@@ -74,7 +69,7 @@ export default function RentalCars() {
             year: "2016",
             transmission: "Manual",
             fuel: "Petrol",
-            image: audi
+            image: '/assets/audi-s4.png'
         });
     };
 
@@ -124,7 +119,7 @@ export default function RentalCars() {
                                 <span>{rentalCar.fuel}</span>
                             </div>
                         </div>
-                        <Link to="/catalog">Rent now</Link>
+                        <Link to="/rentcar">Rent now</Link>
                     </div>
                 </div>
             </div>

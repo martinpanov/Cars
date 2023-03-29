@@ -1,4 +1,4 @@
-import styles from './Details.module.css'
+import styles from './Details.module.css';
 
 export default function Details() {
     // let slideIndex = 1;
@@ -38,24 +38,24 @@ export default function Details() {
 
             {/* <div className={styles["slideshow-container"]}> */}
 
-                {/* <!-- Full-width images with number and caption text --> */}
-                {/* <div className={styles["mySlides fade"]}>
+            {/* <!-- Full-width images with number and caption text --> */}
+            {/* <div className={styles["mySlides fade"]}>
                     <div className={styles["numbertext"]}>1 / 3</div>
                     <img src="/static/images/{{car.images}}" style="width:100%" />
                 </div> */}
 
-                {/* <div className={styles["mySlides fade"]}>
+            {/* <div className={styles["mySlides fade"]}>
                     <div className={styles["numbertext"]}>2 / 3</div>
                     <img src="/static/images/{{car.images}}" style="width:100%" />
                 </div> */}
 
-                {/* <div className={styles["mySlides fade"]}>
+            {/* <div className={styles["mySlides fade"]}>
                     <div className={styles["numbertext"]}>3 / 3</div>
                     <img src="/static/images/{{car.images}}" style="width:100%" />
                 </div> */}
 
-                {/* <!-- Next and previous buttons --> */}
-                {/* <a className={styles["prev"]} onClick={plusSlides(-1)}>&#10094;</a>
+            {/* <!-- Next and previous buttons --> */}
+            {/* <a className={styles["prev"]} onClick={plusSlides(-1)}>&#10094;</a>
                 <a className={styles["next"]} onClick={plusSlides(1)}>&#10095;</a>
             </div>
             <br /> */}
@@ -72,7 +72,7 @@ export default function Details() {
 
             <p>Description</p>
             {/* {{car.description}} */}
-            <p style={{color: "#ffff"}}>Cool car</p>
+            <p style={{ color: "#ffff" }}>Cool car</p>
             {/* {{#if isOwner}} */}
             <a href="/edit/{{car._id}}"><button>Edit car ad</button></a>
             <a href="/delete/{{car._id}}"><button>Delete car ad</button></a>

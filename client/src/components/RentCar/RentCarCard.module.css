@@ -1,0 +1,68 @@
+.car {
+    height: 530px;
+    width: 330px;
+    margin-right: 50px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    background-color: white
+}
+
+.car:hover {
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+}
+
+.car-image img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+}
+
+.car h2 span {
+    margin-bottom: 18px;
+    font-size: 30px;
+    text-decoration: none;
+    color: #3a86ff;
+}
+
+.car-specs-km-hp,
+.car-specs-gearbox-fuel,
+.car-listing-price {
+    margin-bottom: 30px;
+}
+
+.car-specs-km-hp span,
+.car-specs-gearbox-fuel span {
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+.car-specs-km-hp i {
+    margin-left: 10px;
+}
+
+.car-specs-gearbox-fuel i {
+    margin-left: 7px;
+}
+
+.car-listing-price {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.car button {
+    font-size: 23px;
+    font-weight: 600;
+    padding: 15px 75px;
+    text-align: center;
+    background-color: #3a86ff;
+    color: black;
+    border: none;
+    text-decoration: none;
+}
+
+.car button:hover {
+    background-color: #3a86ff;
+    color: white;
+    box-shadow: 0 0 7px 0 rgba(58, 134, 255);
+    transition: all 0.5s ease 0s;
+    cursor: pointer;
+}

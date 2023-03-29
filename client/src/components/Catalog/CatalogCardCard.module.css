@@ -1,0 +1,50 @@
+.car-listing {
+    display: flex;
+    width: 1000px;
+    height: 135px;
+    margin-bottom: 25px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.car-listing-image img {
+    width: 180px;
+    height: 135px;
+    object-fit: cover;
+}
+
+.car-listing-information {
+    width: 600px;
+    margin-left: 10px;
+}
+
+.car-listing-information h2 {
+    margin-bottom: 0px;
+}
+
+.car-listing-information a {
+    text-decoration: none;
+    color: #3a86ff;
+}
+
+.car-listing-information a:hover {
+    text-decoration: underline;
+    color: #3a86ff;
+}
+
+.car-listing-information p {
+    font-size: small;
+}
+
+.car-specs i:not(:first-child) {
+    margin-left: 10px;
+}
+
+.car-listing-price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+    width: 200px;
+}

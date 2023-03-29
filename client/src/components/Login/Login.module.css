@@ -10,7 +10,7 @@
     align-items: center;
     height: 100%;
     width: 50%;
-    background-image: url('../../assets/audi-webp.webp');
+    background-image: url('../../../public/assets/audi-webp.webp');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -59,7 +59,7 @@
     color: #e63946;
 }
 
-.errors > *:not(:last-of-type) {
+.errors>*:not(:last-of-type) {
     margin-top: 10px;
     margin-bottom: 0;
 }

@@ -38,12 +38,12 @@ authController.post('/login',
     body('password').notEmpty().withMessage('Incorrect username or password'),
     async (req, res) => {
         try {
-            const { errors } = validationResult(req)
+            const { errors } = validationResult(req);
             if (errors.length > 0) {
                 if (errors[0].msg === 'Incorrect username or password') {
                     throw [errors[0]];
                 }
-                throw errors
+                throw errors;
             }
             const token = await login(req.body.username, req.body.password);
             res.json(token);
@@ -54,8 +54,8 @@ authController.post('/login',
     });
 
 authController.get('/logout', async (req, res) => {
-    const token = req.headers['x-authorization']
-    await logout(token)
+    const token = req.headers['x-authorization'];
+    await logout(token);
     res.status(200).json({ message: 'Token blacklisted' }).end();
 });
 

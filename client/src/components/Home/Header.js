@@ -1,5 +1,4 @@
 import styles from './Header.module.css';
-import bmwNoBackground from '../../assets/bmw-no-background1.png';
 import { Link } from "react-router-dom";
 
 export default function Header() {
@@ -14,7 +13,7 @@ export default function Header() {
                         <Link className={styles["header-content-rent-car"]} to="/">Rent Car</Link>
                     </div>
                 </div>
-                <img src={bmwNoBackground} alt="bmw" className={styles["header-content-image"]} />
+                <img src='/assets/bmw-no-background1.png' alt="bmw" className={styles["header-content-image"]} />
             </div>
 
         </>

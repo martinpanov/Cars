@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import styles from './Navigation.module.css';
-import logo from '../../assets/logo-no-background-webp.webp';
 import { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 
@@ -9,7 +8,7 @@ export default function Navigation() {
     return (
         <nav>
 
-            <div className={styles.logo}><Link to="/"><img src={logo} width="200" height="30" alt="logo" /></Link></div>
+            <div className={styles.logo}><Link to="/"><img src='/assets/logo-no-background-webp.webp' width="200" height="30" alt="logo" /></Link></div>
 
             <ul>
                 <li><Link to="/">Home</Link></li>

@@ -1,4 +1,5 @@
 const Car = require('../models/Car');
+const RentCar = require('../models/RentCar');
 
 async function getAll() {
     return Car.find().sort({ _createdAt: 'desc' });
@@ -69,6 +70,10 @@ async function update(id, carData) {
     return car;
 }
 
+async function getRentCars() {
+    return RentCar.find({});
+}
+
 module.exports = {
     getAll,
     getHomeCars,
@@ -76,5 +81,6 @@ module.exports = {
     getFiltered,
     create,
     deleteById,
-    update
+    update,
+    getRentCars
 };

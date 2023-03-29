@@ -1,4 +1,4 @@
-import styles from './Buy.module.css'
+import styles from './Buy.module.css';
 
 export default function Buy() {
     return (

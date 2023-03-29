@@ -1,25 +1,30 @@
 import { post, get } from "../util/api";
-const url = 'http://localhost:3003/data'
+const url = 'http://localhost:3003/data';
 
 async function sell(data) {
-    return await post(`${url}/sell`, data)
+    return await post(`${url}/sell`, data);
 }
 
 async function getCars() {
-    return await get(`${url}/catalog`)
+    return await get(`${url}/catalog`);
 }
 
 async function searchCars(queryString) {
-    return await get(`${url}/catalog?${queryString}`)
+    return await get(`${url}/catalog?${queryString}`);
 }
 
 async function getCarsHome() {
-    return await get(`${url}`)
+    return await get(`${url}`);
+}
+
+async function getRentCars() {
+    return await get(`${url}/rentcar`);
 }
 
 export {
-    sell, 
+    sell,
     getCars,
     searchCars,
-    getCarsHome
-}
+    getCarsHome,
+    getRentCars
+};

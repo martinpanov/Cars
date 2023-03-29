@@ -12,10 +12,10 @@ async function api(method, url, data) {
         }
     }
 
-    const user = JSON.parse(sessionStorage.getItem('user'))
+    const user = JSON.parse(sessionStorage.getItem('user'));
 
     if (user) {
-        const token = user.accessToken
+        const token = user.accessToken;
         options.headers = {
             ...options.headers,
             'X-Authorization': token

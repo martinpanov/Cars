@@ -1,13 +1,10 @@
 import styles from './WhyChooseUs.module.css';
-import carSvg from '../../assets/car-vehicle-rent-icon.svg';
-import customerCareSvg from '../../assets/customer_care-icon.svg';
-import carDrivingSvg from '../../assets/car_driving_on_the_road.svg';
 
 export default function WhyChooseUs() {
     return (
         <div className={styles["reasons"]}>
             <div className={styles["reason"]}>
-                <img src={carSvg} alt="car" />
+                <img src='/assets/car-vehicle-rent-icon.svg' alt="car" />
                 <h3>
                     Select Car
                 </h3>
@@ -17,7 +14,7 @@ export default function WhyChooseUs() {
             </div>
 
             <div className={styles["reason"]}>
-                <img src={customerCareSvg} alt="customerCare" />
+                <img src='/assets/customer_care-icon.svg' alt="customerCare" />
                 <h3>
                     Contact Operator
                 </h3>
@@ -27,7 +24,7 @@ export default function WhyChooseUs() {
             </div>
 
             <div className={styles["reason"]}>
-                <img src={carDrivingSvg} alt="carDriving" />
+                <img src='/assets/car_driving_on_the_road.svg' alt="carDriving" />
                 <h3>
                     Let's Drive
                 </h3>
