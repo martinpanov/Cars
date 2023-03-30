@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types: { ObjectId, Mixed } } = require('mongoose');
 
 const rentCarSchema = new Schema({
     manufacturer: { type: String, required: true },
@@ -10,7 +10,8 @@ const rentCarSchema = new Schema({
     fuelType: { type: String, required: true },
     doors: { type: String, required: true },
     seats: { type: Number, required: true },
-    img: { type: String, required: true }
+    img: { type: String, required: true },
+    rentedBy: { type: ObjectId, ref: 'User' }
 });
 
 const RentCar = model("RentCar", rentCarSchema);

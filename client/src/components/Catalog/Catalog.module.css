@@ -1,6 +1,14 @@
 #catalog-page {
     min-height: calc(100vh - 84px - 79.33px);
     background-color: #f5f7fb;
+
+}
+
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .search-cars-wrapper {

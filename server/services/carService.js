@@ -14,7 +14,7 @@ async function getById(id) {
 }
 
 async function getFiltered(manufacturer, model, fromPrice, toPrice, year, gearbox, city, fuelType, fromHp, toHp, fromKm, toKm) {
-    let query = {};
+    const query = {};
     if (year) {
         query.year = { $gte: year };
     }
@@ -74,6 +74,41 @@ async function getRentCars() {
     return RentCar.find({});
 }
 
+async function getFilteredRentCars(seats, doors, gearbox, fuelType, city) {
+    const query = {};
+    if (seats) {
+        query.seats = seats;
+    }
+    if (doors) {
+        query.doors = doors;
+    }
+    if (gearbox) {
+        query.gearbox = gearbox;
+    }
+    if (fuelType) {
+        query.fuelType = fuelType;
+    }
+    if (city) {
+        query.city = city;
+    }
+
+    return RentCar.find(query);
+}
+
+async function rentCar(carId, userId) {
+    const car = await RentCar.findById(carId);
+
+    if (car.rentedBy == userId) {
+        car.rentedBy = null;
+    } else {
+        car.rentedBy = userId;
+    }
+
+    await car.save();
+
+    return car;
+}
+
 module.exports = {
     getAll,
     getHomeCars,
@@ -82,5 +117,7 @@ module.exports = {
     create,
     deleteById,
     update,
-    getRentCars
+    getRentCars,
+    getFilteredRentCars,
+    rentCar
 };

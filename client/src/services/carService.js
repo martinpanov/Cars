@@ -21,10 +21,20 @@ async function getRentCars() {
     return await get(`${url}/rentcar`);
 }
 
+async function searchRentCars(queryString) {
+    return await get(`${url}/rentcar?${queryString}`);
+}
+
+async function rentCar(carId) {
+    return await get(`${url}/rentcar/${carId}`)
+}
+
 export {
     sell,
     getCars,
     searchCars,
     getCarsHome,
-    getRentCars
+    getRentCars,
+    searchRentCars,
+    rentCar
 };

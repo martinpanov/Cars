@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react';
 import CatalogCarCard from './CatalogCarCard';
 
 export default function Catalog() {
-    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(true);
     const [allCars, setAllCars] = useState(null);
     const [displayCars, setDisplayCars] = useState(null);
     const [model, setModel] = useState(null);
@@ -24,13 +25,11 @@ export default function Catalog() {
         fromKm: '',
         toKm: ''
     });
-    const navigate = useNavigate();
 
     useEffect(() => {
 
         // If you access the catalog page using a query string in the URL, you will be provided with the cars that match the search criteria
         (async function catalogCars() {
-            setIsLoading(true);
             const cars = await getCars();
             setAllCars(cars);
 
@@ -86,11 +85,9 @@ export default function Catalog() {
 
     return (
         <section id={styles["catalog-page"]}>
-            {isLoading ? <img src='/assets/Gear-0.2s-200px.svg' alt='loading' /> :
+            {isLoading ? <img className={styles['loading']} src='/assets/Gear-0.2s-200px.svg' alt='loading' /> :
                     allCars ?
                         <div className={styles["search-cars-wrapper"]}>
-
-
                             <div className={styles["search-form"]}>
                                 <form onSubmit={searchFormHandler} method="GET">
                                     <div className={styles["form-container"]}>

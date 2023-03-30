@@ -1,5 +1,5 @@
 const { hasUser } = require('../middlwares/guards');
-const { getAll, getById, deleteById, create, update, getHomeCars, getFiltered, getRentCars } = require('../services/carService');
+const { getAll, getById, deleteById, create, update, getHomeCars, getFiltered, getRentCars, getFilteredRentCars, rentCar } = require('../services/carService');
 const parseError = require('../util/parser');
 
 const dataController = require('express').Router();
@@ -71,12 +71,39 @@ dataController.get('/catalog/:id', async (req, res) => {
 });
 
 dataController.get('/rentcar', async (req, res) => {
+    if (Object.keys(req.query).length === 0) {
+        try {
+            const cars = await getRentCars();
+            res.json(cars);
+        } catch (error) {
+            const message = parseError(error);
+            res.status(404).json({ message });
+        }
+    } else {
+        try {
+            const seats = req.query.seats;
+            const doors = req.query.doors;
+            const gearbox = req.query.gearbox;
+            const fuelType = req.query.fuelType;
+            const city = req.query.city;
+
+            const cars = await getFilteredRentCars(seats, doors, gearbox, fuelType, city);
+
+            res.json(cars);
+        } catch (error) {
+            const message = parseError(error);
+            res.status(400).json({ message });
+        }
+    }
+});
+
+dataController.get('/rentcar/:id', hasUser(), async (req, res) => {
     try {
-        const cars = await getRentCars();
-        res.json(cars);
+        const car = await rentCar(req.params.id, req.user._id);
+        res.json(car)
     } catch (error) {
         const message = parseError(error);
-        res.status(404).json({ message });
+        res.status(400).json({ message });
     }
 });
 
