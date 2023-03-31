@@ -18,30 +18,30 @@ export default function RentCarCard({ carDetails: {
     rentedBy
 } }) {
     const [user] = useContext(UserContext);
-    const [isRented, setIsRentedState] = useState(false);
+    const [isRented, setIsRented] = useState(false);
     const [isOwner, setIsOwner] = useState(false);
 
     useEffect(() => {
         if (rentedBy !== null && user) {
             if (user.userId === rentedBy) {
-                setIsRentedState(true);
+                setIsRented(true);
                 setIsOwner(true);
             } else {
-                setIsRentedState(true);
+                setIsRented(true);
                 setIsOwner(false);
             }
         } else if (rentedBy !== null) {
-            setIsRentedState(true);
+            setIsRented(true);
             setIsOwner(false);
         } else {
-            setIsRentedState(false);
+            setIsRented(false);
             setIsOwner(false);
         }
     }, [rentedBy, user]);
 
     const rentCarHandler = async () => {
         await rentCar(_id);
-        setIsRentedState(state => !state);
+        setIsRented(state => !state);
         setIsOwner(state => !state);
     };
 

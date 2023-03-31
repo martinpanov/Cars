@@ -1,91 +1,104 @@
 import styles from './RentalCars.module.css';
-import { Link } from "react-router-dom";
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { getRentCars, rentCar } from '../../services/carService';
+import { UserContext } from '../../contexts/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function RentalCars() {
+    const navigate = useNavigate();
+    const [user] = useContext(UserContext);
+    const [cars, setCars] = useState(null);
     const [rentalCar, setRentalCar] = useState({
-        price: "20",
-        manufacturer: "BMW",
-        model: "320d",
-        year: "2011",
-        transmission: "Automatic",
-        fuel: "Diesel",
-        image: '/assets/bmw-rental.png'
+        _id: '',
+        price: '',
+        manufacturer: '',
+        model: '',
+        year: '',
+        transmission: '',
+        fuel: '',
+        image: '',
+        isRented: false,
+        isOwner: false
     });
 
-    const bmwRentalAction = () => {
+    useEffect(() => {
+        getRentCars()
+            .then(cars => {
+                setCars(cars.sort((a, b) => {
+                    if (a.rentedBy === null && b.rentedBy !== null) {
+                        return -1;
+                    } else if (a.rentedBy !== null && b.rentedBy === null) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                }).slice(0, 5));
+
+                setRentalCar({
+                    _id: cars[0]._id,
+                    price: cars[0].price,
+                    manufacturer: cars[0].manufacturer,
+                    model: cars[0].model,
+                    year: cars[0].year,
+                    transmission: cars[0].gearbox,
+                    fuel: cars[0].fuelType,
+                    image: cars[0].img,
+                    isRented: !!cars[0].rentedBy
+                });
+            });
+    }, []);
+
+    const changeHandler = (car) => {
         setRentalCar({
-            price: "20",
-            manufacturer: "BMW",
-            model: "320d",
-            year: "2011",
-            transmission: "Automatic",
-            fuel: "Diesel",
-            image: '/assets/bmw-rental.png'
+            _id: car._id,
+            price: car.price,
+            manufacturer: car.manufacturer,
+            model: car.model,
+            year: car.year,
+            transmission: car.gearbox,
+            fuel: car.fuelType,
+            image: car.img,
+            isRented: !!car.rentedBy,
+            isOwner: user ? user.userId === car.rentedBy : false
         });
     };
 
-    const toyotaRentalAction = () => {
-        setRentalCar({
-            price: "40",
-            manufacturer: "Toyota",
-            model: "Corolla",
-            year: "2018",
-            transmission: "Manual",
-            fuel: "Diesel",
-            image: '/assets/toyota-corolla.png'
-        });
-    };
+    const rentClickHandler = async () => {
+        if (!user) {
+            navigate('/login');
+        }
+        
+        try {
+            await rentCar(rentalCar._id);
+            const updatedCars = await getRentCars()
 
-    const volkswagenRentalAction = () => {
-        setRentalCar({
-            price: "35",
-            manufacturer: "Volkswagen",
-            model: "Passat CC",
-            year: "2013",
-            transmission: "Automatic",
-            fuel: "Diesel",
-            image: '/assets/vw-passat.png'
-        });
-    };
-
-    const mazdaRentalAction = () => {
-        setRentalCar({
-            price: "35",
-            manufacturer: "Mazda",
-            model: "CX-5",
-            year: "2014",
-            transmission: "Automatic",
-            fuel: "Diesel",
-            image: '/assets/mazda.png'
-        });
-    };
-
-    const audiRentalAction = () => {
-        setRentalCar({
-            price: "50",
-            manufacturer: "Audi",
-            model: "S4",
-            year: "2016",
-            transmission: "Manual",
-            fuel: "Petrol",
-            image: '/assets/audi-s4.png'
-        });
+            setCars(updatedCars.sort((a, b) => {
+                    if (a.rentedBy === null && b.rentedBy !== null) {
+                        return -1;
+                    } else if (a.rentedBy !== null && b.rentedBy === null) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                }).slice(0, 5))
+            setRentalCar(state => ({ ...state, isRented: !state.isRented, isOwner: !state.isRented }));
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
         <>
             <div className={styles["rental-cars"]}>
                 <div className={styles["rental-cars-buttons"]}>
-                    <button onClick={bmwRentalAction}>BMW 320d</button>
-                    <button onClick={toyotaRentalAction}>Toyota Corolla</button>
-                    <button onClick={volkswagenRentalAction}>VW Passat CC</button>
-                    <button onClick={mazdaRentalAction}>Mazda CX-5</button>
-                    <button onClick={audiRentalAction}>Audi S4</button>
+                    {cars && cars.map(car => <button key={car._id} onClick={() => changeHandler(car)}>{car.manufacturer} {car.model}</button>)}
                 </div>
                 <div className={styles["rental-cars-images-details"]}>
                     <div className={styles["rental-car-image"]}>
-                        <img src={rentalCar.image} alt="bmw" />
+                        {rentalCar.isRented ?
+                            <img src='/assets/rented.png' alt="bmw" /> :
+                            <img src={rentalCar.image} alt="bmw" />
+                        }
                     </div>
                     <div className={styles["rental-car-details"]}>
                         <div className={styles["rental-car-price"]}>
@@ -119,7 +132,12 @@ export default function RentalCars() {
                                 <span>{rentalCar.fuel}</span>
                             </div>
                         </div>
-                        <Link to="/rentcar">Rent now</Link>
+                        {!user && rentalCar.isRented ? null :
+                            !user && !rentalCar.isRented ? <button onClick={rentClickHandler}>Rent Car</button> :
+                                user && rentalCar.isRented && rentalCar.isOwner ? <button onClick={rentClickHandler}>Cancel Rent</button> :
+                                    user && rentalCar.isRented && !rentalCar.isOwner ? null :
+                                        <button onClick={rentClickHandler}>Rent now</button>
+                        }
                     </div>
                 </div>
             </div>

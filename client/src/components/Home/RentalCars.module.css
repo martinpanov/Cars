@@ -66,19 +66,18 @@
     border-right: 2px solid black;
 }
 
-.rental-car-details a {
+.rental-car-details button {
     font-size: 23px;
     font-weight: 600;
     margin-top: 20px;
     margin-bottom: 10px;
     padding: 15px 45px;
-    text-align: center;
+    border: none;
     background-color: #3a86ff;
     color: black;
-    text-decoration: none;
 }
 
-.rental-car-details a:hover {
+.rental-car-details button:hover {
     background-color: #3a86ff;
     color: white;
     box-shadow: 0 0 7px 0 rgba(58, 134, 255);
