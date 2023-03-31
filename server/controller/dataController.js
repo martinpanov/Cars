@@ -1,5 +1,5 @@
 const { hasUser } = require('../middlwares/guards');
-const { getAll, getById, deleteById, create, update, getHomeCars, getFiltered, getRentCars, getFilteredRentCars, rentCar } = require('../services/carService');
+const { getAll, getById, deleteById, create, update, getHomeCars, getFiltered, getRentCars, getFilteredRentCars, rentCar, getUserCars, getUserRentCars } = require('../services/carService');
 const parseError = require('../util/parser');
 
 const dataController = require('express').Router();
@@ -100,10 +100,32 @@ dataController.get('/rentcar', async (req, res) => {
 dataController.get('/rentcar/:id', hasUser(), async (req, res) => {
     try {
         const car = await rentCar(req.params.id, req.user._id);
-        res.json(car)
+        res.json(car);
     } catch (error) {
         const message = parseError(error);
         res.status(400).json({ message });
+    }
+});
+
+dataController.get('/myprofile/cars', hasUser(), async (req, res) => {
+    try {
+        const cars = await getUserCars(req.user._id);
+
+        res.json(cars);
+    } catch (error) {
+        const message = parseError(error);
+        res.status(404).json({ message });
+    }
+});
+
+dataController.get('/myprofile/rentcars', hasUser(), async (req, res) => {
+    try {
+        const cars = await getUserRentCars(req.user._id);
+
+        res.json(cars);
+    } catch (error) {
+        const message = parseError(error);
+        res.status(404).json({ message });
     }
 });
 

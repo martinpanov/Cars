@@ -25,7 +25,7 @@ export default function Navigation() {
             ) : (
                 <div className={styles["login-register"]}>
                     <Link className={styles["login"]} to="/logout">Logout</Link>
-                    <Link className={styles["register"]} to="/">{user.username}</Link>
+                    <Link className={styles["register"]} to="/myprofile">{user.username}</Link>
                 </div>
             )}
         </nav>

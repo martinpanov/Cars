@@ -17,6 +17,7 @@ import Details from './components/Details/Details';
 import Edit from './components/Edit/Edit';
 import RentCar from './components/RentCar/RentCar';
 import Logout from './components/Logout/Logout';
+import MyProfile from './components/MyProfile/MyProfile';
 
 function App() {
     const [user, setUser] = useSessionStorage("user", null);
@@ -41,8 +42,8 @@ function App() {
                         <Route path='/search' element={<Buy />} />
                         <Route path='/details' element={<Details />} />
                         <Route path='/edit' element={<Edit />} />
+                        <Route path='/myprofile' element={<MyProfile />} />
                         <Route path='*' element={<NotFound />} />
-
                     </Routes>
 
                 </main>

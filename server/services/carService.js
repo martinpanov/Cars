@@ -5,6 +5,10 @@ async function getAll() {
     return Car.find().sort({ _createdAt: 'desc' });
 }
 
+async function getUserCars(userId) {
+    return Car.find({ _ownerId: userId });
+}
+
 async function getHomeCars() {
     return Car.find().sort({ _createdAt: 'desc' }).limit(4);
 }
@@ -74,6 +78,10 @@ async function getRentCars() {
     return RentCar.find({});
 }
 
+async function getUserRentCars(userId) {
+    return RentCar.find({ rentedBy: userId });
+}
+
 async function getFilteredRentCars(seats, doors, gearbox, fuelType, city) {
     const query = {};
     if (seats) {
@@ -111,6 +119,7 @@ async function rentCar(carId, userId) {
 
 module.exports = {
     getAll,
+    getUserCars,
     getHomeCars,
     getById,
     getFiltered,
@@ -118,6 +127,7 @@ module.exports = {
     deleteById,
     update,
     getRentCars,
+    getUserRentCars,
     getFilteredRentCars,
     rentCar
 };

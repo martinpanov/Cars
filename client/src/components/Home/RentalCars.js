@@ -70,18 +70,19 @@ export default function RentalCars() {
         
         try {
             await rentCar(rentalCar._id);
-            const updatedCars = await getRentCars()
-
-            setCars(updatedCars.sort((a, b) => {
-                    if (a.rentedBy === null && b.rentedBy !== null) {
-                        return -1;
-                    } else if (a.rentedBy !== null && b.rentedBy === null) {
-                        return 1;
+    
+            setCars(cars => cars.map(car => {
+                if (car._id === rentalCar._id) {
+                    if (car.rentedBy === null) {
+                        car.rentedBy = user.userId
                     } else {
-                        return 0;
+                        car.rentedBy = null
                     }
-                }).slice(0, 5))
-            setRentalCar(state => ({ ...state, isRented: !state.isRented, isOwner: !state.isRented }));
+                }
+                return car
+            }))
+            
+            setRentalCar(state => ({ ...state, isRented: !state.isRented, isOwner: !state.isOwner }));
         } catch (error) {
             console.log(error);
         }

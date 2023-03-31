@@ -12,6 +12,7 @@ userSchema.index({ username: 1 }, {
     }
 });
 
+
 const User = model('User', userSchema);
 
 module.exports = User;
