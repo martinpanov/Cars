@@ -6,7 +6,7 @@ export default function MyProfileCars({ car, isRental }) {
     return (
         <>
             {!isRental ?
-                <Link to={`/catalog/${car._id}`}>
+                <Link to={`/details/${car._id}`}>
                     <div className={styles['car']}>
                         <div className={styles['car-image']}>
                             <img src={bmwImage} alt="car" />

@@ -1,82 +1,120 @@
 import styles from './Details.module.css';
 
 export default function Details() {
-    // let slideIndex = 1;
-    // showSlides(slideIndex);
-
-    // // Next/previous controls
-    // function plusSlides(n) {
-    //     showSlides(slideIndex += n);
-    // }
-
-    // // Thumbnail image controls
-    // function currentSlide(n) {
-    //     showSlides(slideIndex = n);
-    // }
-
-    // function showSlides(n) {
-    //     let i;
-    //     let slides = document.getElementsByClassName("mySlides");
-    //     let dots = document.getElementsByClassName("dot");
-    //     if (n > slides.length) { slideIndex = 1; }
-    //     if (n < 1) { slideIndex = slides.length; }
-    //     for (i = 0; i < slides.length; i++) {
-    //         slides[i].style.display = "none";
-    //     }
-    //     for (i = 0; i < dots.length; i++) {
-    //         dots[i].className = dots[i].className.replace(" active", "");
-    //     }
-    //     slides[slideIndex - 1].style.display = "block";
-    //     dots[slideIndex - 1].className += " active";
-    // }
-
     return (
-
         <section id={styles["details-page"]}>
-            {/* {{car.manufacturer}} {{car.model}} */}
-            <h1>BMW</h1>
-
-            {/* <div className={styles["slideshow-container"]}> */}
-
-            {/* <!-- Full-width images with number and caption text --> */}
-            {/* <div className={styles["mySlides fade"]}>
-                    <div className={styles["numbertext"]}>1 / 3</div>
-                    <img src="/static/images/{{car.images}}" style="width:100%" />
-                </div> */}
-
-            {/* <div className={styles["mySlides fade"]}>
-                    <div className={styles["numbertext"]}>2 / 3</div>
-                    <img src="/static/images/{{car.images}}" style="width:100%" />
-                </div> */}
-
-            {/* <div className={styles["mySlides fade"]}>
-                    <div className={styles["numbertext"]}>3 / 3</div>
-                    <img src="/static/images/{{car.images}}" style="width:100%" />
-                </div> */}
-
-            {/* <!-- Next and previous buttons --> */}
-            {/* <a className={styles["prev"]} onClick={plusSlides(-1)}>&#10094;</a>
-                <a className={styles["next"]} onClick={plusSlides(1)}>&#10095;</a>
+            <div className={styles['image-slider-section']}>
+                <div className={styles['brand-slider']}>
+                    <span>BMW 340i</span>
+                </div>
+                <div className={styles['price-slider']}>
+                    <span>$50000</span>
+                </div>
             </div>
-            <br /> */}
 
-            {/* <!-- The dots/circles --> */}
-            {/* <div style="text-align:center">
-                <span className={styles["dot"]} onClick={currentSlide(1)}></span>
-                <span className={styles["dot"]} onClick={currentSlide(2)}></span>
-                <span className={styles["dot"]} onClick={currentSlide(3)}></span>
-            </div> */}
+            <div className={styles['car-details-section']}>
+                <div className={styles['details-no-description']}>
+                    <div className={styles['name']}>
+                        <label>Year</label>
+                    </div>
+                    <div className={styles['details-content']}>
+                        <p>
+                            2017
+                        </p>
+                    </div>
+                </div>
 
-            {/* {{car.price}} */}
-            <h2> lv</h2>
+                <div className={styles['details-no-description']}>
+                    <div className={styles['name']}>
+                        <label>Horse Power</label>
+                    </div>
+                    <div className={styles['details-content']}>
+                        <p>
+                            326HP
+                        </p>
+                    </div>
+                </div>
 
-            <p>Description</p>
-            {/* {{car.description}} */}
-            <p style={{ color: "#ffff" }}>Cool car</p>
-            {/* {{#if isOwner}} */}
-            <a href="/edit/{{car._id}}"><button>Edit car ad</button></a>
-            <a href="/delete/{{car._id}}"><button>Delete car ad</button></a>
-            {/* {{/if}} */}
+                <div className={styles['details-no-description']}>
+                    <div className={styles['name']}>
+                        <label>Gearbox</label>
+                    </div>
+                    <div className={styles['details-content']}>
+                        <p>
+                            Automatic
+                        </p>
+                    </div>
+                </div>
+
+                <div className={styles['details-no-description']}>
+                    <div className={styles['name']}>
+                        <label>Kilometers</label>
+                    </div>
+                    <div className={styles['details-content']}>
+                        <p>
+                            40000
+                        </p>
+                    </div>
+                </div>
+
+                <div className={styles['details-no-description']}>
+                    <div className={styles['name']}>
+                        <label>Fuel Type</label>
+                    </div>
+                    <div className={styles['details-content']}>
+                        <p>
+                            Petrol
+                        </p>
+                    </div>
+                </div>
+
+                <div className={styles['details-no-description']}>
+                    <div className={styles['name']}>
+                        <label>Description</label>
+                    </div>
+                    <div className={styles['details-content-description']}>
+                        <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat dolores possimus quasi accusamus libero eum ea aut illum eius, error sequi eaque sed debitis, non iste provident modi tempora quae!
+
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat dolores possimus quasi accusamus libero eum ea aut illum eius, error sequi eaque sed debitis, non iste provident modi tempora quae!
+                        </p>
+                    </div>
+                </div>
+
+                <div className={styles['details-no-description']}>
+                    <div className={styles['name']}>
+                        <label>City</label>
+                    </div>
+                    <div className={styles['details-content']}>
+                        <p>
+                            Plovdiv
+                        </p>
+                    </div>
+                </div>
+
+                <div className={styles['details-no-description']}>
+                    <div className={styles['name']}>
+                        <label>Phone Number</label>
+                    </div>
+                    <div className={styles['details-content']}>
+                        <p>
+                            0888892183
+                        </p>
+                    </div>
+                </div>
+
+                <div className={styles['price-car-brand']}>
+                    <div className={styles['brand']}>
+                        <span>BMW 340i</span>
+                    </div>
+                    <div className={styles['price']}>
+                        <span>
+                            $50000
+                        </span>
+                    </div>
+                </div>
+            </div>
+
         </section>
     );
 }

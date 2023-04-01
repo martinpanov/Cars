@@ -40,7 +40,7 @@ function App() {
                         <Route path='/sell' element={<Sell />} />
                         <Route path='/about' element={<About />} />
                         <Route path='/search' element={<Buy />} />
-                        <Route path='/details' element={<Details />} />
+                        <Route path='/details/:id' element={<Details />} />
                         <Route path='/edit' element={<Edit />} />
                         <Route path='/myprofile' element={<MyProfile />} />
                         <Route path='*' element={<NotFound />} />
