@@ -27,7 +27,7 @@ const carSchema = new Schema({
     },
     horsePower: { type: Number, required: true, min: [1, 'HP must be at least 1'] },
     kilometers: { type: Number, required: true, min: [1, 'kilometers must be at least 1'] },
-    images: { type: String, required: [true, 'At least 1 image is required'] },
+    imagesNames: [{ type: String, required: [true, 'At least 1 image is required'] }],
     _ownerId: { type: ObjectId, ref: 'User', required: true },
     _createdAt: { type: Date, default: Date.now }
 });

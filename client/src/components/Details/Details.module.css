@@ -10,7 +10,7 @@
 }
 
 .brand-slider {
-    margin-top: 50px;
+    margin-top: 20px;
     margin-left: 50px;
 }
 
@@ -96,10 +96,6 @@
 .image-slider .thumbnails img.active {
     border: 2px solid white;
 }
-
-
-
-
 
 
 .car-details-section {

@@ -1,8 +1,9 @@
 import { post, get } from "../util/api";
 const url = 'http://localhost:3003/data';
+const user = JSON.parse(sessionStorage.getItem('user'));
 
 async function sell(data) {
-    return await post(`${url}/sell`, data);
+    await post(`${url}/sell`, data)
 }
 
 async function getCars() {

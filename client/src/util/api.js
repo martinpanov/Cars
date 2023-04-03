@@ -4,11 +4,15 @@ async function api(method, url, data) {
         options.method = method;
 
         if (data) {
-            options.headers = {
-                'Content-Type': 'application/json'
-            };
-
-            options.body = JSON.stringify(data);
+            if (url !== `http://localhost:3003/data/sell`) {
+                options.headers = {
+                    'Content-Type': 'application/json'
+                };
+    
+                options.body = JSON.stringify(data);
+            } else {
+                options.body = data
+            }
         }
     }
 

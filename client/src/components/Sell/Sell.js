@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { sell } from '../../services/carService';
 import styles from './Sell.module.css';
+
 export default function Sell() {
     const navigate = useNavigate();
     const [values, setValues] = useState({
@@ -16,7 +17,7 @@ export default function Sell() {
         fuelType: '',
         horsePower: '',
         kilometers: '',
-        images: ''
+        images: []
     });
 
     const changeHandler = (e) => {
@@ -27,11 +28,31 @@ export default function Sell() {
     const sellFormHandler = async (e) => {
         e.preventDefault();
         try {
-            await sell({ ...values, price: Number(values.price), year: Number(values.year), horsePower: Number(values.horsePower), kilometers: Number(values.kilometers) });
+            const formData = new FormData();
+
+            for (let [key, value] of Object.entries(values)) {
+                if (key === 'images') {
+                    for (let i = 0; i < value.length; i++) {
+                        formData.append('images', value[i]);
+                    }
+                } else {
+                    formData.append(key, value);
+                }
+            };
+
+            await sell(formData);
             return navigate('/catalog');
         } catch (error) {
             console.log(error);
         }
+    };
+
+    const imageUploadHandler = (e) => {
+        if (values.images.length > 12) {
+            return console.log('You can upload 12 images at most');
+        }
+
+        setValues(state => ({ ...state, images: [...state.images, e.target.files[0]] }));
     };
 
     return (
@@ -40,7 +61,7 @@ export default function Sell() {
             <h1>Sell My Car</h1>
 
             <div className={styles.wrapper}>
-                <form action="/sell" method="post" id={styles["sell-form"]} onSubmit={sellFormHandler}>
+                <form action="/sell" method="post" id={styles["sell-form"]} encType="multipart/form-data" onSubmit={sellFormHandler}>
                     <label><span>Manufacturer: </span></label>
                     <input type="text" name="manufacturer" placeholder="Manufacturer" value={values.manufacturer} onChange={changeHandler} />
                     <label><span>Model: </span></label>
@@ -72,7 +93,7 @@ export default function Sell() {
                     <label><span>Kilometers: </span></label>
                     <input type="number" name="kilometers" placeholder="Kilometers" value={values.kilometers} onChange={changeHandler} />
                     <label><span>Pictures: </span></label>
-                    <input type="file" name="images" accept="images/*" value={values.images} onChange={changeHandler} />
+                    <input type="file" name="images" accept="images/*" onChange={imageUploadHandler} />
                     <button>Post your ad</button>
                 </form>
             </div>

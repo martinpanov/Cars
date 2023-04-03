@@ -1,8 +1,25 @@
 const { hasUser } = require('../middlwares/guards');
+const s3UploadV3 = require('../services/awsS3Service');
 const { getAll, getById, deleteById, create, update, getHomeCars, getFiltered, getRentCars, getFilteredRentCars, rentCar, getUserCars, getUserRentCars } = require('../services/carService');
 const parseError = require('../util/parser');
-
+const multer = require('multer');
 const dataController = require('express').Router();
+const storage = multer.memoryStorage();
+
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype.split('/')[0] === 'image') {
+        cb(null, true);
+    } else {
+        cb(new multer.MulterError("LIMIT_UNEXPECTED_FILE", false));
+    }
+};
+
+const upload = multer({
+    storage,
+    fileFilter,
+    limits: { fileSize: 5000000000000000000000000000000000000000000000, files: 12 }
+});
+
 
 dataController.get('/', async (req, res) => {
     try {
@@ -172,10 +189,27 @@ dataController.put('/edit/:id', async (req, res) => {
 
 });
 
-dataController.post('/sell', hasUser(), async (req, res) => {
+dataController.post('/sell', hasUser(), upload.array('images', 12), async (req, res) => {
     try {
-        const data = Object.assign({ _ownerId: req.user._id }, req.body);
+        req.files.forEach(file => file.originalname = `${Date.now()}${file.originalname}`)
 
+        const data = {
+            manufacturer: req.body.manufacturer,
+            model: req.body.model,
+            price: Number(req.body.price),
+            year: Number(req.body.year),
+            phoneNumber: req.body.phoneNumber,
+            description: req.body.description,
+            gearbox: req.body.gearbox,
+            city: req.body.city,
+            fuelType: req.body.fuelType,
+            horsePower: Number(req.body.horsePower),
+            kilometers: Number(req.body.kilometers),
+            imagesNames: req.files.map(file => file.originalname),
+            _ownerId: req.user._id
+        }
+
+        await s3UploadV3(req.files);
         const car = await create(data);
 
         res.json(car);
