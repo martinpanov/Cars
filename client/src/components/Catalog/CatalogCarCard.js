@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import bmwImage from "../../assets/bmw-header-webp.webp";
 import styles from './CatalogCardCard.module.css';
 
 
 export default function CatalogCarCard({ carDetails: {
+    _id,
     manufacturer,
     model,
     price,
@@ -12,16 +12,17 @@ export default function CatalogCarCard({ carDetails: {
     kilometers,
     gearbox,
     fuelType,
-    horsePower
+    horsePower,
+    imagesNames
 } }) {
     return (
         <div className={styles["car-listing"]}>
             <div className={styles["car-listing-image"]}>
-                <Link to='/catalog'><img src={bmwImage} alt="bmw" /></Link>
+                <Link to={`/details/${_id}`}><img src={`https://cars-image-storage.s3.amazonaws.com/${imagesNames[0]}`} alt="bmw" /></Link>
             </div>
             <div className={styles["car-listing-information"]}>
                 <h2>
-                    <Link to='/catalog'><span>{manufacturer} {model}</span></Link>
+                    <Link to={`/details/${_id}`}><span>{manufacturer} {model}</span></Link>
                 </h2>
                 <p>
                     {description.slice(0, 66)}

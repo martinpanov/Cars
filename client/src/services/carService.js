@@ -1,6 +1,5 @@
 import { post, get } from "../util/api";
 const url = 'http://localhost:3003/data';
-const user = JSON.parse(sessionStorage.getItem('user'));
 
 async function sell(data) {
     await post(`${url}/sell`, data)
@@ -8,6 +7,10 @@ async function sell(data) {
 
 async function getCars() {
     return await get(`${url}/catalog`);
+}
+
+async function getCar(id) {
+    return await get(`${url}/details/${id}`)
 }
 
 async function getUserCars() {
@@ -41,6 +44,7 @@ async function rentCar(carId) {
 export {
     sell,
     getCars,
+    getCar,
     getUserCars,
     searchCars,
     getCarsHome,

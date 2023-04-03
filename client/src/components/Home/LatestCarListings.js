@@ -1,5 +1,4 @@
 import styles from './LatestCarListings.module.css';
-import bmwImage from "../../assets/bmw-header-webp.webp";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { getCarsHome } from '../../services/carService';
@@ -19,11 +18,11 @@ export default function LatestCarListings() {
                     return (
                         <div key={car._id} className={styles["latest-car-listing"]}>
                             <div className={styles["car-listing-image"]}>
-                                <Link to='/catalog'><img src={bmwImage} alt="bmw" /></Link>
+                                <Link to={`/details/${car._id}`}><img src={`https://cars-image-storage.s3.amazonaws.com/${car.imagesNames[0]}`} alt="bmw" /></Link>
                             </div>
 
                             <h2>
-                                <Link to='/catalog'><span>{car.manufacturer} {car.model}</span></Link>
+                                <Link to={`/details/${car._id}`}><span>{car.manufacturer} {car.model}</span></Link>
                             </h2>
 
                             <div className={styles["car-specs-km-hp"]}>

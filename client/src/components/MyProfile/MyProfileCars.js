@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import styles from './MyProfileCars.module.css';
-import bmwImage from "../../assets/bmw-header-webp.webp";
 
 export default function MyProfileCars({ car, isRental }) {
     return (
@@ -9,7 +8,7 @@ export default function MyProfileCars({ car, isRental }) {
                 <Link to={`/details/${car._id}`}>
                     <div className={styles['car']}>
                         <div className={styles['car-image']}>
-                            <img src={bmwImage} alt="car" />
+                            <img src={`https://cars-image-storage.s3.amazonaws.com/${car.imagesNames[0]}`} alt="car" />
                         </div>
                         <div className={styles['car-model']}>
                             <span>{car.manufacturer} {car.model}</span>

@@ -71,7 +71,7 @@ dataController.get('/catalog', async (req, res) => {
     }
 });
 
-dataController.get('/catalog/:id', async (req, res) => {
+dataController.get('/details/:id', async (req, res) => {
     try {
         const car = await getById(req.params.id);
 
