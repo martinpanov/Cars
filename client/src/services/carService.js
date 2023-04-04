@@ -1,4 +1,4 @@
-import { post, get } from "../util/api";
+import { post, get, del } from "../util/api";
 const url = 'http://localhost:3003/data';
 
 async function sell(data) {
@@ -11,6 +11,10 @@ async function getCars() {
 
 async function getCar(id) {
     return await get(`${url}/details/${id}`)
+}
+
+async function deleteCar(id) {
+    return await del(`${url}/details/${id}`)
 }
 
 async function getUserCars() {
@@ -45,6 +49,7 @@ export {
     sell,
     getCars,
     getCar,
+    deleteCar,
     getUserCars,
     searchCars,
     getCarsHome,

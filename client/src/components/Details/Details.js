@@ -1,10 +1,13 @@
-import { useParams } from 'react-router-dom';
-import { getCar } from '../../services/carService';
+import { useNavigate, useParams } from 'react-router-dom';
+import { deleteCar, getCar } from '../../services/carService';
 import styles from './Details.module.css';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 
 export default function Details() {
     const { id } = useParams();
+    const navigate = useNavigate()
+    const [user] = useContext(UserContext);
     const [currentImage, setCurrentImage] = useState(0);
     const [car, setCar] = useState({});
     const [images, setImages] = useState([]);
@@ -16,6 +19,15 @@ export default function Details() {
                 setCar(car);
             });
     }, [id]);
+
+    const deletedHandler = async () => {
+        try {
+            await deleteCar(id)
+            navigate('/catalog')
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const nextImageHandler = () => {
         if (currentImage + 1 > images.length - 1) {
@@ -40,18 +52,32 @@ export default function Details() {
     return (
         <section id={styles["details-page"]}>
             <div className={styles['image-slider-section']}>
-                <div className={styles['brand-slider']}>
-                    <span>{car.manufacturer} {car.model}</span>
-                </div>
-                <div className={styles['price-slider']}>
-                    <span>${car.price}</span>
+                <div className={styles['image-slider-details']}>
+                    <div className={styles['image-slider-model-and-brand']}>
+                        <div className={styles['brand-slider']}>
+                            <span>{car.manufacturer} {car.model}</span>
+                        </div>
+
+                        <div className={styles['price-slider']}>
+                            <span>${car.price}</span>
+                        </div>
+                    </div>
+
+                    {user && user.userId === car._ownerId ?
+                        <div className={styles['delete-button']}>
+                            <button onClick={deletedHandler}>
+                                Delete
+                            </button>
+                        </div> :
+                        null
+                    }
                 </div>
 
                 <div className={styles["image-slider"]}>
-                    <div className={styles["images"]}>{<img src={`https://cars-image-storage.s3.amazonaws.com/${images[currentImage]}`} alt="car" className={styles['active']} />}</div>
+                    <div className={styles["images"]}>{images.length > 0 ? <img src={`https://cars-image-storage.s3.amazonaws.com/${images[currentImage]}`} alt="car" className={styles['active']} /> : null}</div>
                     <div className={styles["thumbnails"]}>
-                        {images.map((image, index) => index === currentImage ? <img src={`https://cars-image-storage.s3.amazonaws.com/${image}`} alt="carThumbnail" className={styles['active']} /> : 
-                        <img src={`https://cars-image-storage.s3.amazonaws.com/${image}`} alt="carThumbnail" onClick={() => changeImageHandler(index)} />)}
+                        {images.length > 0 ? images.map((image, index) => index === currentImage ? <img key={index} src={`https://cars-image-storage.s3.amazonaws.com/${image}`} alt="carThumbnail" className={styles['active']} /> :
+                            <img key={index} src={`https://cars-image-storage.s3.amazonaws.com/${image}`} alt="carThumbnail" onClick={() => changeImageHandler(index)} />) : null}
                     </div>
                     <div className={styles["back-btn"]} onClick={previousImageHandler}>
                         <i className="fa-solid fa-arrow-left"></i>

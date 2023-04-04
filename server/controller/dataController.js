@@ -220,17 +220,17 @@ dataController.post('/sell', hasUser(), upload.array('images', 12), async (req, 
     }
 });
 
-dataController.get('/delete/:id', hasUser(), async (req, res) => {
+dataController.delete('/details/:id', hasUser(), async (req, res) => {
     try {
         const car = await getById(req.params.id);
 
-        if (req.user._id !== car._ownerId) {
-            res.status(403).json({ message: 'You are not the owner of this car' });
+        if (req.user._id != car._ownerId) {
+            return res.status(403).json({ message: 'You are not the owner of this car' });
         }
 
         await deleteById(req.params.id);
 
-        res.status(204).end();
+        res.json({message: 'Success'});
     } catch (error) {
         if (error.name === 'CastError') {
             error.message = 'Car not found';
