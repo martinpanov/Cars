@@ -1,5 +1,5 @@
 const { hasUser } = require('../middlwares/guards');
-const s3UploadV3 = require('../services/awsS3Service');
+const { s3UploadV3, s3DeleteV3 } = require('../services/awsS3Service');
 const { getAll, getById, deleteById, create, update, getHomeCars, getFiltered, getRentCars, getFilteredRentCars, rentCar, getUserCars, getUserRentCars } = require('../services/carService');
 const parseError = require('../util/parser');
 const multer = require('multer');
@@ -167,16 +167,43 @@ dataController.get('/edit/:id', hasUser(), async (req, res) => {
 
 });
 
-dataController.put('/edit/:id', async (req, res) => {
+dataController.put('/edit/:id', hasUser(), upload.array('images', 12), async (req, res) => {
     try {
         const car = await getById(req.params.id);
 
-        if (req.user._id !== car._ownerId) {
-            res.status(403).json({ message: 'You are not the owner of this car' });
+        if (req.user._id != car._ownerId) {
+            return res.status(403).json({ message: 'You are not the owner of this car' });
         }
 
-        const data = await update(req.params.id, req.body);
-        res.json(data);
+        if (req.files.length > 0) {
+            req.files.forEach(file => file.originalname = `${Date.now()}${file.originalname}`);
+            await s3UploadV3(req.files);
+        }
+
+        const imagesNames = car.imagesNames.filter(image => !req.body.imagesNames.includes(image))
+
+        if (imagesNames.length > 0) {
+            await s3DeleteV3(imagesNames)
+        }
+
+        const data = {
+            manufacturer: req.body.manufacturer,
+            model: req.body.model,
+            price: Number(req.body.price),
+            year: Number(req.body.year),
+            phoneNumber: req.body.phoneNumber,
+            description: req.body.description,
+            gearbox: req.body.gearbox,
+            city: req.body.city,
+            fuelType: req.body.fuelType,
+            horsePower: Number(req.body.horsePower),
+            kilometers: Number(req.body.kilometers),
+            imagesNames: Array.isArray(req.body.imagesNames) ? [...req.body.imagesNames, ...req.files.map(file => file.originalname)] : 
+            [req.body.imagesNames, ...req.files.map(file => file.originalname)]
+        }
+
+        const result = await update(req.params.id, data);
+        res.json(result);
     } catch (error) {
         if (error.name === 'CastError') {
             error.message = 'Car not found';
@@ -191,7 +218,7 @@ dataController.put('/edit/:id', async (req, res) => {
 
 dataController.post('/sell', hasUser(), upload.array('images', 12), async (req, res) => {
     try {
-        req.files.forEach(file => file.originalname = `${Date.now()}${file.originalname}`)
+        req.files.forEach(file => file.originalname = `${Date.now()}${file.originalname}`);
 
         const data = {
             manufacturer: req.body.manufacturer,
@@ -207,7 +234,7 @@ dataController.post('/sell', hasUser(), upload.array('images', 12), async (req, 
             kilometers: Number(req.body.kilometers),
             imagesNames: req.files.map(file => file.originalname),
             _ownerId: req.user._id
-        }
+        };
 
         await s3UploadV3(req.files);
         const car = await create(data);
@@ -228,9 +255,11 @@ dataController.delete('/details/:id', hasUser(), async (req, res) => {
             return res.status(403).json({ message: 'You are not the owner of this car' });
         }
 
+        await s3DeleteV3(car.imagesNames);
+
         await deleteById(req.params.id);
 
-        res.json({message: 'Success'});
+        res.json({ message: 'Success' });
     } catch (error) {
         if (error.name === 'CastError') {
             error.message = 'Car not found';

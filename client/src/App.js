@@ -41,7 +41,7 @@ function App() {
                         <Route path='/about' element={<About />} />
                         <Route path='/search' element={<Buy />} />
                         <Route path='/details/:id' element={<Details />} />
-                        <Route path='/edit' element={<Edit />} />
+                        <Route path='/edit/:id' element={<Edit />} />
                         <Route path='/myprofile' element={<MyProfile />} />
                         <Route path='*' element={<NotFound />} />
                     </Routes>

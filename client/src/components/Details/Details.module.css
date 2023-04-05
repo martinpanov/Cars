@@ -15,19 +15,28 @@
     justify-content: space-between;
 }
 
-.delete-button {
+.edit-and-delete {
     margin-top: 10px;
 }
 
-.delete-button button {
+.edit-and-delete button {
     font-size: 22px;
     font-weight: 700;
-    background-color: #e63946;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     border: none;
     margin-right: 30px;
-    padding: 15px 40px;
+    height: 56px;
+    width: 143px;
 }
+
+.edit-and-delete button:first-child {
+    background-color: green;
+}
+
+.edit-and-delete button:last-child {
+    background-color: #e63946;
+}
+
 
 .brand-slider {
     margin-left: 50px;

@@ -6,31 +6,33 @@ import { UserContext } from '../../contexts/UserContext';
 
 export default function Details() {
     const { id } = useParams();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [user] = useContext(UserContext);
     const [currentImage, setCurrentImage] = useState(0);
     const [car, setCar] = useState({});
-    const [images, setImages] = useState([]);
 
     useEffect(() => {
         getCar(id)
             .then(car => {
-                setImages(car.imagesNames);
                 setCar(car);
             });
     }, [id]);
 
-    const deletedHandler = async () => {
-        try {
-            await deleteCar(id)
-            navigate('/catalog')
-        } catch (error) {
-            console.log(error)
-        }
+    const editHandler = () => {
+        navigate(`/edit/${id}`)
     }
 
+    const deletedHandler = async () => {
+        try {
+            await deleteCar(id);
+            navigate('/catalog');
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const nextImageHandler = () => {
-        if (currentImage + 1 > images.length - 1) {
+        if (currentImage + 1 > car.imagesNames.length - 1) {
             setCurrentImage(0);
         } else {
             setCurrentImage(state => state + 1);
@@ -39,7 +41,7 @@ export default function Details() {
 
     const previousImageHandler = () => {
         if (currentImage - 1 < 0) {
-            setCurrentImage(images.length - 1);
+            setCurrentImage(car.imagesNames.length - 1);
         } else {
             setCurrentImage(state => state - 1);
         }
@@ -64,7 +66,11 @@ export default function Details() {
                     </div>
 
                     {user && user.userId === car._ownerId ?
-                        <div className={styles['delete-button']}>
+
+                        <div className={styles['edit-and-delete']}>
+                            <button onClick={editHandler}>
+                                Edit
+                            </button>
                             <button onClick={deletedHandler}>
                                 Delete
                             </button>
@@ -74,9 +80,9 @@ export default function Details() {
                 </div>
 
                 <div className={styles["image-slider"]}>
-                    <div className={styles["images"]}>{images.length > 0 ? <img src={`https://cars-image-storage.s3.amazonaws.com/${images[currentImage]}`} alt="car" className={styles['active']} /> : null}</div>
+                    <div className={styles["images"]}>{car.imagesNames ? <img src={`https://cars-image-storage.s3.amazonaws.com/${car.imagesNames[currentImage]}`} alt="car" className={styles['active']} /> : null}</div>
                     <div className={styles["thumbnails"]}>
-                        {images.length > 0 ? images.map((image, index) => index === currentImage ? <img key={index} src={`https://cars-image-storage.s3.amazonaws.com/${image}`} alt="carThumbnail" className={styles['active']} /> :
+                        {car.imagesNames ? car.imagesNames.map((image, index) => index === currentImage ? <img key={index} src={`https://cars-image-storage.s3.amazonaws.com/${image}`} alt="carThumbnail" className={styles['active']} /> :
                             <img key={index} src={`https://cars-image-storage.s3.amazonaws.com/${image}`} alt="carThumbnail" onClick={() => changeImageHandler(index)} />) : null}
                     </div>
                     <div className={styles["back-btn"]} onClick={previousImageHandler}>
@@ -106,7 +112,7 @@ export default function Details() {
                     </div>
                     <div className={styles['details-content']}>
                         <p>
-                            {car.horsePower}HP
+                            {car.horsePower}
                         </p>
                     </div>
                 </div>
@@ -128,7 +134,7 @@ export default function Details() {
                     </div>
                     <div className={styles['details-content']}>
                         <p>
-                            {car.kilometers}KM
+                            {car.kilometers}
                         </p>
                     </div>
                 </div>

@@ -61,13 +61,17 @@ async function update(id, carData) {
     const car = await Car.findById(id);
 
     car.manufacturer = carData.manufacturer,
-        car.model = carData.model,
-        car.price = Number(carData.price),
-        car.year = Number(carData.year),
-        car.phoneNumber = String(carData.phoneNumber),
-        car.description = carData.description,
-        car.gearbox = carData.gearbox,
-        car.images = carData.images;
+    car.model = carData.model,
+    car.price = Number(carData.price),
+    car.year = Number(carData.year),
+    car.phoneNumber = String(carData.phoneNumber),
+    car.kilometers = Number(carData.kilometers),
+    car.description = carData.description,
+    car.gearbox = carData.gearbox,
+    car.horsePower = carData.horsePower,
+    car.city = carData.city,
+    car.fuelType = carData.fuelType,
+    car.imagesNames = carData.imagesNames;
 
     await car.save();
 

@@ -1,116 +1,219 @@
-#sell-page h1 {
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 30px;
-    font-size: 48px;
-    opacity: 0.6;
-}
-
-#sell-page {
-    padding: 0;
-    padding-top: 1%;
+#edit-page {
     min-height: calc(100vh - 84px - 79.33px);
-    background-image: url('../../assets/cool-background.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
+    display: flex;
 }
 
+.image-slider-section {
+    width: 70%;
+    min-height: 95vh;
+    background-color: #f5f7fb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-.wrapper {
-    margin: 0px auto 0px auto;
+.image-slider {
+    position: absolute;
+    margin-left: 10px;
+    width: 60%;
+    height: 80%;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.4);
+}
+
+.image-slider .images {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.image-slider .images img.active {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.image-slider .back-btn,
+.image-slider .next-btn {
+    position: absolute;
+    top: 0px;
+    width: 40px;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 600px;
-    height: 795px;
-    color: white;
-    padding: 50px 30px;
-    box-shadow: 0 0 50rem 0 rgba(0, 0, 0, 0.2);
-    border-radius: 7%;
+    cursor: pointer;
+    color: #fff;
+    font-size: 25px;
+    transition: all 300ms ease-in-out;
+}
+
+.image-slider .next-btn {
+    right: 0px;
+}
+
+.image-slider .thumbnails {
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.image-slider .thumbnails img {
+    height: 40px;
+    width: 60px;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.image-slider .thumbnails img.active {
+    border: 2px solid white;
+}
+
+.thumbnail-container {
     position: relative;
 }
 
-.wrapper::before {
-    content: '';
+.delete-btn {
     position: absolute;
-    background: inherit;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    box-shadow: white;
-    filter: blur(500px);
-}
-
-.wrapper span {
-    margin: 0;
-    padding: 0;
-    font-weight: bold;
-}
-
-.wrapper input,
-.wrapper select {
-    border: none;
-    border-bottom: 1px solid white;
-    background: transparent;
-    outline: none;
-    height: 40px;
+    top: -8px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 40%;
+    background-color: #ff5a5a;
     color: white;
-    font-size: 16px;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.wrapper input::-webkit-outer-spin-button,
-.wrapper input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.wrapper option {
-    color: black
-}
-
-.wrapper textarea {
-    resize: none;
-    border: none;
-    border-bottom: 1px solid white;
-    background: transparent;
-    outline: none;
-    height: 65px;
-    color: white;
-    font-size: 16px;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.wrapper button {
+    font-size: 14px;
     cursor: pointer;
-    display: block;
+    transition: all 300ms ease-in-out;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.thumbnail-container:hover .delete-btn {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+
+.car-details-section {
+    min-height: 110vh;
+    width: 40%;
+}
+
+.car-details-section h1 {
     text-align: center;
-    text-decoration: none;
-    border: none;
-    border-radius: 20px;
-    color: white;
-    margin-top: 15px;
-    margin-left: 185px;
-    padding: 17px;
-    background: #24252A;
-    text-transform: uppercase;
-    font-weight: 500;
-    letter-spacing: 3px;
+    margin-bottom: 0;
 }
 
-.wrapper button:hover {
-    transition: all 0.5s ease 0s;
-    background-color: #3a86ff;
-    border: none;
-    border-radius: 20px;
+.car-details-section form {
+    height: 92%;
 }
 
-::placeholder {
-    opacity: 0.5;
-    color: black
+textarea {
+    width: 100%;
+    height: 100%;
+    resize: none;
+}
+
+.details input,
+.brand input,
+.price input,
+.details-description textarea,
+.details select {
+    font-size: 16px;
+    color: #939393;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.details:focus,
+.brand input,
+.price input,
+.details option {
+    color: black;
+}
+
+.details {
+    min-height: 9%;
+    border-bottom: 1px solid #adadad;
+}
+
+
+.details-description {
+    min-height: 15%;
+    border-bottom: 1px solid #adadad;
+}
+
+.name {
+    width: 100%;
+    min-height: 30px;
+    padding: 20px 30px 0px 30px;
+}
+
+.name label {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+
+.details-content-description {
+    height: 90px;
+    padding: 10px 30px;
+}
+
+.details-content {
+    display: flex;
+    align-items: center;
+    min-height: 50px;
+    padding: 0px 30px;
+}
+
+.price-car-brand {
+    min-height: 12%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    display: flex;
+    flex-direction: column;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.brand input {
+    color: black;
+    font-size: 22px;
+    font-weight: 700;
+    margin-left: 30px;
+}
+
+.price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.price input {
+    width: 50%;
+    color: black;
+    font-size: 21px;
+    font-weight: 700;
 }

@@ -2,7 +2,7 @@ const { Schema, model, Types: { ObjectId } } = require('mongoose');
 
 const carSchema = new Schema({
     manufacturer: { type: String, required: true, minLength: [2, 'Manufacturer must be at least 2 characters long'] },
-    model: { type: String, required: true, minLength: [2, 'Model must be at least 2 characters long'] },
+    model: { type: String, required: true, minLength: [1, 'Model must be at least 1 characters long'] },
     price: { type: Number, required: true, min: [0.01, 'Price must be positive number'] },
     year: {
         type: Number, required: true, validate: {
@@ -27,7 +27,13 @@ const carSchema = new Schema({
     },
     horsePower: { type: Number, required: true, min: [1, 'HP must be at least 1'] },
     kilometers: { type: Number, required: true, min: [1, 'kilometers must be at least 1'] },
-    imagesNames: [{ type: String, required: [true, 'At least 1 image is required'] }],
+    imagesNames: {
+        type: [{ type: String, required: true }],
+        validate: {
+            validator: images => images.length > 0,
+            message: 'At least one image is required'
+        }
+    },
     _ownerId: { type: ObjectId, ref: 'User', required: true },
     _createdAt: { type: Date, default: Date.now }
 });
