@@ -1,6 +1,6 @@
 const { hasUser } = require('../middlwares/guards');
 const { s3UploadV3, s3DeleteV3 } = require('../services/awsS3Service');
-const { getAll, getById, deleteById, create, update, getHomeCars, getFiltered, getRentCars, getFilteredRentCars, rentCar, getUserCars, getUserRentCars } = require('../services/carService');
+const { getAll, getById, deleteById, create, update, getHomeCars, getFiltered, getRentCars, getFilteredRentCars, rentCar, getUserCars, getUserRentCars, getProfilePicture, postProfilePicture } = require('../services/carService');
 const parseError = require('../util/parser');
 const multer = require('multer');
 const dataController = require('express').Router();
@@ -124,6 +124,33 @@ dataController.get('/rentcar/:id', hasUser(), async (req, res) => {
     }
 });
 
+dataController.post('/myprofile/picture', hasUser(), upload.single('image'), async (req, res) => {
+    try {
+        if (req.file) {
+            req.file.originalname = `${Date.now()}${req.file.originalname}`;
+            await s3UploadV3(req.file);
+        }
+
+        const profilePicture = await postProfilePicture(req.user.username, req.file.originalname);
+
+        res.json(profilePicture);
+    } catch (error) {
+        const message = parseError(error);
+        res.status(404).json({ message });
+    }
+});
+
+dataController.get('/myprofile/picture', hasUser(), async (req, res) => {
+    try {
+        const userProfilePicture = await getProfilePicture(req.user.username);
+
+        res.json(userProfilePicture);
+    } catch (error) {
+        const message = parseError(error);
+        res.status(404).json({ message });
+    }
+});
+
 dataController.get('/myprofile/cars', hasUser(), async (req, res) => {
     try {
         const cars = await getUserCars(req.user._id);
@@ -148,11 +175,12 @@ dataController.get('/myprofile/rentcars', hasUser(), async (req, res) => {
 
 dataController.get('/edit/:id', hasUser(), async (req, res) => {
     try {
+        if (req.user._id !== car._ownerId) {
+            return res.status(403).json({ message: 'You are not the owner of this car' });
+        }
+
         const car = await getById(req.params.id);
 
-        if (req.user._id !== car._ownerId) {
-            res.status(403).json({ message: 'You are not the owner of this car' });
-        }
 
         res.json(car);
     } catch (error) {
@@ -169,11 +197,12 @@ dataController.get('/edit/:id', hasUser(), async (req, res) => {
 
 dataController.put('/edit/:id', hasUser(), upload.array('images', 12), async (req, res) => {
     try {
-        const car = await getById(req.params.id);
-
         if (req.user._id != car._ownerId) {
             return res.status(403).json({ message: 'You are not the owner of this car' });
         }
+
+        const car = await getById(req.params.id);
+
 
         if (req.files.length > 0) {
             req.files.forEach(file => file.originalname = `${Date.now()}${file.originalname}`);
@@ -249,11 +278,12 @@ dataController.post('/sell', hasUser(), upload.array('images', 12), async (req, 
 
 dataController.delete('/details/:id', hasUser(), async (req, res) => {
     try {
-        const car = await getById(req.params.id);
-
         if (req.user._id != car._ownerId) {
             return res.status(403).json({ message: 'You are not the owner of this car' });
         }
+
+        const car = await getById(req.params.id);
+
 
         await s3DeleteV3(car.imagesNames);
 

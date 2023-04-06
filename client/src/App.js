@@ -9,7 +9,6 @@ import About from './components/About/About';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Sell from './components/Sell/Sell';
-import Buy from './components/Buy/Buy';
 import NotFound from './components/NotFound/NotFound';
 import Navigation from './components/Navigation/Navigation';
 import Footer from './components/Footer/Footer';
@@ -18,6 +17,7 @@ import Edit from './components/Edit/Edit';
 import RentCar from './components/RentCar/RentCar';
 import Logout from './components/Logout/Logout';
 import MyProfile from './components/MyProfile/MyProfile';
+import PrivateRoute from './components/RouteGuards/PrivateRoute';
 
 function App() {
     const [user, setUser] = useSessionStorage("user", null);
@@ -33,16 +33,17 @@ function App() {
                     <Routes>
                         <Route path='/login' element={<Login />} />
                         <Route path='/register' element={<Register />} />
-                        <Route path='/logout' element={<Logout />} />
                         <Route path='/' element={<Home />} />
                         <Route path='/catalog' element={<Catalog />} />
                         <Route path='/rentcar' element={<RentCar />} />
-                        <Route path='/sell' element={<Sell />} />
                         <Route path='/about' element={<About />} />
-                        <Route path='/search' element={<Buy />} />
                         <Route path='/details/:id' element={<Details />} />
                         <Route path='/edit/:id' element={<Edit />} />
-                        <Route path='/myprofile' element={<MyProfile />} />
+                        <Route element={<PrivateRoute />}>
+                            <Route path='/sell' element={<Sell />} />
+                            <Route path='/myprofile' element={<MyProfile />} />
+                            <Route path='/logout' element={<Logout />} />
+                        </Route>
                         <Route path='*' element={<NotFound />} />
                     </Routes>
 

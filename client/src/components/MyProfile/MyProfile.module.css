@@ -38,6 +38,7 @@
 }
 
 .my-profile-image {
+    position: relative;
     display: flex;
     justify-content: center;
     width: 40%;
@@ -45,10 +46,37 @@
 }
 
 .my-profile-image img {
+    object-fit: contain;
     border-radius: 50%;
     height: 180px;
     width: 180px;
 }
+
+.change-photo-button {
+    position: absolute;
+    top: 5px;
+    right: 110px;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #555555;
+    font-size: 40px;
+}
+
+.change-photo-button:hover {
+    cursor: pointer;
+    background-color: #6f6f6f;
+    transition: all 300ms ease-in-out;
+}
+
+.change-photo-button i {
+    font-size: 20px;
+    color: #FFFFF7;
+}
+
 
 .car-types {
     display: flex;

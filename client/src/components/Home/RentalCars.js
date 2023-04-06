@@ -67,21 +67,21 @@ export default function RentalCars() {
         if (!user) {
             navigate('/login');
         }
-        
+
         try {
             await rentCar(rentalCar._id);
-    
+
             setCars(cars => cars.map(car => {
                 if (car._id === rentalCar._id) {
                     if (car.rentedBy === null) {
-                        car.rentedBy = user.userId
+                        car.rentedBy = user.userId;
                     } else {
-                        car.rentedBy = null
+                        car.rentedBy = null;
                     }
                 }
-                return car
-            }))
-            
+                return car;
+            }));
+
             setRentalCar(state => ({ ...state, isRented: !state.isRented, isOwner: !state.isOwner }));
         } catch (error) {
             console.log(error);

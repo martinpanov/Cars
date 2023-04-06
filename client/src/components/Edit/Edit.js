@@ -1,22 +1,27 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { edit, getCar } from "../../services/carService";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from './Edit.module.css';
+import { UserContext } from "../../contexts/UserContext";
 
 
 export default function Edit() {
     const { id } = useParams();
     const navigate = useNavigate();
+    const [user] = useContext(UserContext);
     const [currentImage, setCurrentImage] = useState(0);
-    const [allImages, setAllImages] = useState([]);
     const [newImageFiles, setNewImageFiles] = useState([]);
     const [car, setCar] = useState({});
-
 
     useEffect(() => {
         getCar(id)
             .then(car => {
-                setAllImages(car.imagesNames);
+                if (!user) {
+                    return navigate('/login');
+                } else if (user.userId !== car._ownerId) {
+                    return navigate('/');
+                }
+
                 setCar(car);
             });
     }, [id]);
@@ -28,20 +33,19 @@ export default function Edit() {
 
             for (let [key, value] of Object.entries(car)) {
                 if (key === 'imagesNames') {
-                    continue;
+                    for (let image of car.imagesNames) {
+                        const newImageFile = newImageFiles.find(newImage => newImage.name === image);
+                        if (newImageFile) {
+                            formData.append('images', newImageFile);
+                        } else {
+                            formData.append('imagesNames', image);
+                        }
+                    }
                 } else {
                     formData.append(key, value);
                 }
             };
 
-            for (let image of allImages) {
-                const newImageFile = newImageFiles.find(newImage => newImage.name === image);
-                if (newImageFile) {
-                    formData.append('images', newImageFile);
-                } else {
-                    formData.append('imagesNames', image);
-                }
-            }
 
             await edit(id, formData);
             return navigate(`/details/${id}`);
@@ -55,17 +59,17 @@ export default function Edit() {
     };
 
     const deleteImageHandler = (index) => {
-        const copyAllImages = [...allImages];
+        const copyAllImages = [...car.imagesNames];
         const imageNameToBeDeleted = copyAllImages.filter((image, imageIndex) => imageIndex === index);
         copyAllImages.splice(index, 1);
 
         setNewImageFiles(state => state.filter(image => image.name !== imageNameToBeDeleted));
-        setAllImages(copyAllImages);
+        setCar(car => ({ ...car, imagesNames: copyAllImages }));
         setCurrentImage(state => {
             if (state - 1 <= 0) {
                 return state = 0;
-            } else if (state + 1 >= allImages.length) {
-                return state = allImages.length - 1;
+            } else if (state + 1 >= car.imagesNames.length) {
+                return state = car.imagesNames.length - 2;
             } else {
                 return state;
             }
@@ -74,19 +78,19 @@ export default function Edit() {
 
     const imageUploadHandler = (e) => {
         if (e.target.files.length <= 0) {
-            return
+            return;
         }
 
-        if (allImages.length > 12) {
+        if (car.imagesNames.length > 12) {
             return console.log('You can upload 12 images at most');
         }
 
-        setAllImages(state => [...state, e.target.files[0].name]);
+        setCar(car => ({ ...car, imagesNames: [...car.imagesNames, e.target.files[0].name] }));
         setNewImageFiles(state => [...state, e.target.files[0]]);
     };
 
     const nextImageHandler = () => {
-        if (currentImage + 1 > allImages.length - 1) {
+        if (currentImage + 1 > car.imagesNames.length - 1) {
             setCurrentImage(0);
         } else {
             setCurrentImage(state => state + 1);
@@ -95,7 +99,7 @@ export default function Edit() {
 
     const previousImageHandler = () => {
         if (currentImage - 1 < 0) {
-            setCurrentImage(allImages.length - 1);
+            setCurrentImage(car.imagesNames.length - 1);
         } else {
             setCurrentImage(state => state - 1);
         }
@@ -112,7 +116,7 @@ export default function Edit() {
 
                 <h1>Edit Car Ad</h1>
 
-                <form action={`/edit/${id}`} onSubmit={editFormHandler} encType="multipart/form-data" >
+                <form id="edit-form" action={`/edit/${id}`} onSubmit={editFormHandler} encType="multipart/form-data" >
                     <div className={styles['details']}>
                         <div className={styles['name']}>
                             <label>Year</label>
@@ -211,16 +215,16 @@ export default function Edit() {
                             $<input type="number" name="price" placeholder="Price" value={car.price} onChange={changeHandler} />
                         </div>
                     </div>
-                    <button>Edit</button>
                 </form>
             </div>
 
             <div className={styles['image-slider-section']}>
+                <button type="submit" form="edit-form">Edit</button>
                 <div className={styles["image-slider"]}>
                     <div className={styles["images"]}>
-                        {allImages.length > 0 && (() => {
-                            const foundNewImage = newImageFiles.find(newImage => newImage.name === allImages[currentImage]);
-                            const imgSrc = foundNewImage ? URL.createObjectURL(foundNewImage) : `https://cars-image-storage.s3.amazonaws.com/${allImages[currentImage]}`;
+                        {car.imagesNames?.length > 0 && (() => {
+                            const foundNewImage = newImageFiles.find(newImage => newImage.name === car.imagesNames[currentImage]);
+                            const imgSrc = foundNewImage ? URL.createObjectURL(foundNewImage) : `https://cars-image-storage.s3.amazonaws.com/${car.imagesNames[currentImage]}`;
                             return <img src={imgSrc} alt="car" className={styles['active']} />;
                         })()}
                     </div>
@@ -232,7 +236,7 @@ export default function Edit() {
                         <i className="fa-sharp fa-solid fa-arrow-right"></i>
                     </div>
                     <div className={styles["thumbnails"]}>
-                        {allImages.length > 0 && allImages.map((image, index) => {
+                        {car.imagesNames?.length > 0 && car.imagesNames.map((image, index) => {
                             const newImageFile = newImageFiles.find(newImage => newImage.name === image);
                             const imgSrc = newImageFile ? URL.createObjectURL(newImageFile) : `https://cars-image-storage.s3.amazonaws.com/${image}`;
                             if (index === currentImage) {

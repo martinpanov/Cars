@@ -19,11 +19,8 @@ export default function Logout() {
             }
         }
 
-        if (user) {
-            onLogout();
-        } else {
-            navigate("/");
-        }
+        onLogout();
+
     }, [user, navigate, setUser]);
 
     return <Navigate to="/" />;

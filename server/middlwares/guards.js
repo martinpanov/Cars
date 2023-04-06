@@ -1,5 +1,3 @@
-const { getById } = require("../services/carService");
-
 function hasUser() {
     return (req, res, next) => {
         if (req.user) {

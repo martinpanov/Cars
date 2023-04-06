@@ -32,7 +32,7 @@ export default function Catalog() {
         (async function catalogCars() {
             const cars = await getCars();
             if (cars.length === 0) {
-                return setIsLoading(false)
+                return setIsLoading(false);
             }
             setAllCars(cars);
 

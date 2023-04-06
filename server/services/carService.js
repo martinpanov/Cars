@@ -1,5 +1,6 @@
 const Car = require('../models/Car');
 const RentCar = require('../models/RentCar');
+const User = require('../models/User');
 
 async function getAll() {
     return Car.find().sort({ _createdAt: 'desc' });
@@ -121,6 +122,22 @@ async function rentCar(carId, userId) {
     return car;
 }
 
+async function getProfilePicture(username) {
+    const user = await User.findOne({ username }).collation({ locale: 'en', strength: 2 });
+
+    return user.profilePicture
+}
+
+async function postProfilePicture(username, picture) {
+    const user = await User.findOne({ username }).collation({ locale: 'en', strength: 2 });
+
+    user.profilePicture = picture
+
+    await user.save()
+
+    return user.profilePicture
+}
+
 module.exports = {
     getAll,
     getUserCars,
@@ -133,5 +150,7 @@ module.exports = {
     getRentCars,
     getUserRentCars,
     getFilteredRentCars,
-    rentCar
+    rentCar,
+    getProfilePicture,
+    postProfilePicture
 };

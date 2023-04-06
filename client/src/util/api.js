@@ -4,7 +4,7 @@ async function api(method, url, data) {
         options.method = method;
 
         if (data) {
-            if (url === `http://localhost:3003/data/sell` || url.includes('edit')) {
+            if (url.includes('sell') || url.includes('edit') || url.includes('picture')) {
                 options.body = data;
             } else {
                 options.headers = {

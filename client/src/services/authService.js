@@ -14,7 +14,6 @@ async function logout(token) {
     return await get(`${url}/users/logout`, token);
 }
 
-
 export {
     register,
     login,

@@ -19,8 +19,8 @@ export default function Details() {
     }, [id]);
 
     const editHandler = () => {
-        navigate(`/edit/${id}`)
-    }
+        navigate(`/edit/${id}`);
+    };
 
     const deletedHandler = async () => {
         try {
