@@ -2,11 +2,11 @@ import { post, get, del, put } from "../util/api";
 const url = 'http://localhost:3003/data';
 
 async function sell(data) {
-    await post(`${url}/sell`, data);
+    return await post(`${url}/sell`, data);
 }
 
 async function edit(id, data) {
-    await put(`${url}/edit/${id}`, data);
+    return await put(`${url}/edit/${id}`, data);
 }
 
 async function getCars() {

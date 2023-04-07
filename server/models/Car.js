@@ -2,7 +2,7 @@ const { Schema, model, Types: { ObjectId } } = require('mongoose');
 
 const carSchema = new Schema({
     manufacturer: { type: String, required: true, minLength: [2, 'Manufacturer must be at least 2 characters long'] },
-    model: { type: String, required: true, minLength: [1, 'Model must be at least 1 characters long'] },
+    model: { type: String, required: true, minLength: [1, 'Model must be at least 1 character long'] },
     price: { type: Number, required: true, min: [0.01, 'Price must be positive number'] },
     year: {
         type: Number, required: true, validate: {

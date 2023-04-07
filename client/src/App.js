@@ -38,8 +38,8 @@ function App() {
                         <Route path='/rentcar' element={<RentCar />} />
                         <Route path='/about' element={<About />} />
                         <Route path='/details/:id' element={<Details />} />
-                        <Route path='/edit/:id' element={<Edit />} />
                         <Route element={<PrivateRoute />}>
+                            <Route path='/edit/:id' element={<Edit />} />
                             <Route path='/sell' element={<Sell />} />
                             <Route path='/myprofile' element={<MyProfile />} />
                             <Route path='/logout' element={<Logout />} />

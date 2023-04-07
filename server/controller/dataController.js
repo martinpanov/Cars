@@ -175,12 +175,11 @@ dataController.get('/myprofile/rentcars', hasUser(), async (req, res) => {
 
 dataController.get('/edit/:id', hasUser(), async (req, res) => {
     try {
+        const car = await getById(req.params.id);
+
         if (req.user._id !== car._ownerId) {
             return res.status(403).json({ message: 'You are not the owner of this car' });
         }
-
-        const car = await getById(req.params.id);
-
 
         res.json(car);
     } catch (error) {
@@ -197,11 +196,12 @@ dataController.get('/edit/:id', hasUser(), async (req, res) => {
 
 dataController.put('/edit/:id', hasUser(), upload.array('images', 12), async (req, res) => {
     try {
+        const car = await getById(req.params.id);
+
         if (req.user._id != car._ownerId) {
             return res.status(403).json({ message: 'You are not the owner of this car' });
         }
 
-        const car = await getById(req.params.id);
 
 
         if (req.files.length > 0) {

@@ -1,8 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { edit, getCar } from "../../services/carService";
+import { getCar } from "../../services/carService";
 import { useContext, useEffect, useState } from "react";
 import styles from './Edit.module.css';
 import { UserContext } from "../../contexts/UserContext";
+import EditForm from "./EditForm";
+import ImageSlider from "./ImageSlider";
 
 
 export default function Edit() {
@@ -16,105 +18,28 @@ export default function Edit() {
     useEffect(() => {
         getCar(id)
             .then(car => {
-                if (!user) {
-                    return navigate('/login');
-                } else if (user.userId !== car._ownerId) {
+                if (user.userId !== car._ownerId) {
                     return navigate('/');
                 }
 
                 setCar(car);
             });
-    }, [id]);
-
-    const editFormHandler = async (e) => {
-        e.preventDefault();
-        try {
-            const formData = new FormData();
-
-            for (let [key, value] of Object.entries(car)) {
-                if (key === 'imagesNames') {
-                    for (let image of car.imagesNames) {
-                        const newImageFile = newImageFiles.find(newImage => newImage.name === image);
-                        if (newImageFile) {
-                            formData.append('images', newImageFile);
-                        } else {
-                            formData.append('imagesNames', image);
-                        }
-                    }
-                } else {
-                    formData.append(key, value);
-                }
-            };
-
-
-            await edit(id, formData);
-            return navigate(`/details/${id}`);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const changeHandler = (e) => {
-        setCar(car => ({ ...car, [e.target.name]: e.target.value }));
-    };
-
-    const deleteImageHandler = (index) => {
-        const copyAllImages = [...car.imagesNames];
-        const imageNameToBeDeleted = copyAllImages.filter((image, imageIndex) => imageIndex === index);
-        copyAllImages.splice(index, 1);
-
-        setNewImageFiles(state => state.filter(image => image.name !== imageNameToBeDeleted));
-        setCar(car => ({ ...car, imagesNames: copyAllImages }));
-        setCurrentImage(state => {
-            if (state - 1 <= 0) {
-                return state = 0;
-            } else if (state + 1 >= car.imagesNames.length) {
-                return state = car.imagesNames.length - 2;
-            } else {
-                return state;
-            }
-        });
-    };
-
-    const imageUploadHandler = (e) => {
-        if (e.target.files.length <= 0) {
-            return;
-        }
-
-        if (car.imagesNames.length > 12) {
-            return console.log('You can upload 12 images at most');
-        }
-
-        setCar(car => ({ ...car, imagesNames: [...car.imagesNames, e.target.files[0].name] }));
-        setNewImageFiles(state => [...state, e.target.files[0]]);
-    };
-
-    const nextImageHandler = () => {
-        if (currentImage + 1 > car.imagesNames.length - 1) {
-            setCurrentImage(0);
-        } else {
-            setCurrentImage(state => state + 1);
-        }
-    };
-
-    const previousImageHandler = () => {
-        if (currentImage - 1 < 0) {
-            setCurrentImage(car.imagesNames.length - 1);
-        } else {
-            setCurrentImage(state => state - 1);
-        }
-    };
-
-    const changeImageHandler = (index) => {
-        setCurrentImage(index);
-    };
+    }, [id, navigate, user.userId]);
 
     return (
         <section id={styles["edit-page"]}>
 
             <div className={styles['car-details-section']}>
-
                 <h1>Edit Car Ad</h1>
+
+                <EditForm
+                    id={id}
+                    car={car}
+                    setCar={setCar}
+                    newImageFiles={newImageFiles}
+                    setNewImageFiles={setNewImageFiles}
+                />
+                {/* <h1>Edit Car Ad</h1>
 
                 <form id="edit-form" action={`/edit/${id}`} onSubmit={editFormHandler} encType="multipart/form-data" >
                     <div className={styles['details']}>
@@ -215,12 +140,20 @@ export default function Edit() {
                             $<input type="number" name="price" placeholder="Price" value={car.price} onChange={changeHandler} />
                         </div>
                     </div>
-                </form>
+                </form> */}
             </div>
 
             <div className={styles['image-slider-section']}>
                 <button type="submit" form="edit-form">Edit</button>
-                <div className={styles["image-slider"]}>
+                <ImageSlider
+                    car={car}
+                    setCar={setCar}
+                    currentImage={currentImage}
+                    setCurrentImage={setCurrentImage}
+                    newImageFiles={newImageFiles}
+                    setNewImageFiles={setNewImageFiles}
+                />
+                {/* <div className={styles["image-slider"]}>
                     <div className={styles["images"]}>
                         {car.imagesNames?.length > 0 && (() => {
                             const foundNewImage = newImageFiles.find(newImage => newImage.name === car.imagesNames[currentImage]);
@@ -249,7 +182,7 @@ export default function Edit() {
                             }
                         })}
                     </div>
-                </div>
+                </div> */}
             </div>
         </section >
     );

@@ -15,7 +15,7 @@ async function s3UploadV3(files) {
         params = files.map(file => {
             return {
                 Bucket: process.env.AWS_BUCKET_NAME,
-                Key: files.originalname,
+                Key: file.originalname,
                 Body: file.buffer
             };
         });

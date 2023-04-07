@@ -1,0 +1,101 @@
+
+.details-description textarea {
+    width: 100%;
+    height: 100%;
+    resize: none;
+}
+
+.details input,
+.brand input,
+.price input,
+.details-description textarea,
+.details select {
+    font-size: 16px;
+    color: #939393;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.details:focus,
+.brand input,
+.price input,
+.details option {
+    color: black;
+}
+
+.details {
+    min-height: 9%;
+    border-bottom: 1px solid #adadad;
+}
+
+.details p, .car-details-section p {
+    color: red;
+    margin-left: 30px;
+    margin-bottom: 0;
+}
+
+
+.details-description {
+    min-height: 15%;
+    border-bottom: 1px solid #adadad;
+}
+
+.name {
+    width: 100%;
+    min-height: 30px;
+    padding: 20px 30px 0px 30px;
+}
+
+.name label {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+
+.details-content-description {
+    height: 90px;
+    padding: 10px 30px;
+}
+
+.details-content {
+    display: flex;
+    align-items: center;
+    min-height: 50px;
+    padding: 0px 30px;
+}
+
+.price-car-brand {
+    margin-top: 10px;
+    min-height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    display: flex;
+    flex-direction: column;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.brand input {
+    color: black;
+    font-size: 22px;
+    font-weight: 700;
+    margin-left: 30px;
+}
+
+.price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.price input {
+    width: 50%;
+    color: black;
+    font-size: 21px;
+    font-weight: 700;
+}
