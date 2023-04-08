@@ -4,6 +4,8 @@
 
 My App is a single-page application built with React that allows users to post their car ads and rent cars. The app is designed for car owners and people who are looking for purchasing or renting a car.
 
+![Cars](https://user-images.githubusercontent.com/106311309/230741582-e7f9954e-e37f-45d2-adcf-debcf9d6e8a4.jpg)
+
 ## Technology Stack
 
  * React
