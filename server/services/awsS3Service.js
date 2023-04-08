@@ -29,16 +29,26 @@ async function s3UploadV3(files) {
 
 async function s3DeleteV3(files) {
     const s3Client = new S3Client();
-    const params = files.map(file => {
-        return {
+    let params
+    if (!Array.isArray(files)) {
+        params = {
             Bucket: process.env.AWS_BUCKET_NAME,
-            Key: `${file}`,
+            Key: files,
         };
-    });
 
-    return await Promise.all(
-        params.map(param => s3Client.send(new DeleteObjectCommand(param)))
-    );
+        return await s3Client.send(new DeleteObjectCommand(params))
+    } else {
+        params = files.map(file => {
+            return {
+                Bucket: process.env.AWS_BUCKET_NAME,
+                Key: file,
+            };
+        });
+    
+        return await Promise.all(
+            params.map(param => s3Client.send(new DeleteObjectCommand(param)))
+        );
+    }
 }
 
 module.exports = {

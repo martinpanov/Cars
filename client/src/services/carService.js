@@ -17,24 +17,12 @@ async function getCar(id) {
     return await get(`${url}/details/${id}`);
 }
 
-async function deleteCar(id) {
-    return await del(`${url}/details/${id}`);
-}
-
 async function getUserCars() {
     return await get(`${url}/myprofile/cars`);
 }
 
-async function getProfilePicture() {
-    return await get(`${url}/myprofile/picture`);
-}
-
-async function postProfilePicture(data) {
-    return await post(`${url}/myprofile/picture`, data);
-}
-
-async function searchCars(queryString) {
-    return await get(`${url}/catalog?${queryString}`);
+async function getUserRentCars() {
+    return await get(`${url}/myprofile/rentcars`);
 }
 
 async function getCarsHome() {
@@ -45,8 +33,8 @@ async function getRentCars() {
     return await get(`${url}/rentcar`);
 }
 
-async function getUserRentCars() {
-    return await get(`${url}/myprofile/rentcars`);
+async function searchCars(queryString) {
+    return await get(`${url}/catalog?${queryString}`);
 }
 
 async function searchRentCars(queryString) {
@@ -57,19 +45,32 @@ async function rentCar(carId) {
     return await get(`${url}/rentcar/${carId}`);
 }
 
+async function deleteCar(id) {
+    return await del(`${url}/details/${id}`);
+}
+
+async function getProfilePicture() {
+    return await get(`${url}/myprofile/picture`);
+}
+
+async function postProfilePicture(data) {
+    return await post(`${url}/myprofile/picture`, data);
+}
+
+
 export {
     sell,
     edit,
     getCars,
     getCar,
-    deleteCar,
     getUserCars,
-    getProfilePicture,
-    postProfilePicture,
-    searchCars,
     getCarsHome,
     getRentCars,
     getUserRentCars,
+    searchCars,
     searchRentCars,
-    rentCar
+    rentCar,
+    deleteCar,
+    getProfilePicture,
+    postProfilePicture
 };

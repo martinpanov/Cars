@@ -6,6 +6,10 @@ const jwtSecret = 'VerySecretMarto%#@!';
 
 const tokenBlacklist = new Set();
 
+async function getUser(username) {
+    return User.findOne({ username }).collation({ locale: 'en', strength: 2 });
+}
+
 async function register(username, password, repass) {
     const existing = await User.findOne({ username }).collation({ locale: 'en', strength: 2 });
     if (existing) {
@@ -69,6 +73,7 @@ function parseToken(token) {
 }
 
 module.exports = {
+    getUser,
     register,
     login,
     logout,

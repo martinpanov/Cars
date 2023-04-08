@@ -11,7 +11,6 @@ export default function Edit() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [user] = useContext(UserContext);
-    const [currentImage, setCurrentImage] = useState(0);
     const [newImageFiles, setNewImageFiles] = useState([]);
     const [car, setCar] = useState({});
 
@@ -148,8 +147,6 @@ export default function Edit() {
                 <ImageSlider
                     car={car}
                     setCar={setCar}
-                    currentImage={currentImage}
-                    setCurrentImage={setCurrentImage}
                     newImageFiles={newImageFiles}
                     setNewImageFiles={setNewImageFiles}
                 />

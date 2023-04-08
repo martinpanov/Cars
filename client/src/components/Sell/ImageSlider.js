@@ -1,27 +1,23 @@
-import { useState } from 'react';
 import styles from './ImageSlider.module.css';
 
 
 export default function ImageSlider({
     car,
     setCar,
-    newImageFiles,
-    setNewImageFiles
+    currentImage,
+    setCurrentImage,
 }) {
-    const [currentImage, setCurrentImage] = useState(0);
 
     const deleteImageHandler = (index) => {
-        const copyAllImages = [...car.imagesNames];
-        const imageNameToBeDeleted = copyAllImages.filter((image, imageIndex) => imageIndex === index);
+        const copyAllImages = [...car.images];
         copyAllImages.splice(index, 1);
 
-        setNewImageFiles(state => state.filter(image => image.name !== imageNameToBeDeleted));
-        setCar(car => ({ ...car, imagesNames: copyAllImages }));
+        setCar(car => ({ ...car, images: copyAllImages }));
         setCurrentImage(state => {
             if (state - 1 <= 0) {
                 return state = 0;
-            } else if (state + 1 >= car.imagesNames.length) {
-                return state = car.imagesNames.length - 2;
+            } else if (state + 1 >= car.images.length) {
+                return state = car.images.length - 2;
             } else {
                 return state;
             }
@@ -29,7 +25,7 @@ export default function ImageSlider({
     };
 
     const nextImageHandler = () => {
-        if (currentImage + 1 > car.imagesNames.length - 1) {
+        if (currentImage + 1 > car.images.length - 1) {
             setCurrentImage(0);
         } else {
             setCurrentImage(state => state + 1);
@@ -38,7 +34,7 @@ export default function ImageSlider({
 
     const previousImageHandler = () => {
         if (currentImage - 1 < 0) {
-            setCurrentImage(car.imagesNames.length - 1);
+            setCurrentImage(car.images.length - 1);
         } else {
             setCurrentImage(state => state - 1);
         }
@@ -52,11 +48,9 @@ export default function ImageSlider({
         <>
             <div className={styles["image-slider"]}>
                 <div className={styles["images"]}>
-                    {car.imagesNames?.length > 0 && (() => {
-                        const foundNewImage = newImageFiles.find(newImage => newImage.name === car.imagesNames[currentImage]);
-                        const imgSrc = foundNewImage ? URL.createObjectURL(foundNewImage) : `https://cars-image-storage.s3.amazonaws.com/${car.imagesNames[currentImage]}`;
-                        return <img src={imgSrc} alt="car" className={styles['active']} />;
-                    })()}
+                    {car.images.length > 0 ? <img src={URL.createObjectURL(car.images[currentImage])} alt="car" className={styles['active']} /> :
+                        <img src="/assets/default-car.png" alt="car" className={styles['active']} />
+                    }
                 </div>
 
                 <div className={styles["back-btn"]} onClick={previousImageHandler}>
@@ -66,18 +60,19 @@ export default function ImageSlider({
                     <i className="fa-sharp fa-solid fa-arrow-right"></i>
                 </div>
                 <div className={styles["thumbnails"]}>
-                    {car.imagesNames?.length > 0 && car.imagesNames.map((image, index) => {
-                        const newImageFile = newImageFiles.find(newImage => newImage.name === image);
-                        const imgSrc = newImageFile ? URL.createObjectURL(newImageFile) : `https://cars-image-storage.s3.amazonaws.com/${image}`;
+
+                    {car.images.length > 0 ? car.images.map((image, index) => {
                         if (index === currentImage) {
-                            return <img key={index} src={imgSrc} alt="carThumbnail" className={styles['active']} />;
+                            return <img key={index} src={URL.createObjectURL(image)} alt="carThumbnail" className={styles['active']} />;
                         } else {
                             return (<div key={index} className={styles["thumbnail-container"]}>
-                                <img src={imgSrc} alt="carThumbnail" onClick={() => changeImageHandler(index)} />
+                                <img src={URL.createObjectURL(image)} alt="carThumbnail" onClick={() => changeImageHandler(index)} />
                                 <div className={styles["delete-btn"]} onClick={() => deleteImageHandler(index)}>X</div>
                             </div>);
                         }
-                    })}
+                    }) :
+                        <img src="/assets/default-car.png" alt="carThumbnail" className={styles['active']} />
+                    }
                 </div>
             </div>
         </>
