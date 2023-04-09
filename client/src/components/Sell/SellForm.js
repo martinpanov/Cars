@@ -54,7 +54,6 @@ export default function SellForm({
         }
         
         setCar(car => ({ ...car, images: [...car.images, e.target.files[0]] }));
-        console.log(car.images)
     };
     
     const formValidation = (formData) => {
@@ -191,7 +190,7 @@ export default function SellForm({
                         <label>Phone Number</label>
                     </div>
                     <div className={styles['details-content']}>
-                        <input type="text" name="phoneNumber" placeholder="Fuel Type" value={car?.phoneNumber} onChange={changeHandler} />
+                        <input type="text" name="phoneNumber" placeholder="Phone Number" value={car?.phoneNumber} onChange={changeHandler} />
 
                     </div>
                 </div>
