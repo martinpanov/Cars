@@ -3,6 +3,13 @@
     display: flex;
 }
 
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .image-slider-section {
     width: 60%;
     min-height: 95vh;

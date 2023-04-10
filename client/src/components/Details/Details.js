@@ -10,6 +10,7 @@ export default function Details() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [user] = useContext(UserContext);
+    const [isLoading, setIsLoading] = useState(false);
     const [car, setCar] = useState({});
 
     useEffect(() => {
@@ -25,8 +26,13 @@ export default function Details() {
 
     const deletedHandler = async () => {
         try {
+            setIsLoading(true)
+
             await deleteCar(id);
-            navigate('/catalog');
+
+            setIsLoading(false);
+
+            return navigate('/catalog');
         } catch (error) {
             console.log(error);
         }
@@ -34,38 +40,42 @@ export default function Details() {
 
     return (
         <section id={styles["details-page"]}>
-            <div className={styles['image-slider-section']}>
-                <div className={styles['image-slider-details']}>
-                    <div className={styles['image-slider-model-and-brand']}>
-                        <div className={styles['brand-slider']}>
-                            <span>{car.manufacturer} {car.model}</span>
+            {isLoading ? <img className={styles['loading']} src='/assets/Gear-0.2s-200px-white-background.svg' alt='loading' /> :
+                <>
+                    <div className={styles['image-slider-section']}>
+                        <div className={styles['image-slider-details']}>
+                            <div className={styles['image-slider-model-and-brand']}>
+                                <div className={styles['brand-slider']}>
+                                    <span>{car.manufacturer} {car.model}</span>
+                                </div>
+
+                                <div className={styles['price-slider']}>
+                                    <span>${car.price}</span>
+                                </div>
+                            </div>
+
+                            {user && user.userId === car._ownerId ?
+                                <div className={styles['edit-and-delete']}>
+                                    <button onClick={editHandler}>
+                                        Edit
+                                    </button>
+                                    <button onClick={deletedHandler}>
+                                        Delete
+                                    </button>
+                                </div> :
+                                null
+                            }
                         </div>
 
-                        <div className={styles['price-slider']}>
-                            <span>${car.price}</span>
-                        </div>
+                        <ImageSlider car={car} />
                     </div>
 
-                    {user && user.userId === car._ownerId ?
-                        <div className={styles['edit-and-delete']}>
-                            <button onClick={editHandler}>
-                                Edit
-                            </button>
-                            <button onClick={deletedHandler}>
-                                Delete
-                            </button>
-                        </div> :
-                        null
-                    }
-                </div>
+                    <div className={styles['car-details-section']}>
+                        <CarDetails car={car} />
+                    </div>
 
-                <ImageSlider car={car} />
-            </div>
-
-            <div className={styles['car-details-section']}>
-                <CarDetails car={car} />
-            </div>
-
+                </>
+            }
         </section>
     );
 }

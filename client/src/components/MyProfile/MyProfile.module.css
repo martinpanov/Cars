@@ -8,6 +8,13 @@
     color: white;
 }
 
+.loading {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .my-profile-content {
     margin-top: 30px;
     width: 940px;

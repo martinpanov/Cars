@@ -9,7 +9,8 @@ export default function EditForm({
     car,
     setCar,
     newImageFiles,
-    setNewImageFiles
+    setNewImageFiles,
+    setIsLoading
 }) {
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
@@ -39,8 +40,13 @@ export default function EditForm({
             if (Object.keys(errors).length > 0) {
                 return;
             }
+            
+            setIsLoading(true)
 
             await edit(id, formData);
+
+            setIsLoading(false)
+
             return navigate(`/details/${id}`);
         } catch (error) {
             console.log(error);

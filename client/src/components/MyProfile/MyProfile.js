@@ -11,16 +11,22 @@ export default function MyProfile() {
     const [rentCars, setRentCars] = useState(null);
     const [showCatalogCars, setShowCatalogCars] = useState(true);
     const [profilePicture, setProfilePicture] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         getProfilePicture()
             .then(profilePicture => setProfilePicture(profilePicture));
 
         getUserCars()
-            .then(cars => setCatalogCars(cars));
+            .then(cars => {
+                setCatalogCars(cars);
+            });
 
         getUserRentCars()
-            .then(cars => setRentCars(cars));
+            .then(cars => {
+                setRentCars(cars);
+                setIsLoading(false);
+            });
     }, []);
 
     const imageUploadHandler = async (e) => {
@@ -70,9 +76,11 @@ export default function MyProfile() {
                 </div>
 
                 <div className={styles['cars']}>
-                    {showCatalogCars ?
-                        catalogCars.map(car => <MyProfileCars key={car._id} car={car} isRental={false} />) :
-                        rentCars.map(car => <MyProfileCars key={car._id} car={car} isRental={true} />)
+                    {isLoading ? <img className={styles['loading']} src='/assets/Gear-0.2s-200px-my-profile.svg' alt='loading' /> :
+                        showCatalogCars ?
+                            catalogCars.map(car => <MyProfileCars key={car._id} car={car} isRental={false} />) :
+                            rentCars.map(car => <MyProfileCars key={car._id} car={car} isRental={true} />)
+
                     }
                 </div>
 

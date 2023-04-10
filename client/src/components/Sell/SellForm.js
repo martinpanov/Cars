@@ -6,7 +6,8 @@ import { sell } from '../../services/carService';
 
 export default function SellForm({
     car,
-    setCar
+    setCar,
+    setIsLoading
 }) {
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
@@ -31,8 +32,12 @@ export default function SellForm({
             if (Object.keys(errors).length > 0) {
                 return;
             }
+
+            setIsLoading(true)
             
             await sell(formData);
+
+            setIsLoading(false)
             
             return navigate(`/catalog`);
         } catch (error) {
