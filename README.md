@@ -47,6 +47,7 @@ To set up the project locally, follow these steps:
 }
 ```
 There are 5 images that exist in the assets folder which you can use for the rentcars collection: bmw-rental.png, mazda.png, toyota-corolla.png, vw-passat.png, audi-s4.png
+
 5. Run the client by using `npm start` in the client directory
 6. Run the server by using `node index.js` in the server directory
 
