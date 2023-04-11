@@ -30,8 +30,25 @@ To set up the project locally, follow these steps:
 1. Clone the project repository from GitHub
 2. Access the client and the server folder and install the dependencies using `npm install`.
 3. Create a `.env` file in the server directory and add your AWS S3 AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, AWS_BUCKET_NAME
-4. Run the client by using `npm start` in the client directory
-5. Run the server by using `node index.js` in the server directory
+4. You need to set up a couple of documents in the "rentcars" collection in MongoDB. An example of one of such document looks like this:
+```
+{
+  "manufacturer": "BMW",
+  "model": "320d",
+  "price": 20,
+  "year": 2011,
+  "gearbox": "Automatic",
+  "city": "Sofia",
+  "fuelType": "Diesel",
+  "doors": "4/5",
+  "seats": 5,
+  "img": "/assets/bmw-rental.png",
+  "rentedBy": null
+}
+```
+There are 5 images that exist in the assets folder which you can use for the rentcars collection: bmw-rental.png, mazda.png, toyota-corolla.png, vw-passat.png, audi-s4.png
+5. Run the client by using `npm start` in the client directory
+6. Run the server by using `node index.js` in the server directory
 
 ## Project Features
 
