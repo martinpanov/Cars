@@ -10,13 +10,14 @@ export default function Details() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [user] = useContext(UserContext);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [car, setCar] = useState({});
 
     useEffect(() => {
         getCar(id)
             .then(car => {
                 setCar(car);
+                setIsLoading(false);
             });
     }, [id]);
 

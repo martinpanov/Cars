@@ -50,11 +50,11 @@ export default function RentCarCard({ carDetails: {
             <div className={styles["car-image"]}>
                 {isRented ?
                     <img src='/assets/rented.png' alt="car" /> :
-                    <Link to='/catalog'><img src={img} alt="car" /></Link>
+                    <img src={img} alt="car" />
                 }
             </div>
             <h2>
-                <Link to='/catalog'><span>{manufacturer} {model}</span></Link>
+                <span>{manufacturer} {model}</span>
             </h2>
 
             <div className={styles["car-specs-km-hp"]}>
