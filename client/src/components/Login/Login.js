@@ -13,6 +13,7 @@ export default function Login() {
         password: ''
     });
     const [errors, setErrors] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (user) {
@@ -23,48 +24,55 @@ export default function Login() {
     const changeHandler = (e) => {
         setValues(values => ({ ...values, [e.target.name]: e.target.value }));
     };
-    
+
     const loginFormHandler = async (e) => {
         e.preventDefault();
         try {
+            setIsLoading(true);
             const result = await login({ username: values.username, password: values.password });
             setUser({
                 accessToken: result.accessToken.accessToken,
                 username: result.username,
                 userId: result._id
             });
+            setIsLoading(false);
             navigate('/');
         } catch (error) {
+            setIsLoading(false);
             setErrors(error.message);
         }
     };
 
     return (
-        <div id={styles["login-register-page"]}>
-            <div className={styles["login-register-section"]}>
-                <Link to="/">
-                    <img src='/assets/logo-3-webp.webp' alt="logo" />
-                </Link>
-                <div className={styles["login-register-form-wrapper"]}>
-                    <div className={styles["errors"]}>
-                        {errors.length > 0 ? errors.map((error, index) => <p key={index}>{error}</p>) : <p>{errors}</p>}
+        <>
+            {isLoading ? <img className={styles['loading']} src='/assets/Gear-0.2s-200px-white-background.svg' alt='loading' /> :
+                <div id={styles["login-register-page"]}>
+                    <div className={styles["login-register-section"]}>
+                        <Link to="/">
+                            <img src='/assets/logo-3-webp.webp' alt="logo" />
+                        </Link>
+                        <div className={styles["login-register-form-wrapper"]}>
+                            <div className={styles["errors"]}>
+                                {errors.length > 0 ? errors.map((error, index) => <p key={index}>{error}</p>) : <p>{errors}</p>}
+                            </div>
+                            <form action="/auth/login" method="post" onSubmit={loginFormHandler} >
+                                <label><span>Username:</span></label>
+                                <input type="text" name="username" onChange={changeHandler} />
+                                <label><span>Password:</span></label>
+                                <input type="password" name="password" onChange={changeHandler} />
+                                <button>Login</button>
+                            </form>
+                        </div>
                     </div>
-                    <form action="/auth/login" method="post" onSubmit={loginFormHandler} >
-                        <label><span>Username:</span></label>
-                        <input type="text" name="username" onChange={changeHandler} />
-                        <label><span>Password:</span></label>
-                        <input type="password" name="password" onChange={changeHandler} />
-                        <button>Login</button>
-                    </form>
-                </div>
-            </div>
 
-            <div className={styles["image-section"]}>
-                <div className={styles["text-and-button"]}>
-                    <span>Don't have an account yet?</span>
-                    <Link to="/register"><button>Register</button></Link>
+                    <div className={styles["image-section"]}>
+                        <div className={styles["text-and-button"]}>
+                            <span>Don't have an account yet?</span>
+                            <Link to="/register"><button>Register</button></Link>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            }
+        </>
     );
 };
