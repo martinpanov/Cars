@@ -14,7 +14,7 @@ export default function Register() {
         repass: ''
     });
     const [errors, setErrors] = useState([]);
-    const [isLoading, setIsLoading] = useState(fales);
+    const [isLoading, setIsLoading] = useState(false);
 
 
     useEffect(() => {

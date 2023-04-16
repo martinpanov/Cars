@@ -1,0 +1,29 @@
+.pagination {
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    padding: 0px 10px;
+    justify-content: flex-end;
+}
+
+.pagination .btn {
+    background-color: transparent;
+    color: black;
+    margin-left: 2px;
+}
+
+.pagination button {
+    padding: 5px 10px;
+}
+
+.pagination button:hover {
+    cursor: pointer;
+    background-color: #3a86ff;
+    transition: all 0.5s ease 0s;
+}
+
+.pages {
+    padding: 0px 10px;
+    margin: 0;
+    margin-top: 5px;
+}

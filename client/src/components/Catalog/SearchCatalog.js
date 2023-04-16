@@ -42,9 +42,9 @@ export default function SearchCatalog({
         try {
             const nonEmptyFormValues = Object.entries(searchFormValues).filter(([key, value]) => value !== '');
             const searchParams = new URLSearchParams(Object.fromEntries(nonEmptyFormValues));
-            const filteredCars = await searchCars(searchParams.toString());
+            const { cars } = await searchCars(searchParams.toString());
 
-            setDisplayCars(filteredCars);
+            setDisplayCars(cars);
             navigate(`/catalog?${searchParams.toString()}`);
         } catch (error) {
             console.log(error);

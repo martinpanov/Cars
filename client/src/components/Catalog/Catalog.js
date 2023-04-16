@@ -1,35 +1,39 @@
 import styles from './Catalog.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { getCars, searchCars } from '../../services/carService';
 import { useEffect, useState } from 'react';
 import CatalogCarCard from './CatalogCarCard';
 import SearchCatalog from './SearchCatalog';
+import Pagination from './Pagination';
 
 export default function Catalog() {
     const [isLoading, setIsLoading] = useState(true);
     const [allCars, setAllCars] = useState(null);
     const [displayCars, setDisplayCars] = useState(null);
     const [earliestYear, setEarliestYear] = useState(null);
-    
+    const [pageNumbers, setPageNumbers] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
+
     useEffect(() => {
 
         // If you access the catalog page using a query string in the URL, you will be provided with the cars that match the search criteria
         (async function catalogCars() {
-            const cars = await getCars();
+            const { pagesCount, cars } = await getCars();
             if (cars.length === 0) {
                 return setIsLoading(false);
             }
             setAllCars(cars);
-
+            setPageNumbers(pagesCount);
+            
             if (window.location.search) {
                 const searchParams = new URLSearchParams(window.location.search);
                 try {
-                    const filteredCars = await searchCars(searchParams.toString());
-
+                    const { pagesCount, cars} = await searchCars(searchParams.toString());
+                    
                     const oldestCar = [...cars].sort((a, b) => a.year - b.year);
                     setEarliestYear(oldestCar[0].year);
-
-                    setDisplayCars(filteredCars);
+                    setPageNumbers(pagesCount)
+                    setDisplayCars(cars);
                     setIsLoading(false);
                 } catch (error) {
                     console.log(error);
@@ -58,7 +62,14 @@ export default function Catalog() {
 
                         <div className={styles["cars-listings"]}>
                             {displayCars && displayCars.map(car => <CatalogCarCard key={car._id} carDetails={car} />)}
+                            <Pagination
+                            pageNumbers={pageNumbers}
+                            setDisplayCars={setDisplayCars}
+                            currentPage={currentPage}
+                            setCurrentPage={setCurrentPage}
+                            />
                         </div>
+
                     </div> :
                     <div className={styles["no-listings"]}>
                         <h1>No listings yet. Be the first one!</h1>

@@ -35,9 +35,9 @@ dataController.get('/', async (req, res) => {
 dataController.get('/catalog', async (req, res) => {
     if (Object.keys(req.query).length === 0) {
         try {
-            const cars = await getAll();
-
-            res.json(cars);
+            const { count, cars } = await getAll();
+            const pagesCount = Math.ceil(count / 5);
+            res.json({ pagesCount, cars });
         } catch (error) {
             if (error.name === 'CastError') {
                 error.message = 'Cars not found';
@@ -61,10 +61,12 @@ dataController.get('/catalog', async (req, res) => {
             const toHp = req.query.toHp || 5000;
             const fromKm = req.query.fromKm || 0;
             const toKm = req.query.toKm || 99999999999;
+            const page = Number(req.query.page) || 1;
 
-            const cars = await getFiltered(manufacturer, model, fromPrice, toPrice, year, gearbox, city, fuelType, fromHp, toHp, fromKm, toKm);
+            const { count, cars } = await getFiltered(manufacturer, model, fromPrice, toPrice, year, gearbox, city, fuelType, fromHp, toHp, fromKm, toKm, page);
 
-            res.json(cars);
+            const pagesCount = Math.ceil(count / 5);
+            res.json({ pagesCount, cars });
         } catch (error) {
             const message = parseError(error);
             res.status(400).json({ message });
@@ -127,7 +129,7 @@ dataController.get('/rentcar/:id', hasUser(), async (req, res) => {
 
 dataController.post('/myprofile/picture', hasUser(), upload.single('image'), async (req, res) => {
     try {
-        const user = await getUser(req.user.username)
+        const user = await getUser(req.user.username);
 
         if (user.profilePicture) {
             await s3DeleteV3(user.profilePicture);
@@ -232,12 +234,12 @@ dataController.put('/edit/:id', hasUser(), upload.array('images', 12), async (re
             kilometers: Number(req.body.kilometers),
             imagesNames: (() => {
                 if (!req.body.imagesNames) {
-                    return [...req.files.map(file => file.originalname)]
+                    return [...req.files.map(file => file.originalname)];
                 }
                 if (Array.isArray(req.body.imagesNames)) {
-                    return [...req.body.imagesNames, ...req.files.map(file => file.originalname)]
+                    return [...req.body.imagesNames, ...req.files.map(file => file.originalname)];
                 }
-                return [req.body.imagesNames, ...req.files.map(file => file.originalname)]
+                return [req.body.imagesNames, ...req.files.map(file => file.originalname)];
             })()
         };
 

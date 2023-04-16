@@ -3,7 +3,11 @@ const RentCar = require('../models/RentCar');
 const User = require('../models/User');
 
 async function getAll() {
-    return Car.find().sort({ _createdAt: 'desc' });
+    const count = await Car.countDocuments();
+    const cars = await Car.find().sort({ _createdAt: 'desc' }).limit(5);
+    return {
+        count, cars
+    }
 }
 
 async function getUserCars(userId) {
@@ -18,7 +22,7 @@ async function getById(id) {
     return Car.findById(id);
 }
 
-async function getFiltered(manufacturer, model, fromPrice, toPrice, year, gearbox, city, fuelType, fromHp, toHp, fromKm, toKm) {
+async function getFiltered(manufacturer, model, fromPrice, toPrice, year, gearbox, city, fuelType, fromHp, toHp, fromKm, toKm, page) {
     const query = {};
     if (year) {
         query.year = { $gte: year };
@@ -47,7 +51,16 @@ async function getFiltered(manufacturer, model, fromPrice, toPrice, year, gearbo
     if (fuelType) {
         query.fuelType = fuelType;
     }
-    return Car.find(query);
+    
+    const skipIndex = (page - 1) * 5
+
+    const count = await Car.countDocuments(query);
+    const cars = await Car.find(query).sort({ _createdAt: 'desc' }).limit(5).skip(skipIndex);
+
+    return {
+        count,
+        cars
+    }
 }
 
 async function create(car) {
@@ -62,17 +75,17 @@ async function update(id, carData) {
     const car = await Car.findById(id);
 
     car.manufacturer = carData.manufacturer,
-    car.model = carData.model,
-    car.price = Number(carData.price),
-    car.year = Number(carData.year),
-    car.phoneNumber = String(carData.phoneNumber),
-    car.kilometers = Number(carData.kilometers),
-    car.description = carData.description,
-    car.gearbox = carData.gearbox,
-    car.horsePower = carData.horsePower,
-    car.city = carData.city,
-    car.fuelType = carData.fuelType,
-    car.imagesNames = carData.imagesNames;
+        car.model = carData.model,
+        car.price = Number(carData.price),
+        car.year = Number(carData.year),
+        car.phoneNumber = String(carData.phoneNumber),
+        car.kilometers = Number(carData.kilometers),
+        car.description = carData.description,
+        car.gearbox = carData.gearbox,
+        car.horsePower = carData.horsePower,
+        car.city = carData.city,
+        car.fuelType = carData.fuelType,
+        car.imagesNames = carData.imagesNames;
 
     await car.save();
 
@@ -125,17 +138,17 @@ async function rentCar(carId, userId) {
 async function getProfilePicture(username) {
     const user = await User.findOne({ username }).collation({ locale: 'en', strength: 2 });
 
-    return user.profilePicture
+    return user.profilePicture;
 }
 
 async function postProfilePicture(username, picture) {
     const user = await User.findOne({ username }).collation({ locale: 'en', strength: 2 });
 
-    user.profilePicture = picture
+    user.profilePicture = picture;
 
-    await user.save()
+    await user.save();
 
-    return user.profilePicture
+    return user.profilePicture;
 }
 
 module.exports = {
