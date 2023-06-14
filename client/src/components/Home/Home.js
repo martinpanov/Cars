@@ -7,7 +7,7 @@ import Header from './Header';
 export default function Home() {
     return (
         <>
-            <section id={styles.home}>
+            <section id={styles.hero}>
                 <Header />
             </section>
 
