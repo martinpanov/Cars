@@ -2,13 +2,13 @@ import styles from './Home.module.css';
 import LatestCarListings from './LatestCarListings';
 import RentalCars from './RentalCars';
 import WhyChooseUs from './WhyChooseUs';
-import Header from './Header';
+import Hero from './Hero';
 
 export default function Home() {
     return (
         <>
             <section id={styles.hero}>
-                <Header />
+                <Hero />
             </section>
 
             <section id={styles["home-2"]}>
