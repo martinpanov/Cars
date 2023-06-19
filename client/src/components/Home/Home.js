@@ -11,10 +11,8 @@ export default function Home() {
                 <Hero />
             </section>
 
-            <section id={styles["home-2"]}>
-                <div className={styles["home-h2"]}>
-                    <h2>Latest car listings</h2>
-                </div>
+            <section id={styles["car-listings"]}>
+                <h2>Latest car listings</h2>
                 <LatestCarListings />
             </section>
 
