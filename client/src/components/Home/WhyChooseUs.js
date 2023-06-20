@@ -9,7 +9,7 @@ export default function WhyChooseUs() {
                     Select Car
                 </h3>
                 <p>
-                    We offer a big range of vehicles for all <br /> your driving needs. We have the <br />perfect car to meet your needs
+                    We offer a big range of vehicles for all your driving needs. We have the perfect car to meet your needs
                 </p>
             </div>
 
@@ -19,7 +19,7 @@ export default function WhyChooseUs() {
                     Contact Operator
                 </h3>
                 <p>
-                    Our knowledgeable and friendly  <br />operators are always ready to help  <br />with any questions or concerns
+                    Our knowledgeable and friendly operators are always ready to help with any questions or concerns
                 </p>
             </div>
 
@@ -29,7 +29,7 @@ export default function WhyChooseUs() {
                     Let's Drive
                 </h3>
                 <p>
-                    Whether you're hitting the open road, <br />we've got you covered with our wide  <br />range of cars
+                    Whether you're hitting the open road, we've got you covered with our wide range of cars
                 </p>
             </div>
         </div>

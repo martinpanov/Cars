@@ -94,52 +94,50 @@ export default function RentalCars() {
                 <div className={styles["rental-cars-buttons"]}>
                     {cars && cars.map(car => <button key={car._id} onClick={() => changeHandler(car)}>{car.manufacturer} {car.model}</button>)}
                 </div>
-                <div className={styles["rental-cars-images-details"]}>
-                    <div className={styles["rental-car-image"]}>
-                        {rentalCar.isRented ?
-                            <img src='/assets/rented.png' alt="bmw" /> :
-                            <img src={rentalCar.image} alt="bmw" />
-                        }
+                <div className={styles["rental-car-image"]}>
+                    {rentalCar.isRented ?
+                        <img src='/assets/rented.png' alt="bmw" /> :
+                        <img src={rentalCar.image} alt="bmw" />
+                    }
+                </div>
+                <div className={styles["rental-car-details"]}>
+                    <div className={styles["rental-car-price"]}>
+                        <span>${rentalCar.price} / rent per day</span>
                     </div>
-                    <div className={styles["rental-car-details"]}>
-                        <div className={styles["rental-car-price"]}>
-                            <span>${rentalCar.price} / rent per day</span>
+
+                    <div className={styles["rental-car-specs"]}>
+
+                        <div className={styles["rental-car-manufacturer-col"]}>
+                            <span>Manufacturer</span>
+                            <span>{rentalCar.manufacturer}</span>
                         </div>
 
-                        <div className={styles["rental-car-specs"]}>
-
-                            <div className={styles["rental-car-manufacturer-col"]}>
-                                <span>Manufacturer</span>
-                                <span>{rentalCar.manufacturer}</span>
-                            </div>
-
-                            <div className={styles["rental-car-manufacturer-col"]}>
-                                <span>Model</span>
-                                <span>{rentalCar.model}</span>
-                            </div>
-
-                            <div className={styles["rental-car-manufacturer-col"]}>
-                                <span>Year</span>
-                                <span>{rentalCar.year}</span>
-                            </div>
-
-                            <div className={styles["rental-car-manufacturer-col"]}>
-                                <span>Transmission</span>
-                                <span>{rentalCar.transmission}</span>
-                            </div>
-
-                            <div className={styles["rental-car-manufacturer-col"]}>
-                                <span>Fuel</span>
-                                <span>{rentalCar.fuel}</span>
-                            </div>
+                        <div className={styles["rental-car-manufacturer-col"]}>
+                            <span>Model</span>
+                            <span>{rentalCar.model}</span>
                         </div>
-                        {!user && rentalCar.isRented ? null :
-                            !user && !rentalCar.isRented ? <button onClick={rentClickHandler}>Rent Car</button> :
-                                user && rentalCar.isRented && rentalCar.isOwner ? <button onClick={rentClickHandler}>Cancel Rent</button> :
-                                    user && rentalCar.isRented && !rentalCar.isOwner ? null :
-                                        <button onClick={rentClickHandler}>Rent now</button>
-                        }
+
+                        <div className={styles["rental-car-manufacturer-col"]}>
+                            <span>Year</span>
+                            <span>{rentalCar.year}</span>
+                        </div>
+
+                        <div className={styles["rental-car-manufacturer-col"]}>
+                            <span>Transmission</span>
+                            <span>{rentalCar.transmission}</span>
+                        </div>
+
+                        <div className={styles["rental-car-manufacturer-col"]}>
+                            <span>Fuel</span>
+                            <span>{rentalCar.fuel}</span>
+                        </div>
                     </div>
+                    {!user && rentalCar.isRented ? null :
+                        !user && !rentalCar.isRented ? <button onClick={rentClickHandler}>Rent Car</button> :
+                            user && rentalCar.isRented && rentalCar.isOwner ? <button onClick={rentClickHandler}>Cancel Rent</button> :
+                                user && rentalCar.isRented && !rentalCar.isOwner ? null :
+                                    <button onClick={rentClickHandler}>Rent now</button>
+                    }
                 </div>
             </div>
         </>

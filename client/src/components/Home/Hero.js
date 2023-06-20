@@ -1,4 +1,4 @@
-import styles from './Header.module.css';
+import styles from './Hero.module.css';
 import { Link } from "react-router-dom";
 
 export default function Header() {

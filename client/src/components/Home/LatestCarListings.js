@@ -20,23 +20,15 @@ export default function LatestCarListings() {
                             <div className={styles["car-listing-image"]}>
                                 <Link to={`/details/${car._id}`}><img src={`https://cars-image-storage.s3.amazonaws.com/${car.imagesNames[0]}`} alt="bmw" /></Link>
                             </div>
-
-                            <h2>
-                                <Link to={`/details/${car._id}`}><span>{car.manufacturer} {car.model}</span></Link>
-                            </h2>
-
-                            <div className={styles["car-specs-km-hp"]}>
-                                <i className="fa-solid fa-road"></i><span> {car.kilometers} km </span>
-                                <i className="fa-solid fa-horse"></i><span> {car.horsePower} hp </span>
-                            </div>
-
-                            <div className={styles["car-specs-gearbox-fuel"]}>
-                                <i className="fa fa-gears"></i><span> {car.gearbox} </span>
-                                <i className="fa fa-gas-pump"></i><span> {car.fuelType} </span>
-                            </div>
-
-                            <div className={styles["car-listing-price"]}>
-                                <span>${car.price}</span>
+                            <div className={styles["car-specs"]}>
+                                <h3 className={styles["manufacturer"]}>
+                                    <Link to={`/details/${car._id}`}>{car.manufacturer} {car.model}</Link>
+                                </h3>
+                                <span className={styles["kilometers"]}><i className="fa-solid fa-road"></i> {car.kilometers} km </span>
+                                <span className={styles["horse-power"]}><i className="fa-solid fa-horse"></i> {car.horsePower} hp </span>
+                                <span className={styles["gearbox"]}><i className="fa fa-gears"></i> {car.gearbox} </span>
+                                <span className={styles["fuel-type"]}><i className="fa fa-gas-pump"></i> {car.fuelType} </span>
+                                <span className={styles["price"]}>${car.price}</span>
                             </div>
                         </div>
                     );

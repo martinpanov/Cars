@@ -1,13 +1,16 @@
 .reasons {
-    height: 30vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 10rem;
 }
 
 .reason {
-    padding: 10px 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+    width: 300px;
 }
 
 .reason img {
@@ -17,5 +20,11 @@
 
 .reason h3 {
     font-size: 30px;
-    text-align: center;
+}
+
+@media (max-width: 1076px) {
+    .reasons {
+        flex-direction: column;
+        gap: 3rem;
+    }
 }

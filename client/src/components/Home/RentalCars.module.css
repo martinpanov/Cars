@@ -1,18 +1,19 @@
 .rental-cars {
     display: flex;
+    gap: 5rem;
+    max-width: 1250px;
 }
 
 .rental-cars-buttons {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-right: 100px;
+    gap: 0.75rem;
 }
 
 .rental-cars-buttons button {
     font-size: 23px;
     font-weight: 700;
-    margin-bottom: 10px;
     padding: 15px 45px;
     background-color: #e9e9e9;
     border: none;
@@ -28,18 +29,18 @@
     background-color: #3a86ff;
 }
 
-.rental-cars-images-details {
-    display: flex;
+.rental-car-image {
+    max-width: 550px;
+    max-height: 400px;
 }
 
 .rental-car-image img {
-    width: 500px;
-    height: 375px;
-    background-size: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .rental-car-details {
-    margin-left: 100px;
     display: flex;
     flex-direction: column;
 }
@@ -54,7 +55,6 @@
 .rental-car-manufacturer-col {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
     text-align: center;
     padding: 10px 5px;
     border-bottom: 2px solid black;
@@ -70,7 +70,6 @@
     font-size: 23px;
     font-weight: 700;
     margin-top: 20px;
-    margin-bottom: 10px;
     padding: 15px 45px;
     border: none;
     background-color: #3a86ff;
@@ -83,4 +82,22 @@
     box-shadow: 0 0 7px 0 rgba(58, 134, 255);
     transition: all 0.5s ease 0s;
     cursor: pointer;
+}
+
+@media (max-width: 1236px) {
+    .rental-cars {
+        gap: 0rem;
+    }
+}
+
+@media (max-width: 1076px) {
+    .rental-cars {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .rental-cars-buttons {
+        width: 100%;
+    }
 }

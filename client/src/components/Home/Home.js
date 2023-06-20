@@ -16,17 +16,13 @@ export default function Home() {
                 <LatestCarListings />
             </section>
 
-            <section id={styles["home-3"]}>
-                <div className={styles["home3-h2"]}>
-                    <h2>Rent a Reliable and Comfortable Car for Your Next Adventure</h2>
-                </div>
+            <section id={styles["rent-car"]}>
+                <h2>Rent a Reliable and Comfortable Car for Your Next Adventure</h2>
                 <RentalCars />
             </section>
 
             <section id={styles["home-4"]}>
-                <div className={styles["home4-h2"]}>
-                    <h2>Why Choose Us?</h2>
-                </div>
+                <h2>Why Choose Us?</h2>
                 <WhyChooseUs />
             </section>
 
