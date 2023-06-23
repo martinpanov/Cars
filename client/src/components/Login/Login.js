@@ -56,18 +56,19 @@ export default function Login() {
                                 {errors.length > 0 ? errors.map((error, index) => <p key={index}>{error}</p>) : <p>{errors}</p>}
                             </div>
                             <form action="/auth/login" method="post" onSubmit={loginFormHandler} >
-                                <label><span>Username:</span></label>
-                                <input type="text" name="username" onChange={changeHandler} />
-                                <label><span>Password:</span></label>
-                                <input type="password" name="password" onChange={changeHandler} />
+                                <label for="username">Username:</label>
+                                <input id="username" type="text" name="username" onChange={changeHandler} />
+                                <label for="password">Password:</label>
+                                <input id="password" type="password" name="password" onChange={changeHandler} />
                                 <button>Login</button>
                             </form>
+                            <p>Don't have an account yet? <Link to="/register">Register</Link></p>
                         </div>
                     </div>
 
                     <div className={styles["image-section"]}>
                         <div className={styles["text-and-button"]}>
-                            <span>Don't have an account yet?</span>
+                            <h1>Don't have an account yet?</h1>
                             <Link to="/register"><button>Register</button></Link>
                         </div>
                     </div>

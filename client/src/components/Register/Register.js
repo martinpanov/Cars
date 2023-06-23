@@ -51,9 +51,9 @@ export default function Register() {
             {isLoading ? <img className={styles['loading']} src='/assets/Gear-0.2s-200px-white-background.svg' alt='loading' /> :
                 <div id={styles["login-register-page"]}>
 
-                    <div className={styles["image-section-register"]}>
+                    <div className={styles["image-section"]}>
                         <div className={styles["text-and-button"]}>
-                            <span>You already have an account?</span>
+                            <h1>You already have an account?</h1>
                             <Link to="/login"><button>Login</button></Link>
                         </div>
                     </div>
@@ -69,12 +69,12 @@ export default function Register() {
                             </div>
 
                             <form action="/register" method="post" onSubmit={registerFormHandler}>
-                                <label><span>Username:</span></label>
-                                <input type="text" name="username" value={values.username} onChange={changeHandler} />
-                                <label><span>Password:</span></label>
-                                <input type="password" name="password" value={values.password} onChange={changeHandler} />
-                                <label><span>Repeat Password:</span></label>
-                                <input type="password" name="repass" value={values.repass} onChange={changeHandler} />
+                                <label for="username">Username:</label>
+                                <input id="username" type="text" name="username" value={values.username} onChange={changeHandler} />
+                                <label for="password">Password:</label>
+                                <input id="password" type="password" name="password" value={values.password} onChange={changeHandler} />
+                                <label for="repass">Repeat Password:</label>
+                                <input id="repass" type="password" name="repass" value={values.repass} onChange={changeHandler} />
                                 <button>Register</button>
                             </form>
                         </div>
