@@ -1,6 +1,9 @@
 #rent-car-page {
-    min-height: calc(100vh - 84px - 79.33px);
+    min-height: calc(100vh - 118px - 53px);
     background-color: #f5f7fb;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
 }
 
 .loading {
@@ -10,17 +13,31 @@
     transform: translate(-50%, -50%);
 }
 
-.search-rental-cars-wrapper {
-    display: flex;
-    justify-content: center;
-}
-
 .cars {
     align-items: center;
     display: grid;
-    gap: 40px 20px;
-    grid-template-columns: 0fr 0fr 0fr;
-    grid-template-rows: auto;
+    gap: 3rem;
+    grid-template-columns: repeat(3, 1fr);
     padding: 20px 0;
     text-align: center;
+}
+
+@media (max-width: 1368px) {
+    .cars {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 1000px) {
+    .cars {
+        grid-template-columns: 1fr
+    }
+}
+
+
+@media (max-width: 600px) {
+    #rent-car-page {
+        flex-direction: column;
+        align-items: center;
+    }
 }

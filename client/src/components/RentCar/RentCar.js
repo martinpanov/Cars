@@ -33,13 +33,12 @@ export default function RentCar() {
     return (
         <section id={styles['rent-car-page']}>
             {isLoading ? <img className={styles['loading']} src='/assets/Gear-0.2s-200px.svg' alt='loading' /> :
-                <div className={styles['search-rental-cars-wrapper']}>
+                <>
                     <SearchRentCar setCars={setCars} />
-
                     <div className={styles['cars']}>
                         {cars && cars.map(car => <RentCarCard key={car._id} carDetails={car} />)}
                     </div>
-                </div>
+                </>
             }
 
         </section>

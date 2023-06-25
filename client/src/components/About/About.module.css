@@ -31,6 +31,10 @@
     text-align: center;
 }
 
+.about-card img {
+    display: inline-block;
+}
+
 .about-card h2,
 .about-card p {
     color: #ffff;

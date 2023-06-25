@@ -53,33 +53,29 @@ export default function RentCarCard({ carDetails: {
                     <img src={img} alt="car" />
                 }
             </div>
-            <h2>
-                <span>{manufacturer} {model}</span>
-            </h2>
+            <div className={styles["details"]}>
+                <h2>{manufacturer} {model}</h2>
 
-            <div className={styles["car-specs-km-hp"]}>
-                <i className="fa-sharp fa-solid fa-users"></i><span> {seats} seats </span>
-                <i className="fa-solid fa-door-open"></i><span> {doors} doors </span>
-                <i className="fa-solid fa-snowflake"></i><span> A/C </span>
+                <div className={styles["car-specs"]}>
+                    <span className={styles["seats"]}><i className="fa-sharp fa-solid fa-users"></i> {seats} seats </span>
+                    <span className={styles["doors"]}><i className="fa-solid fa-door-open"></i> {doors} doors </span>
+                    <span className={styles["ac"]}><i className="fa-solid fa-snowflake"></i> A/C </span>
+                    <span className={styles["gearbox"]}><i className="fa fa-gears"></i> {gearbox} </span>
+                    <span className={styles["fuel"]}><i className="fa fa-gas-pump"></i> {fuelType} </span>
+                    <span className={styles["city"]}><i className="fa fa-city"></i> {city} </span>
+                </div>
+
+                <div className={styles["car-listing-price"]}>
+                    <span>${price} / day</span>
+                </div>
+
+                {!user && isRented ? null :
+                    !user && !isRented ? <Link to='/login'><button>Rent Car</button></Link> :
+                        user && isRented && isOwner ? <button onClick={rentCarHandler}>Cancel Rent</button> :
+                            user && isRented && !isOwner ? null :
+                                <button onClick={rentCarHandler}>Rent Car</button>
+                }
             </div>
-
-            <div className={styles["car-specs-gearbox-fuel"]}>
-                <i className="fa fa-gears"></i><span> {gearbox} </span>
-                <i className="fa fa-gas-pump"></i><span> {fuelType} </span>
-                <i className="fa fa-city"></i><span> {city} </span>
-            </div>
-
-            <div className={styles["car-listing-price"]}>
-                <span>${price} / day</span>
-            </div>
-
-            {!user && isRented ? null :
-                !user && !isRented ? <Link to='/login'><button>Rent Car</button></Link> :
-                    user && isRented && isOwner ? <button onClick={rentCarHandler}>Cancel Rent</button> :
-                        user && isRented && !isOwner ? null :
-                            <button onClick={rentCarHandler}>Rent Car</button>
-            }
-
         </div>
     );
 }

@@ -1,31 +1,25 @@
-.search {
-    background-color: white;
-    width: 210px;
-    padding: 30px 30px;
-    height: 560px;
-    margin-right: 50px;
-    margin-top: 50px;
-}
-
-.form-container {
+form {
     display: flex;
     flex-direction: column;
-    width: 150px;
+    background-color: white;
+    width: 210px;
+    gap: 1rem;
+    padding: 30px 30px;
+    height: 600px;
+    margin-top: 3rem;
 }
 
-.search form label {
+form label {
     font-size: 18px;
-    margin-bottom: 10px;
 }
 
-.search form select {
+form select {
     font-size: 16px;
-    margin-bottom: 20px;
     border: 1px solid #ccd7e6;
     padding: 8px 8px;
 }
 
-.search form label i {
+form label i {
     color: #3a86ff
 }
 
@@ -33,13 +27,33 @@
     font-size: 20px;
     font-weight: 700;
     padding: 15px 40px;
-    text-align: center;
     background-color: #3a86ff;
     color: white;
     border: none;
-    text-decoration: none;
 }
 
 .form-button:hover {
     cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    form {
+        padding: 0.75rem 0.75rem;
+        width: 100%;
+        flex-wrap: wrap;
+        height: 210px;
+    }
+
+    .form-button {
+        font-size: 18px;
+        padding: 28px 28px;
+    }
+
+    form label {
+        font-size: 16px;
+    }
+
+    form select {
+        padding: 6px 0px;
+    }
 }

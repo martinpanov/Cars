@@ -77,6 +77,7 @@ export default function Register() {
                                 <input id="repass" type="password" name="repass" value={values.repass} onChange={changeHandler} />
                                 <button>Register</button>
                             </form>
+                            <p>You already have an account? <Link to="/login">Login</Link></p>
                         </div>
                     </div>
                 </div>
