@@ -34,7 +34,7 @@ export default function SearchRentCar({ setCars }) {
     };
 
     return (
-        <form action="GET" onSubmit={formHandler}>
+        <form action="GET" onSubmit={formHandler} className={styles["rent-car-form"]}>
             <label>
                 <i className="fa-solid fa-users"></i>
                 <span> Seats</span>
