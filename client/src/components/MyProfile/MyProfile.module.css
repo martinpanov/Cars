@@ -1,7 +1,7 @@
 #my-profile {
     display: flex;
     justify-content: center;
-    min-height: calc(100vh - 84px - 79.33px);
+    min-height: calc(100vh - 118px - 53px);
     background-color: #24252A;
     border-top: 1px solid #545454;
     border-bottom: 1px solid #545454;
@@ -23,6 +23,7 @@
 
 .my-profile-details {
     display: flex;
+    gap: 1.25rem;
     border-bottom: 1px solid #545454;
 }
 
@@ -30,26 +31,19 @@
     width: 60%;
 }
 
-.username {
-    display: flex;
-    justify-content: flex-start;
+.my-profile-info span:last-child {
+    margin-left: 1rem;
 }
 
-.car-posts-count {
-    display: flex;
-    justify-content: flex-start;
-}
-
-.car-posts-count span:last-child {
-    margin-left: 30px;
-}
-
-.my-profile-image {
-    position: relative;
+.my-profile-image-section {
     display: flex;
     justify-content: center;
     width: 40%;
     margin-bottom: 40px;
+}
+
+.my-profile-image {
+    position: relative;
 }
 
 .my-profile-image img {
@@ -62,12 +56,9 @@
 .change-photo-button {
     position: absolute;
     top: 5px;
-    right: 110px;
-    height: 35px;
-    width: 35px;
+    right: 10px;
+    padding: 0.5rem 0.5rem;
     display: flex;
-    align-items: center;
-    justify-content: center;
     border-radius: 50%;
     background-color: #555555;
     font-size: 40px;
@@ -84,21 +75,17 @@
     color: #FFFFF7;
 }
 
-
 .car-types {
     display: flex;
     justify-content: center;
-    height: 50px;
+    gap: 1.25rem;
+    height: 2.25rem;
 }
 
 .car-types button {
     background-color: #24252A;
     color: white;
     border: none;
-}
-
-.car-types button:last-child {
-    margin-left: 20px;
 }
 
 .car-types button:focus {
@@ -109,32 +96,24 @@
     align-items: center;
     display: grid;
     gap: 40px 20px;
-    grid-template-columns: 0fr 0fr 0fr;
-    grid-template-rows: auto;
+    grid-template-columns: repeat(3, 1fr);
     padding: 20px 0;
     text-align: center;
 }
 
-.car {
-    width: 300px;
-    height: 300px;
+@media (max-width: 940px) {
+    .cars {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
-.car-image {
-    width: 100%;
-    height: 90%;
-}
+@media (max-width: 500px) {
+    .cars {
+        grid-template-columns: 1fr;
+    }
 
-.car-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.car-model {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 10%;
-    font-size: 20px;
+    .my-profile-image img {
+        width: 140px;
+        height: 140px;
+    }
 }

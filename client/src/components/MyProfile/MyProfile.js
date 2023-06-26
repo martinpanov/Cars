@@ -53,21 +53,19 @@ export default function MyProfile() {
         <section id={styles['my-profile']}>
             <div className={styles['my-profile-content']}>
                 <div className={styles['my-profile-details']}>
-                    <div className={styles['my-profile-image']}>
-                        {profilePicture ? <img src={`https://cars-image-storage.s3.amazonaws.com/${profilePicture}`} alt="cool-person" /> : <img src="/assets/profile-picture.jpg" alt="cool-person" />}
-                        <div className={styles["change-photo-button"]} onClick={() => fileInput.current.click()} >
-                            <input type="file" ref={fileInput} style={{ display: 'none' }} onChange={imageUploadHandler} />
-                            <i className="fa-solid fa-camera"></i>
+                    <div className={styles['my-profile-image-section']}>
+                        <div className={styles['my-profile-image']}>
+                            {profilePicture ? <img src={`https://cars-image-storage.s3.amazonaws.com/${profilePicture}`} alt="cool-person" /> : <img src="/assets/profile-picture.jpg" alt="cool-person" />}
+                            <div className={styles["change-photo-button"]} onClick={() => fileInput.current.click()} >
+                                <input type="file" ref={fileInput} style={{ display: 'none' }} onChange={imageUploadHandler} />
+                                <i className="fa-solid fa-camera"></i>
+                            </div>
                         </div>
                     </div>
                     <div className={styles['my-profile-info']}>
-                        <div className={styles['username']}>
-                            <h2>{user.username}</h2>
-                        </div>
-                        <div className={styles['car-posts-count']}>
-                            <span>{catalogCars ? catalogCars.length : 0} car listings</span>
-                            <span>{rentCars ? rentCars.length : 0} rented cars</span>
-                        </div>
+                        <h2>{user.username}</h2>
+                        <span>{catalogCars ? catalogCars.length : 0} car listings</span>
+                        <span>{rentCars ? rentCars.length : 0} rented cars</span>
                     </div>
                 </div>
                 <div className={styles['car-types']}>
@@ -83,7 +81,6 @@ export default function MyProfile() {
 
                     }
                 </div>
-
             </div>
         </section>
     );
