@@ -4,6 +4,7 @@
     height: 3rem;
     padding: 0px 10px;
     justify-content: flex-end;
+    margin-bottom: 1.75rem;
 }
 
 .pagination .btn {

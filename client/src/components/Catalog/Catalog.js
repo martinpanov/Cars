@@ -1,5 +1,5 @@
 import styles from './Catalog.module.css';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getCars, searchCars } from '../../services/carService';
 import { useEffect, useState } from 'react';
 import CatalogCarCard from './CatalogCarCard';
@@ -24,15 +24,15 @@ export default function Catalog() {
             }
             setAllCars(cars);
             setPageNumbers(pagesCount);
-            
+
             if (window.location.search) {
                 const searchParams = new URLSearchParams(window.location.search);
                 try {
-                    const { pagesCount, cars} = await searchCars(searchParams.toString());
-                    
+                    const { pagesCount, cars } = await searchCars(searchParams.toString());
+
                     const oldestCar = [...cars].sort((a, b) => a.year - b.year);
                     setEarliestYear(oldestCar[0].year);
-                    setPageNumbers(pagesCount)
+                    setPageNumbers(pagesCount);
                     setDisplayCars(cars);
                     setIsLoading(false);
                 } catch (error) {
@@ -53,24 +53,26 @@ export default function Catalog() {
         <section id={styles["catalog-page"]}>
             {isLoading ? <img className={styles['loading']} src='/assets/Gear-0.2s-200px.svg' alt='loading' /> :
                 allCars ?
-                    <div className={styles["search-cars-wrapper"]}>
+                    <>
                         <SearchCatalog
                             allCars={allCars}
                             earliestYear={earliestYear}
                             setDisplayCars={setDisplayCars}
                         />
 
-                        <div className={styles["cars-listings"]}>
-                            {displayCars && displayCars.map(car => <CatalogCarCard key={car._id} carDetails={car} />)}
+                        <div className={styles["cars-listings-section"]}>
+                            <div className={styles["cars-listings"]}>
+                                {displayCars && displayCars.map(car => <CatalogCarCard key={car._id} carDetails={car} />)}
+                            </div>
                             <Pagination
-                            pageNumbers={pageNumbers}
-                            setDisplayCars={setDisplayCars}
-                            currentPage={currentPage}
-                            setCurrentPage={setCurrentPage}
+                                pageNumbers={pageNumbers}
+                                setDisplayCars={setDisplayCars}
+                                currentPage={currentPage}
+                                setCurrentPage={setCurrentPage}
                             />
                         </div>
-
-                    </div> :
+                    </>
+                    :
                     <div className={styles["no-listings"]}>
                         <h1>No listings yet. Be the first one!</h1>
                         <button><Link to="/sell">Create Car Listing</Link></button>

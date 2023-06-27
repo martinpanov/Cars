@@ -28,11 +28,11 @@ export default function CatalogCarCard({ carDetails: {
                     {description.slice(0, 66)}
                 </p>
                 <div className={styles["car-specs"]}>
-                    <i className="fa-solid fa-road"></i><span> {kilometers} km </span>
-                    <i className="fa-solid fa-horse"></i><span> {horsePower} hp </span>
-                    <i className="fa fa-gears"></i><span> {gearbox} </span>
-                    <i className="fa fa-gas-pump"></i><span> {fuelType} </span>
-                    <i className="fa fa-city"></i><span> {city} </span>
+                    <span><i className="fa-solid fa-road"></i> {kilometers} km </span>
+                    <span><i className="fa-solid fa-horse"></i> {horsePower} hp </span>
+                    <span><i className="fa fa-gears"></i> {gearbox} </span>
+                    <span><i className="fa fa-gas-pump"></i> {fuelType} </span>
+                    <span><i className="fa fa-city"></i> {city} </span>
                 </div>
             </div>
             <div className={styles["car-listing-price"]}>
