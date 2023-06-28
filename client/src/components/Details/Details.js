@@ -27,7 +27,7 @@ export default function Details() {
 
     const deletedHandler = async () => {
         try {
-            setIsLoading(true)
+            setIsLoading(true);
 
             await deleteCar(id);
 
@@ -46,13 +46,8 @@ export default function Details() {
                     <div className={styles['image-slider-section']}>
                         <div className={styles['image-slider-details']}>
                             <div className={styles['image-slider-model-and-brand']}>
-                                <div className={styles['brand-slider']}>
-                                    <span>{car.manufacturer} {car.model}</span>
-                                </div>
-
-                                <div className={styles['price-slider']}>
-                                    <span>${car.price}</span>
-                                </div>
+                                <h1 className={styles['brand-slider']}>{car.manufacturer} {car.model}</h1>
+                                <h2 className={styles['price-slider']}>${car.price}</h2>
                             </div>
 
                             {user && user.userId === car._ownerId ?

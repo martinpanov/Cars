@@ -1,5 +1,5 @@
 #details-page {
-    min-height: calc(100vh - 84px - 79.33px);
+    min-height: calc(100vh - 118px - 53px);
     display: flex;
 }
 
@@ -12,18 +12,15 @@
 
 .image-slider-section {
     width: 60%;
-    min-height: 95vh;
     background-color: #f5f7fb;
 }
 
 .image-slider-details {
     margin-top: 20px;
+    margin-left: 50px;
     display: flex;
     justify-content: space-between;
-}
-
-.edit-and-delete {
-    margin-top: 10px;
+    align-items: center;
 }
 
 .edit-and-delete button {
@@ -44,30 +41,22 @@
     background-color: #e63946;
 }
 
-
 .brand-slider {
-    margin-left: 50px;
-}
-
-.brand-slider span {
     font-size: 35px;
     font-weight: 700;
 }
 
 .price-slider {
     margin-top: 10px;
-    margin-left: 50px;
 }
 
-.price-slider span {
+.price-slider {
     font-size: 21px;
     font-weight: 700;
     color: #3a86ff;
 }
 
-
 .car-details-section {
-    min-height: 95vh;
-    padding-bottom: 50px;
+    /* padding-bottom: 50px; */
     width: 40%;
 }

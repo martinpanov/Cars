@@ -6,111 +6,66 @@ export default function CarDetails({
     return (
         <>
             <div className={styles['details']}>
-                <div className={styles['name']}>
-                    <label>Year</label>
-                </div>
-
-                <div className={styles['details-content']}>
-                    <p>
-                        {car.year}
-                    </p>
-                </div>
+                <span>Year</span>
+                <span>
+                    {car.year}
+                </span>
             </div>
 
             <div className={styles['details']}>
-                <div className={styles['name']}>
-                    <label>Horse Power</label>
-                </div>
-
-                <div className={styles['details-content']}>
-                    <p>
-                        {car.horsePower}
-                    </p>
-                </div>
+                <span>Horse Power</span>
+                <p>
+                    {car.horsePower}
+                </p>
             </div>
 
             <div className={styles['details']}>
-                <div className={styles['name']}>
-                    <label>Gearbox</label>
-                </div>
-
-                <div className={styles['details-content']}>
-                    <p>
-                        {car.gearbox}
-                    </p>
-                </div>
+                <span>Gearbox</span>
+                <span>
+                    {car.gearbox}
+                </span>
             </div>
 
             <div className={styles['details']}>
-                <div className={styles['name']}>
-                    <label>Kilometers</label>
-                </div>
-
-                <div className={styles['details-content']}>
-                    <p>
-                        {car.kilometers}
-                    </p>
-                </div>
+                <span>Kilometers</span>
+                <span>
+                    {car.kilometers}
+                </span>
             </div>
 
             <div className={styles['details']}>
-                <div className={styles['name']}>
-                    <label>Fuel Type</label>
-                </div>
-
-                <div className={styles['details-content']}>
-                    <p>
-                        {car.fuelType}
-                    </p>
-                </div>
+                <span>Fuel Type</span>
+                <span>
+                    {car.fuelType}
+                </span>
             </div>
 
             <div className={styles['details']}>
-                <div className={styles['name']}>
-                    <label>Description</label>
-                </div>
-
-                <div className={styles['details-content']}>
-                    <p>
-                        {car.description}
-                    </p>
-                </div>
+                <span>Description</span>
+                <p>
+                    {car.description}
+                </p>
             </div>
 
             <div className={styles['details']}>
-                <div className={styles['name']}>
-                    <label>City</label>
-                </div>
-
-                <div className={styles['details-content']}>
-                    <p>
-                        {car.city}
-                    </p>
-                </div>
+                <span>City</span>
+                <span>
+                    {car.city}
+                </span>
             </div>
 
             <div className={styles['details']}>
-                <div className={styles['name']}>
-                    <label>Phone Number</label>
-                </div>
-
-                <div className={styles['details-content']}>
-                    <p>
-                        {car.phoneNumber}
-                    </p>
-                </div>
+                <span>Phone Number</span>
+                <span>
+                    {car.phoneNumber}
+                </span>
             </div>
 
             <div className={styles['price-car-brand']}>
-                <div className={styles['brand']}>
-                    <span>{car.manufacturer} {car.model}</span>
-                </div>
-
-                <div className={styles['price']}>
-                    <span>
-                        ${car.price}
-                    </span>
-                </div>
+                <h2>{car.manufacturer} {car.model}</h2>
+                <h3>
+                    ${car.price}
+                </h3>
             </div>
         </>
     );
