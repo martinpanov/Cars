@@ -36,3 +36,9 @@
     font-weight: 700;
     color: white;
 }
+
+@media (max-width: 1240px) {
+    /* .details {
+        width: 100%;
+    } */
+}
