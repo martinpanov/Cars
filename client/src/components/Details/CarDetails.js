@@ -14,9 +14,9 @@ export default function CarDetails({
 
             <div className={styles['details']}>
                 <span>Horse Power</span>
-                <p>
+                <span>
                     {car.horsePower}
-                </p>
+                </span>
             </div>
 
             <div className={styles['details']}>
