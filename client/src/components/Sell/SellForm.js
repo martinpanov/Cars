@@ -16,7 +16,7 @@ export default function SellForm({
         e.preventDefault();
         try {
             const formData = new FormData();
-            
+
             for (let [key, value] of Object.entries(car)) {
                 if (key === 'images') {
                     for (let image of car?.images) {
@@ -26,25 +26,25 @@ export default function SellForm({
                     formData.append(key, value);
                 }
             };
-            
+
             formValidation(formData);
-            
+
             if (Object.keys(errors).length > 0) {
                 return;
             }
 
-            setIsLoading(true)
-            
+            setIsLoading(true);
+
             await sell(formData);
 
-            setIsLoading(false)
-            
+            setIsLoading(false);
+
             return navigate(`/catalog`);
         } catch (error) {
             console.log(error);
         }
     };
-    
+
     const changeHandler = (e) => {
         setCar(car => ({ ...car, [e.target.name]: e.target.value }));
     };
@@ -53,14 +53,14 @@ export default function SellForm({
         if (e.target.files.length <= 0) {
             return;
         }
-        
+
         if (car?.images.length >= 12) {
             return setErrors(errors => ({ ...errors, images: 'You can upload 12 images at most' }));
         }
-        
+
         setCar(car => ({ ...car, images: [...car.images, e.target.files[0]] }));
     };
-    
+
     const formValidation = (formData) => {
         let errors = {};
         for (let [key, value] of formData.entries()) {
@@ -113,107 +113,68 @@ export default function SellForm({
         <>
             <form id="sell-form" action='/sell' onSubmit={sellFormHandler} encType="multipart/form-data" >
                 <div className={styles['details']}>
-                    {errors?.year && <p>{errors.year}</p>}
-                    <div className={styles['name']}>
-                        <label>Year</label>
-                    </div>
-                    <div className={styles['details-content']}>
-                        <input type="number" name="year" placeholder="Year" value={car?.year} onChange={changeHandler} />
-                    </div>
+                    {errors?.year && <p className={styles["error"]}>{errors.year}</p>}
+                    <span>Year</span>
+                    <input type="number" name="year" placeholder="Year" value={car?.year} onChange={changeHandler} />
                 </div>
 
                 <div className={styles['details']}>
-                    {errors?.horsePower && <p>{errors.horsePower}</p>}
-                    <div className={styles['name']}>
-                        <label>Horse Power</label>
-                    </div>
-                    <div className={styles['details-content']}>
-                        <input type="number" name="horsePower" placeholder="Horse Power" value={car?.horsePower} onChange={changeHandler} />
-                    </div>
+                    {errors?.horsePower && <p className={styles["error"]}>{errors.horsePower}</p>}
+                    <span>Horse Power</span>
+                    <input type="number" name="horsePower" placeholder="Horse Power" value={car?.horsePower} onChange={changeHandler} />
                 </div>
 
                 <div className={styles['details']}>
-                    {errors?.gearbox && <p>{errors.gearbox}</p>}
-                    <div className={styles['name']}>
-                        <label>Gearbox</label>
-                    </div>
-                    <div className={styles['details-content']} >
-                        <select name="gearbox" value={car?.gearbox} onChange={changeHandler}>
-                            <option value="Manual">Manual</option>
-                            <option value="Automatic">Automatic</option>
-                        </select>
-                    </div>
+                    {errors?.gearbox && <p className={styles["error"]}>{errors.gearbox}</p>}
+                    <span>Gearbox</span>
+                    <select name="gearbox" value={car?.gearbox} onChange={changeHandler}>
+                        <option value="Manual">Manual</option>
+                        <option value="Automatic">Automatic</option>
+                    </select>
                 </div>
 
                 <div className={styles['details']}>
-                    {errors?.kilometers && <p>{errors.kilometers}</p>}
-                    <div className={styles['name']}>
-                        <label>Kilometers</label>
-                    </div>
-                    <div className={styles['details-content']}>
-                        <input type="number" name="kilometers" placeholder="Kilometers" value={car?.kilometers} onChange={changeHandler} />
-                    </div>
+                    {errors?.kilometers && <p className={styles["error"]}>{errors.kilometers}</p>}
+                    <span>Kilometers</span>
+                    <input type="number" name="kilometers" placeholder="Kilometers" value={car?.kilometers} onChange={changeHandler} />
                 </div>
 
                 <div className={styles['details']}>
-                    {errors?.fuelType && <p>{errors.fuelType}</p>}
-
-                    <div className={styles['name']}>
-                        <label>Fuel Type</label>
-                    </div>
-                    <div className={styles['details-content']}>
-                        <select name="fuelType" value={car?.fuelType} onChange={changeHandler}>
-                            <option value="Petrol">Petrol</option>
-                            <option value="Diesel">Diesel</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div className={styles['details-description']}>
-                    {errors?.description && <p>{errors.description}</p>}
-                    <div className={styles['name']}>
-                        <label>Description</label>
-                    </div>
-                    <div className={styles['details-content-description']}>
-                        <textarea name="description" placeholder="Description" value={car?.description} onChange={changeHandler}></textarea>
-                    </div>
+                    {errors?.fuelType && <p className={styles["error"]}>{errors.fuelType}</p>}
+                    <span>Fuel Type</span>
+                    <select name="fuelType" value={car?.fuelType} onChange={changeHandler}>
+                        <option value="Petrol">Petrol</option>
+                        <option value="Diesel">Diesel</option>
+                    </select>
                 </div>
 
                 <div className={styles['details']}>
-                    {errors?.city && <p>{errors.city}</p>}
-                    <div className={styles['name']}>
-                        <label>City</label>
-                    </div>
-                    <div className={styles['details-content']}>
-                        <input type="text" name="city" placeholder="City" value={car?.city} onChange={changeHandler} />
-                    </div>
+                    {errors?.description && <p className={styles["error"]}>{errors.description}</p>}
+                    <span>Description</span>
+                    <textarea name="description" placeholder="Description" value={car?.description} onChange={changeHandler}></textarea>
                 </div>
 
                 <div className={styles['details']}>
-                    {errors?.phoneNumber && <p>{errors.phoneNumber}</p>}
-                    <div className={styles['name']}>
-                        <label>Phone Number</label>
-                    </div>
-                    <div className={styles['details-content']}>
-                        <input type="text" name="phoneNumber" placeholder="Phone Number" value={car?.phoneNumber} onChange={changeHandler} />
-
-                    </div>
+                    {errors?.city && <p className={styles["error"]}>{errors.city}</p>}
+                    <span>City</span>
+                    <input type="text" name="city" placeholder="City" value={car?.city} onChange={changeHandler} />
                 </div>
 
                 <div className={styles['details']}>
-                    {errors?.images && <p>{errors.images}</p>}
-                    <div className={styles['name']}>
-                        <label>Pictures</label>
-                    </div>
-                    <div className={styles['details-content']}>
-                        <input type="file" name="images" accept="images/*" onChange={imageUploadHandler} />
-                    </div>
+                    {errors?.phoneNumber && <p className={styles["error"]}>{errors.phoneNumber}</p>}
+                    <span>Phone Number</span>
+                    <input type="text" name="phoneNumber" placeholder="Fuel Type" value={car?.phoneNumber} onChange={changeHandler} />
                 </div>
 
+                <div className={styles['details']}>
+                    {errors?.images && <p className={styles["error"]}>{errors.images}</p>}
+                    <span>Pictures</span>
+                    <input type="file" name="images" accept="images/*" onChange={imageUploadHandler} />
+                </div>
 
-                {(errors?.manufacturer || errors?.model || errors?.price) && <p>{errors.manufacturer}<br />{errors.model}<br />{errors.price}</p>}
+                {(errors?.manufacturer || errors?.model) && <p className={styles["error"]}>{errors.manufacturer}<br />{errors.model}</p>}
+                {errors?.price && <p className={styles["error"]}>{errors.price}</p>}
                 <div className={styles['price-car-brand']}>
-
                     <div className={styles['brand']}>
                         <input type="text" name="manufacturer" placeholder="Manufacturer" value={car?.manufacturer} onChange={changeHandler} />
                         <input type="text" name="model" placeholder="Model" value={car?.model} onChange={changeHandler} />

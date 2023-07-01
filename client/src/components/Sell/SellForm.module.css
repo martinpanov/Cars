@@ -1,15 +1,26 @@
+.details {
+    border-bottom: 1px solid #adadad;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+}
 
-.details-description textarea {
-    width: 100%;
-    height: 100%;
-    resize: none;
+.details span:first-child {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.details span:last-child,
+.details p {
+    color: #939393;
 }
 
 .details input,
-.brand input,
-.price input,
-.details-description textarea,
-.details select {
+.details textarea,
+.details select,
+.price-car-brand input {
+    width: 100%;
     font-size: 16px;
     color: #939393;
     background: transparent;
@@ -17,84 +28,38 @@
     cursor: pointer;
 }
 
-.details:focus,
-.brand input,
-.price input,
-.details option {
-    color: black;
+.details textarea {
+    resize: none;
 }
 
-.details {
-    min-height: 9%;
-    border-bottom: 1px solid #adadad;
-}
-
-.details p {
+.details .error {
     color: red;
-    margin-left: 30px;
-    margin-bottom: 0;
-}
-
-
-.details-description {
-    min-height: 15%;
-    border-bottom: 1px solid #adadad;
-}
-
-.name {
-    width: 100%;
-    min-height: 30px;
-    padding: 20px 30px 0px 30px;
-}
-
-.name label {
-    font-size: 17px;
-    font-weight: 700;
-}
-
-
-.details-content-description {
-    height: 90px;
-    padding: 10px 30px;
-}
-
-.details-content {
-    display: flex;
-    align-items: center;
-    min-height: 50px;
-    padding: 0px 30px;
 }
 
 .price-car-brand {
-    margin-top: 10px;
-    min-height: 80px;
+    padding: 1.25rem 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.price-car-brand input {
+    font-size: 22px;
+    font-weight: 700;
+    color: black;
+}
+
 .brand {
     display: flex;
     flex-direction: column;
-    font-size: 22px;
-    font-weight: 700;
-}
-
-.brand input {
-    color: black;
-    font-size: 22px;
-    font-weight: 700;
-    margin-left: 30px;
 }
 
 .price {
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
 .price input {
-    width: 50%;
     color: black;
     font-size: 21px;
     font-weight: 700;
