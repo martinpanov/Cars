@@ -65,6 +65,10 @@ dataController.get('/catalog', async (req, res) => {
 
             const { count, cars } = await getFiltered(manufacturer, model, fromPrice, toPrice, year, gearbox, city, fuelType, fromHp, toHp, fromKm, toKm, page);
 
+            if (cars.length === 0) {
+                throw new Error('Cars not found')
+            }
+
             const pagesCount = Math.ceil(count / 5);
             res.json({ pagesCount, cars });
         } catch (error) {

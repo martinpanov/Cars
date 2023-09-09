@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { getRentCars, rentCar } from '../../services/carService';
 import { UserContext } from '../../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 export default function RentalCars() {
     const navigate = useNavigate();
@@ -84,7 +85,7 @@ export default function RentalCars() {
 
             setRentalCar(state => ({ ...state, isRented: !state.isRented, isOwner: !state.isOwner }));
         } catch (error) {
-            console.log(error);
+            error.message.forEach(err => toast.error(err))
         }
     };
 

@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './SellForm.module.css';
 import { useState } from 'react';
 import { sell } from '../../services/carService';
+import toast from 'react-hot-toast';
 
 
 export default function SellForm({
@@ -41,7 +42,7 @@ export default function SellForm({
 
             return navigate(`/catalog`);
         } catch (error) {
-            console.log(error);
+            error.message.forEach(err => toast.error(err))
         }
     };
 

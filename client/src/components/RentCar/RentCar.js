@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { getRentCars, searchRentCars } from '../../services/carService';
 import RentCarCard from './RentCarCard';
 import SearchRentCar from './SearchRentCar';
+import toast from 'react-hot-toast';
 
 export default function RentCar() {
     const [isLoading, setIsLoading] = useState(true);
@@ -18,7 +19,7 @@ export default function RentCar() {
                     setCars(filteredCars);
                     setIsLoading(false);
                 } catch (error) {
-                    console.log(error);
+                    error.message.forEach(err => toast.error(err))
                 }
             } else {
                 const cars = await getRentCars();

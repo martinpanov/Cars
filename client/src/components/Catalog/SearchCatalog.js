@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { searchCars } from "../../services/carService";
 import { useState } from "react";
 import styles from './SearchCatalog.module.css';
+import toast from "react-hot-toast";
 
 export default function SearchCatalog({
     allCars,
@@ -47,7 +48,7 @@ export default function SearchCatalog({
             setDisplayCars(cars);
             navigate(`/catalog?${searchParams.toString()}`);
         } catch (error) {
-            console.log(error);
+            error.message.forEach(err => toast.error(err))
         }
     };
     return (
@@ -78,12 +79,12 @@ export default function SearchCatalog({
                     <option value={earliestYear}>After {earliestYear}</option>
                 </select>
                 <label>
-                    <i class="fa-solid fa-money-bill"></i>
+                    <i className="fa-solid fa-money-bill"></i>
                     <span> From Price</span>
                 </label>
                 <input type="number" name="fromPrice" placeholder="From Price" onChange={changeHandler} />
                 <label>
-                    <i class="fa-solid fa-money-bill"></i>
+                    <i className="fa-solid fa-money-bill"></i>
                     <span> To Price</span>
                 </label>
                 <input type="number" name="toPrice" placeholder="To Price" onChange={changeHandler} />

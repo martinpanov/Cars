@@ -60,7 +60,5 @@ There are 5 images that exist in the assets folder which you can use for the ren
 
 ## Future Improvements
 
- * Make the website with a responsive design
  * Specify the exact date that you will be renting the car from and to
- * Add a better error handling
  * Add loading gear icons on more pages

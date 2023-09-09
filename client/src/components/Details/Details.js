@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import ImageSlider from './ImageSlider';
 import CarDetails from './CarDetails';
+import toast from 'react-hot-toast';
 
 export default function Details() {
     const { id } = useParams();
@@ -35,7 +36,7 @@ export default function Details() {
 
             return navigate('/catalog');
         } catch (error) {
-            console.log(error);
+            error.message.forEach(err => toast.error(err))
         }
     };
 

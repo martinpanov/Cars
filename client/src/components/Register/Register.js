@@ -69,11 +69,11 @@ export default function Register() {
                             </div>
 
                             <form action="/register" method="post" onSubmit={registerFormHandler}>
-                                <label for="username">Username:</label>
+                                <label htmlFor="username">Username:</label>
                                 <input id="username" type="text" name="username" value={values.username} onChange={changeHandler} />
-                                <label for="password">Password:</label>
+                                <label htmlFor="password">Password:</label>
                                 <input id="password" type="password" name="password" value={values.password} onChange={changeHandler} />
-                                <label for="repass">Repeat Password:</label>
+                                <label htmlFor="repass">Repeat Password:</label>
                                 <input id="repass" type="password" name="repass" value={values.repass} onChange={changeHandler} />
                                 <button>Register</button>
                             </form>

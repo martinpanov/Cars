@@ -1,12 +1,14 @@
 import styles from './Catalog.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getCars, searchCars } from '../../services/carService';
 import { useEffect, useState } from 'react';
 import CatalogCarCard from './CatalogCarCard';
 import SearchCatalog from './SearchCatalog';
 import Pagination from './Pagination';
+import toast from 'react-hot-toast';
 
 export default function Catalog() {
+    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
     const [allCars, setAllCars] = useState(null);
     const [displayCars, setDisplayCars] = useState(null);
@@ -36,7 +38,10 @@ export default function Catalog() {
                     setDisplayCars(cars);
                     setIsLoading(false);
                 } catch (error) {
-                    console.log(error);
+                    error.message.forEach(err => toast.error(err));
+                    setIsLoading(false);
+                    setDisplayCars(cars);
+                    navigate('/catalog')
                 }
             } else {
                 const oldestCar = [...cars].sort((a, b) => a.year - b.year);
@@ -47,7 +52,7 @@ export default function Catalog() {
         }
         )();
 
-    }, []);
+    }, [navigate]);
 
     return (
         <section id={styles["catalog-page"]}>

@@ -1,6 +1,7 @@
 import styles from './Pagination.module.css';
 import { useNavigate } from "react-router-dom";
 import { searchCars } from "../../services/carService";
+import toast from 'react-hot-toast';
 
 export default function Pagination({
     pageNumbers,
@@ -38,7 +39,7 @@ export default function Pagination({
             setDisplayCars(cars);
             return navigate(`/catalog?${queryParams}`);
         } catch (error) {
-            console.log(error);
+            error.message.forEach(err => toast.error(err))
         }
     };
 
@@ -56,7 +57,7 @@ export default function Pagination({
             setDisplayCars(cars);
             return navigate(`/catalog?${queryParams}`);
         } catch (error) {
-            console.log(error);
+            error.message.forEach(err => toast.error(err))
         }
     };
 
@@ -74,7 +75,7 @@ export default function Pagination({
             setDisplayCars(cars);
             return navigate(`/catalog?${queryParams}`);
         } catch (error) {
-            console.log(error);
+            error.message.forEach(err => toast.error(err))
         }
     };
 
@@ -92,7 +93,7 @@ export default function Pagination({
             setDisplayCars(cars);
             return navigate(`/catalog?${queryParams}`);
         } catch (error) {
-            console.log(error);
+            error.message.forEach(err => toast.error(err))
         }
     };
 

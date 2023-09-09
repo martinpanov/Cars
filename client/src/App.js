@@ -2,6 +2,7 @@ import './App.css';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { UserContext } from './contexts/UserContext';
 import useSessionStorage from './hooks/useSessionStorage';
+import { Toaster } from 'react-hot-toast';
 
 import Home from './components/Home/Home';
 import Catalog from './components/Catalog/Catalog';
@@ -26,7 +27,10 @@ function App() {
     return (
         <>
             <UserContext.Provider value={[user, setUser]}>
-
+                <Toaster 
+                    position="top-right"
+                    reverseOrder={true}
+                />
                 {(location.pathname === '/login' || location.pathname === '/register') ? null : <Navigation />}
 
                 <main>
@@ -48,10 +52,10 @@ function App() {
                     </Routes>
 
                 </main>
-
             </UserContext.Provider>
 
             {(location.pathname === '/login' || location.pathname === '/register') ? null : <Footer />}
+            
         </>
     );
 }

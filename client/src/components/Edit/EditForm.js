@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './EditForm.module.css';
 import { edit } from '../../services/carService';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 
 export default function EditForm({
@@ -49,7 +50,7 @@ export default function EditForm({
 
             return navigate(`/details/${id}`);
         } catch (error) {
-            console.log(error);
+            error.message.forEach(err => toast.error(err))
         }
     };
 
