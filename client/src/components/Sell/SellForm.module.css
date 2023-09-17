@@ -32,7 +32,7 @@
     resize: none;
 }
 
-.details .error {
+.details .error, .error {
     color: red;
 }
 

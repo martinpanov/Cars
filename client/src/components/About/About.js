@@ -3,9 +3,7 @@ import styles from './About.module.css';
 export default function About() {
     return (
         <section id={styles["about-page"]}>
-
             <h1>About us</h1>
-
             <div className={styles["about-cards"]}>
                 <div className={styles["about-card"]}>
                     <img src='/assets/icons8-passion-68.png' alt="team-icon" />
@@ -45,8 +43,6 @@ export default function About() {
                     </p>
                 </div>
             </div>
-
         </section>
-
     );
 }

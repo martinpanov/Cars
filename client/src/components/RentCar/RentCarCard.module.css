@@ -44,7 +44,8 @@
 .car button {
     font-size: 23px;
     font-weight: 700;
-    padding: 15px 75px;
+    height: 64.50px;
+    padding: 0px 75px;
     background-color: #3a86ff;
     color: black;
     border: none;

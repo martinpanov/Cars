@@ -1,8 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import { rentCar } from '../../services/carService';
 import styles from './RentCarCard.module.css';
+import Spinner from '../Spinner/Spinner';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 export default function RentCarCard({ carDetails: {
     _id,
@@ -17,9 +19,11 @@ export default function RentCarCard({ carDetails: {
     img,
     rentedBy
 } }) {
+    const navigate = useNavigate();
     const [user] = useContext(UserContext);
     const [isRented, setIsRented] = useState(false);
     const [isOwner, setIsOwner] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (rentedBy !== null && user) {
@@ -39,10 +43,73 @@ export default function RentCarCard({ carDetails: {
         }
     }, [rentedBy, user]);
 
-    const rentCarHandler = async () => {
-        await rentCar(_id);
-        setIsRented(state => !state);
-        setIsOwner(state => !state);
+    const rentClickHandler = async () => {
+        if (!user) {
+            navigate('/login');
+        }
+
+        try {
+            setLoading(true);
+
+            await rentCar(_id);
+
+            setIsRented(state => !state);
+            setIsOwner(state => !state);
+        } catch (error) {
+            error.message.forEach(err => toast.error(err));
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const renderConditionalButton = () => {
+        if (!user && isRented) {
+            return null;
+        } else if (!user && !isRented) {
+            return (
+                <>
+                    {loading ?
+                        <button onClick={rentClickHandler} disabled>
+                            <Spinner />
+                        </button>
+                        :
+                        <button onClick={rentClickHandler}>
+                            Rent Now
+                        </button>
+                    }
+                </>
+            );
+        } else if (user && isRented && isOwner) {
+            return (
+                <>
+                    {loading ?
+                        <button onClick={rentClickHandler} disabled>
+                            <Spinner />
+                        </button>
+                        :
+                        <button onClick={rentClickHandler}>
+                            Cancel Rent
+                        </button>
+                    }
+                </>
+            );
+        } else if (user && isRented && !isOwner) {
+            return null;
+        } else {
+            return (
+                <>
+                    {loading ?
+                        <button onClick={rentClickHandler} disabled>
+                            <Spinner />
+                        </button>
+                        :
+                        <button onClick={rentClickHandler}>
+                            Rent Now
+                        </button>
+                    }
+                </>
+            );
+        }
     };
 
     return (
@@ -68,13 +135,7 @@ export default function RentCarCard({ carDetails: {
                 <div className={styles["car-listing-price"]}>
                     <span>${price} / day</span>
                 </div>
-
-                {!user && isRented ? null :
-                    !user && !isRented ? <Link to='/login'><button>Rent Car</button></Link> :
-                        user && isRented && isOwner ? <button onClick={rentCarHandler}>Cancel Rent</button> :
-                            user && isRented && !isOwner ? null :
-                                <button onClick={rentCarHandler}>Rent Car</button>
-                }
+                {renderConditionalButton()}
             </div>
         </div>
     );
