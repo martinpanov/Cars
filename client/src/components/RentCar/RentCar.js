@@ -1,9 +1,13 @@
-import styles from './RentCar.module.css';
 import { useEffect, useState } from 'react';
+
 import { getRentCars, searchRentCars } from '../../services/carService';
+
+import styles from './RentCar.module.css';
+import toast from 'react-hot-toast';
+
 import RentCarCard from './RentCarCard';
 import SearchRentCar from './SearchRentCar';
-import toast from 'react-hot-toast';
+import PageSpinner from '../Spinner/PageSpinner';
 
 export default function RentCar() {
     const [isLoading, setIsLoading] = useState(true);
@@ -19,7 +23,7 @@ export default function RentCar() {
                     setCars(filteredCars);
                     setIsLoading(false);
                 } catch (error) {
-                    error.message.forEach(err => toast.error(err))
+                    error.message.forEach(err => toast.error(err));
                 }
             } else {
                 const cars = await getRentCars();
@@ -33,7 +37,7 @@ export default function RentCar() {
 
     return (
         <section id={styles['rent-car-page']}>
-            {isLoading ? <img className={styles['loading']} src='/assets/Gear-0.2s-200px.svg' alt='loading' /> :
+            {isLoading ? <PageSpinner /> :
                 <>
                     <SearchRentCar setCars={setCars} />
                     <div className={styles['cars']}>

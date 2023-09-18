@@ -1,9 +1,11 @@
-import { useNavigate } from 'react-router-dom';
-import styles from './EditForm.module.css';
-import { edit } from '../../services/carService';
 import { useState } from 'react';
-import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+
+import { edit } from '../../services/carService';
 import formValidation from '../../util/formValidation';
+
+import styles from './EditForm.module.css';
+import toast from 'react-hot-toast';
 
 export default function EditForm({
     id,
@@ -39,15 +41,13 @@ export default function EditForm({
 
             formValidation(formData, setErrors);
 
-            if (Object.keys(errors).length > 0) {
-                return;
-            }
-
             await edit(id, formData);
 
             return navigate(`/details/${id}`);
         } catch (error) {
-            error.message.forEach(err => toast.error(err));
+            if (error.name !== 'ValidationError') {
+                error.message.forEach(err => toast.error(err));
+            }
         } finally {
             setIsLoading(false);
         }

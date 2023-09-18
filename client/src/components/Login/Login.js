@@ -1,9 +1,11 @@
-import styles from './Login.module.css';
-import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from 'react';
-import { login } from '../../services/authService';
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from '../../contexts/UserContext';
 
+import { login } from '../../services/authService';
+
+import styles from './Login.module.css';
+import PageSpinner from '../Spinner/PageSpinner';
 
 export default function Login() {
     const [user, setUser] = useContext(UserContext);
@@ -38,14 +40,15 @@ export default function Login() {
             setIsLoading(false);
             navigate('/');
         } catch (error) {
-            setIsLoading(false);
             setErrors(error.message);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
         <>
-            {isLoading ? <img className={styles['loading']} src='/assets/Gear-0.2s-200px-white-background.svg' alt='loading' /> :
+            {isLoading ? <PageSpinner /> :
                 <div id={styles["login-register-page"]}>
                     <div className={styles["login-register-section"]}>
                         <Link to="/">

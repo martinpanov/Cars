@@ -1,9 +1,11 @@
-import styles from './Register.module.css';
-import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext, useEffect } from 'react';
-import { register } from '../../services/authService';
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from '../../contexts/UserContext';
 
+import { register } from '../../services/authService';
+
+import styles from './Register.module.css';
+import PageSpinner from '../Spinner/PageSpinner';
 
 export default function Register() {
     const [user, setUser] = useContext(UserContext);
@@ -15,7 +17,6 @@ export default function Register() {
     });
     const [errors, setErrors] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-
 
     useEffect(() => {
         if (user) {
@@ -41,14 +42,15 @@ export default function Register() {
             setIsLoading(false);
             navigate('/');
         } catch (error) {
-            setIsLoading(false);
             setErrors(error.message);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
         <>
-            {isLoading ? <img className={styles['loading']} src='/assets/Gear-0.2s-200px-white-background.svg' alt='loading' /> :
+            {isLoading ? <PageSpinner /> :
                 <div id={styles["login-register-page"]}>
 
                     <div className={styles["image-section"]}>

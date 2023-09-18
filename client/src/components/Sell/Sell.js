@@ -1,8 +1,10 @@
 import { useState } from "react";
+
 import styles from './Sell.module.css';
+
 import SellForm from "./SellForm";
 import ImageSlider from "./ImageSlider";
-
+import PageSpinner from "../Spinner/PageSpinner";
 
 export default function Sell() {
     const [isLoading, setIsLoading] = useState(false);
@@ -24,7 +26,7 @@ export default function Sell() {
 
     return (
         <section id={styles["sell-page"]}>
-            {isLoading ? <img className={styles['loading']} src='/assets/Gear-0.2s-200px-white-background.svg' alt='loading' /> :
+            {isLoading ? <PageSpinner /> :
                 <>
                     <div className={styles['car-details-section']}>
                         <h1>Post Car Ad</h1>

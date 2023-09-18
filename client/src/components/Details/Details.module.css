@@ -1,13 +1,7 @@
 #details-page {
     min-height: calc(100vh - 118px - 53px);
     display: flex;
-}
-
-.loading {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    background-color: #f5f7fb;
 }
 
 .image-slider-section {
@@ -57,6 +51,7 @@
 
 .car-details-section {
     width: 40%;
+    background-color: #ffff;
 }
 
 @media (max-width: 1240px) {
@@ -78,10 +73,20 @@
     .image-slider-section {
         height: 80vh;
     }
+
+    .edit-and-delete button {
+        font-size: 16px;
+        height: 42px;
+        width: 110px;
+    }
 }
 
 @media (max-width: 500px) {
     .image-slider-section {
         height: 60vh;
+    }
+
+    .edit-and-delete button {
+        margin-right: 0;
     }
 }

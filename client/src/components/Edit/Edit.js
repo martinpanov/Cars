@@ -1,10 +1,14 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { getCar } from "../../services/carService";
 import { useContext, useEffect, useState } from "react";
-import styles from './Edit.module.css';
+import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
+
+import { getCar } from "../../services/carService";
+
+import styles from './Edit.module.css';
+
 import EditForm from "./EditForm";
 import ImageSlider from "./ImageSlider";
+import PageSpinner from "../Spinner/PageSpinner";
 
 
 export default function Edit() {
@@ -23,13 +27,13 @@ export default function Edit() {
                 }
 
                 setCar(car);
-                setIsLoading(false)
+                setIsLoading(false);
             });
     }, [id, navigate, user.userId]);
 
     return (
         <section id={styles["edit-page"]}>
-            {isLoading ? <img className={styles['loading']} src='/assets/Gear-0.2s-200px-white-background.svg' alt='loading' /> :
+            {isLoading ? <PageSpinner /> :
                 <>
                     <div className={styles['car-details-section']}>
                         <h1>Edit Car Ad</h1>

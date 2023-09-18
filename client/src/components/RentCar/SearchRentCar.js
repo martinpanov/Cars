@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { searchRentCars } from "../../services/carService";
 import { useNavigate } from "react-router-dom";
+
+import { searchRentCars } from "../../services/carService";
+
 import styles from './SearchRentCar.module.css';
 import toast from "react-hot-toast";
-
 
 export default function SearchRentCar({ setCars }) {
     const navigate = useNavigate();
@@ -30,7 +31,7 @@ export default function SearchRentCar({ setCars }) {
             setCars(filteredCars);
             navigate(`/rentcar?${searchParams.toString()}`);
         } catch (error) {
-            error.message.forEach(err => toast.error(err))
+            error.message.forEach(err => toast.error(err));
         }
     };
 

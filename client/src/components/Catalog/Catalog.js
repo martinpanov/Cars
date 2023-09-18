@@ -1,11 +1,15 @@
-import styles from './Catalog.module.css';
-import { Link, useNavigate } from 'react-router-dom';
-import { getCars, searchCars } from '../../services/carService';
 import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { getCars, searchCars } from '../../services/carService';
+
+import styles from './Catalog.module.css';
+import toast from 'react-hot-toast';
+
 import CatalogCarCard from './CatalogCarCard';
 import SearchCatalog from './SearchCatalog';
 import Pagination from './Pagination';
-import toast from 'react-hot-toast';
+import PageSpinner from '../Spinner/PageSpinner';
 
 export default function Catalog() {
     const navigate = useNavigate();
@@ -41,7 +45,7 @@ export default function Catalog() {
                     error.message.forEach(err => toast.error(err));
                     setIsLoading(false);
                     setDisplayCars(cars);
-                    navigate('/catalog')
+                    navigate('/catalog');
                 }
             } else {
                 const oldestCar = [...cars].sort((a, b) => a.year - b.year);
@@ -56,7 +60,7 @@ export default function Catalog() {
 
     return (
         <section id={styles["catalog-page"]}>
-            {isLoading ? <img className={styles['loading']} src='/assets/Gear-0.2s-200px.svg' alt='loading' /> :
+            {isLoading ? <PageSpinner /> :
                 allCars ?
                     <>
                         <SearchCatalog

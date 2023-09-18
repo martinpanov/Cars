@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom';
-import styles from './Navigation.module.css';
 import { useContext, useState } from 'react';
 import { UserContext } from '../../contexts/UserContext';
+import { Link } from 'react-router-dom';
+
+import styles from './Navigation.module.css';
 
 export default function Navigation() {
     const [user] = useContext(UserContext);

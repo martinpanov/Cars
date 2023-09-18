@@ -1,6 +1,5 @@
 import styles from './ImageSlider.module.css';
 
-
 export default function ImageSlider({
     car,
     setCar,

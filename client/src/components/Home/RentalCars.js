@@ -1,10 +1,13 @@
-import styles from './RentalCars.module.css';
 import { useContext, useEffect, useState } from 'react';
-import { getRentCars, rentCar } from '../../services/carService';
-import { UserContext } from '../../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../contexts/UserContext';
+
+import { getRentCars, rentCar } from '../../services/carService';
+
+import styles from './RentalCars.module.css';
 import toast from 'react-hot-toast';
-import Spinner from '../Spinner/Spinner';
+
+import Spinner from '../Spinner/ButtonSpinner';
 
 export default function RentalCars() {
     const navigate = useNavigate();

@@ -1,9 +1,11 @@
-import { useNavigate } from 'react-router-dom';
-import styles from './SellForm.module.css';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { sell } from '../../services/carService';
-import toast from 'react-hot-toast';
 import formValidation from '../../util/formValidation';
+
+import styles from './SellForm.module.css';
+import toast from 'react-hot-toast';
 
 
 export default function SellForm({
@@ -22,7 +24,11 @@ export default function SellForm({
 
             for (let [key, value] of Object.entries(car)) {
                 if (key === 'images') {
-                    for (let image of car?.images) {
+                    if (car.images.length < 1) {
+                        formData.append('images', '');
+                        continue;
+                    }
+                    for (let image of car.images) {
                         formData.append('images', image);
                     }
                 } else {
@@ -32,15 +38,13 @@ export default function SellForm({
 
             formValidation(formData, setErrors);
 
-            if (Object.keys(errors).length > 0) {
-                return;
-            }
-
             await sell(formData);
 
             return navigate(`/catalog`);
         } catch (error) {
-            error.message.forEach(err => toast.error(err));
+            if (error.name !== 'ValidationError') {
+                error.message.forEach(err => toast.error(err));
+            }
         } finally {
             setIsLoading(false);
         }
@@ -133,7 +137,7 @@ export default function SellForm({
                         <input type="text" name="model" placeholder="Model" value={car?.model} onChange={changeHandler} />
                     </div>
                     <div className={styles['price']}>
-                        $<input type="number" name="price" placeholder="Price" value={car?.price} onChange={changeHandler} />
+                        <span>$</span><input type="number" name="price" placeholder="Price" value={car?.price} onChange={changeHandler} />
                     </div>
                 </div>
             </form>

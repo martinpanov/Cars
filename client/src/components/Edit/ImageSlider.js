@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import styles from './ImageSlider.module.css';
 
+import styles from './ImageSlider.module.css';
 
 export default function ImageSlider({
     car,

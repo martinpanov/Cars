@@ -1,7 +1,9 @@
 import { useContext, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
+
 import { logout } from "../../services/authService";
+
 import toast from "react-hot-toast";
 
 export default function Logout() {
@@ -16,7 +18,7 @@ export default function Logout() {
                 sessionStorage.clear();
                 navigate("/");
             } catch (error) {
-                error.message.forEach(err => toast.error(err))
+                error.message.forEach(err => toast.error(err));
             }
         }
 

@@ -1,10 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../contexts/UserContext';
-import { rentCar } from '../../services/carService';
-import styles from './RentCarCard.module.css';
-import Spinner from '../Spinner/Spinner';
-import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+
+import { rentCar } from '../../services/carService';
+
+import styles from './RentCarCard.module.css';
+import toast from 'react-hot-toast';
+
+import Spinner from '../Spinner/ButtonSpinner';
 
 export default function RentCarCard({ carDetails: {
     _id,

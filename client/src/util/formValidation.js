@@ -1,6 +1,5 @@
 export default function formValidation(formData, setErrors) {
     try {
-
         let errors = {};
         for (let [key, value] of formData.entries()) {
             if (key === 'year' && (value < 1900 || value > 2023)) {
@@ -36,19 +35,20 @@ export default function formValidation(formData, setErrors) {
             if (key === 'price' && value < 0.01) {
                 errors.price = 'Price must be positive number';
             }
-            if (key === 'images' && value.length < 1) {
+            if ((key === 'images' && !value) || (key === 'imagesNames' && !value)) {
                 errors.images = 'There has to be at least 1 image';
             }
         }
 
-        if (Object.keys(errors).length < 0) {
+        if (Object.keys(errors).length === 0) {
             return;
         }
 
         setErrors(errors);
 
-        throw Error;
+        throw new Error('Validation Failed');
     } catch (error) {
-
+        error.name = 'ValidationError';
+        throw error;
     }
 }

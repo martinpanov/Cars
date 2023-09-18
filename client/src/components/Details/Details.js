@@ -1,11 +1,15 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { deleteCar, getCar } from '../../services/carService';
-import styles from './Details.module.css';
 import { useContext, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
+
+import { deleteCar, getCar } from '../../services/carService';
+
+import styles from './Details.module.css';
+import toast from 'react-hot-toast';
+
 import ImageSlider from './ImageSlider';
 import CarDetails from './CarDetails';
-import toast from 'react-hot-toast';
+import PageSpinner from '../Spinner/PageSpinner';
 
 export default function Details() {
     const { id } = useParams();
@@ -32,17 +36,17 @@ export default function Details() {
 
             await deleteCar(id);
 
-            setIsLoading(false);
-
             return navigate('/catalog');
         } catch (error) {
-            error.message.forEach(err => toast.error(err))
+            error.message.forEach(err => toast.error(err));
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
         <section id={styles["details-page"]}>
-            {isLoading ? <img className={styles['loading']} src='/assets/Gear-0.2s-200px-white-background.svg' alt='loading' /> :
+            {isLoading ? <PageSpinner /> :
                 <>
                     <div className={styles['image-slider-section']}>
                         <div className={styles['image-slider-details']}>

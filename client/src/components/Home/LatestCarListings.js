@@ -1,7 +1,9 @@
-import styles from './LatestCarListings.module.css';
-import { Link } from "react-router-dom";
 import { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
+
 import { getCarsHome } from '../../services/carService';
+
+import styles from './LatestCarListings.module.css';
 
 export default function LatestCarListings() {
     const [cars, setCars] = useState(null);

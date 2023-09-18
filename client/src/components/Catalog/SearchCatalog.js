@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { searchCars } from "../../services/carService";
 import { useState } from "react";
+
+import { searchCars } from "../../services/carService";
+
 import styles from './SearchCatalog.module.css';
 import toast from "react-hot-toast";
 
@@ -48,7 +50,7 @@ export default function SearchCatalog({
             setDisplayCars(cars);
             navigate(`/catalog?${searchParams.toString()}`);
         } catch (error) {
-            error.message.forEach(err => toast.error(err))
+            error.message.forEach(err => toast.error(err));
         }
     };
     return (

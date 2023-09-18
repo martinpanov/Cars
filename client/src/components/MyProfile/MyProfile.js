@@ -1,8 +1,12 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import styles from './MyProfile.module.css';
-import { getProfilePicture, getUserCars, getUserRentCars, postProfilePicture } from '../../services/carService';
 import { UserContext } from '../../contexts/UserContext';
+
+import { getProfilePicture, getUserCars, getUserRentCars, postProfilePicture } from '../../services/carService';
+
+import styles from './MyProfile.module.css';
+
 import MyProfileCars from './MyProfileCars';
+import MyProfileSpinner from '../Spinner/MyProfileSpinner';
 
 export default function MyProfile() {
     const [user] = useContext(UserContext);
@@ -74,7 +78,7 @@ export default function MyProfile() {
                 </div>
 
                 <div className={styles['cars']}>
-                    {isLoading ? <img className={styles['loading']} src='/assets/Gear-0.2s-200px-my-profile.svg' alt='loading' /> :
+                    {isLoading ? <MyProfileSpinner /> :
                         showCatalogCars ?
                             catalogCars.map(car => <MyProfileCars key={car._id} car={car} isRental={false} />) :
                             rentCars.map(car => <MyProfileCars key={car._id} car={car} isRental={true} />)

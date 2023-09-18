@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import styles from './CatalogCardCard.module.css';
 
+import styles from './CatalogCardCard.module.css';
 
 export default function CatalogCarCard({ carDetails: {
     _id,
