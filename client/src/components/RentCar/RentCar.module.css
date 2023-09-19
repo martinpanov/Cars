@@ -1,6 +1,5 @@
 #rent-car-page {
     min-height: calc(100vh - 118px - 53px);
-    background-color: #f5f7fb;
     display: flex;
     justify-content: center;
     gap: 3rem;

@@ -1,12 +1,10 @@
 #edit-page {
     min-height: calc(100vh - 118px - 53px);
     display: flex;
-    background-color: #f5f7fb;
 }
 
 .image-slider-section {
     width: 60%;
-    background-color: #f5f7fb;
     padding: 1.25rem 3rem;
 }
 

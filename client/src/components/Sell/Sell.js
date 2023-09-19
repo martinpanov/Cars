@@ -8,7 +8,6 @@ import PageSpinner from "../Spinner/PageSpinner";
 
 export default function Sell() {
     const [isLoading, setIsLoading] = useState(false);
-    const [currentImage, setCurrentImage] = useState(0);
     const [car, setCar] = useState({
         manufacturer: '',
         model: '',
@@ -42,8 +41,6 @@ export default function Sell() {
                         <ImageSlider
                             car={car}
                             setCar={setCar}
-                            currentImage={currentImage}
-                            setCurrentImage={setCurrentImage}
                         />
                     </div>
                 </>

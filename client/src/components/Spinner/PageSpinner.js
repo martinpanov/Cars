@@ -8,6 +8,10 @@ export default function PageSpinner() {
                 background: 'rgb(245, 247, 251)',
                 display: 'block',
                 shapeRendering: 'auto',
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)'
             }}
             width="200px"
             height="200px"

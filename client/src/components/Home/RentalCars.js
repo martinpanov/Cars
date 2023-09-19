@@ -148,7 +148,8 @@ export default function RentalCars() {
     };
 
     return (
-        <>
+        <section id={styles["rent-car"]}>
+            <h2>Rent a Reliable and Comfortable Car for Your Next Adventure</h2>
             <div className={styles["rental-cars"]}>
                 <div className={styles["rental-cars-buttons"]}>
                     {cars && cars.map(car => <button key={car._id} onClick={() => changeHandler(car)}>{car.manufacturer} {car.model}</button>)}
@@ -193,6 +194,6 @@ export default function RentalCars() {
                     {renderConditionalButton()}
                 </div>
             </div>
-        </>
+        </section>
     );
 }

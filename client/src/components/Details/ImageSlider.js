@@ -7,7 +7,6 @@ export default function ImageSlider({
 }) {
     const [currentImage, setCurrentImage] = useState(0);
 
-
     const nextImageHandler = () => {
         if (currentImage + 1 > car.imagesNames.length - 1) {
             setCurrentImage(0);
@@ -31,11 +30,11 @@ export default function ImageSlider({
     return (
         <div className={styles["image-slider"]}>
             <div className={styles["images"]}>
-                {car.imagesNames && <img src={`https://cars-image-storage.s3.amazonaws.com/${car.imagesNames[currentImage]}`} alt="car" className={styles['active']} />}
+                {car.imagesNames.length > 0 && <img src={`https://cars-image-storage.s3.amazonaws.com/${car.imagesNames[currentImage]}`} alt="car" className={styles['active']} />}
             </div>
 
             <div className={styles["thumbnails"]}>
-                {car.imagesNames && car.imagesNames.map((image, index) => index === currentImage ?
+                {car.imagesNames.length > 0 && car.imagesNames.map((image, index) => index === currentImage ?
                     <img key={index} src={`https://cars-image-storage.s3.amazonaws.com/${image}`} alt="carThumbnail" className={styles['active']} /> :
                     <img key={index} src={`https://cars-image-storage.s3.amazonaws.com/${image}`} alt="carThumbnail" onClick={() => changeImageHandler(index)} />)
                 }

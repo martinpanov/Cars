@@ -1,3 +1,8 @@
+.car-details-section {
+    width: 40%;
+    background-color: #ffff;
+}
+
 .details {
     border-bottom: 1px solid #adadad;
     display: flex;
@@ -35,4 +40,10 @@
     font-size: 21px;
     font-weight: 700;
     color: white;
+}
+
+@media (max-width: 1240px) {
+    .car-details-section {
+        width: 100%;
+    }
 }

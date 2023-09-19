@@ -1,3 +1,14 @@
+#why-choose-us {
+    background-color: #f8f8f8;
+    padding: 5rem 0rem;
+}
+
+#why-choose-us h2 {
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
 .reasons {
     display: flex;
     align-items: center;

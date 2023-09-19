@@ -40,12 +40,12 @@ export default function Catalog() {
                     setEarliestYear(oldestCar[0].year);
                     setPageNumbers(pagesCount);
                     setDisplayCars(cars);
-                    setIsLoading(false);
                 } catch (error) {
                     error.message.forEach(err => toast.error(err));
-                    setIsLoading(false);
                     setDisplayCars(cars);
                     navigate('/catalog');
+                } finally {
+                    setIsLoading(false);
                 }
             } else {
                 const oldestCar = [...cars].sort((a, b) => a.year - b.year);

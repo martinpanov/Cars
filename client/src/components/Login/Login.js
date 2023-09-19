@@ -37,7 +37,6 @@ export default function Login() {
                 username: result.username,
                 userId: result._id
             });
-            setIsLoading(false);
             navigate('/');
         } catch (error) {
             setErrors(error.message);

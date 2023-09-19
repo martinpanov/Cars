@@ -39,7 +39,6 @@ export default function Register() {
                 username: result.username,
                 userId: result._id
             });
-            setIsLoading(false);
             navigate('/');
         } catch (error) {
             setErrors(error.message);
@@ -52,7 +51,6 @@ export default function Register() {
         <>
             {isLoading ? <PageSpinner /> :
                 <div id={styles["login-register-page"]}>
-
                     <div className={styles["image-section"]}>
                         <div className={styles["text-and-button"]}>
                             <h1>You already have an account?</h1>

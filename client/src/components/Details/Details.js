@@ -23,8 +23,12 @@ export default function Details() {
             .then(car => {
                 setCar(car);
                 setIsLoading(false);
+            })
+            .catch(error => {
+                error.message.forEach(error => toast.error(error));
+                navigate('/catalog');
             });
-    }, [id]);
+    }, [id, navigate]);
 
     const editHandler = () => {
         navigate(`/edit/${id}`);
@@ -71,10 +75,7 @@ export default function Details() {
                         <ImageSlider car={car} />
                     </div>
 
-                    <div className={styles['car-details-section']}>
-                        <CarDetails car={car} />
-                    </div>
-
+                    <CarDetails car={car} />
                 </>
             }
         </section>

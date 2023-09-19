@@ -4,7 +4,7 @@ export default function CarDetails({
     car
 }) {
     return (
-        <>
+        <div className={styles['car-details-section']}>
             <div className={styles['details']}>
                 <span>Year</span>
                 <span>
@@ -67,6 +67,6 @@ export default function CarDetails({
                     ${car.price}
                 </h3>
             </div>
-        </>
+        </div>
     );
 }

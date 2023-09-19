@@ -1,3 +1,12 @@
+#hero {
+    height: 89vh;
+    background-image: url("../../../public/assets/wave-haikei.svg");
+    background-size: cover;
+    background-position: bottom -100px right 0;
+    background-repeat: no-repeat;
+    background-color: #24252A;
+}
+
 .hero-wrapper {
     display: flex;
     align-items: center;

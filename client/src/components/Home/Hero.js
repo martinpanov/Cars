@@ -4,7 +4,7 @@ import styles from './Hero.module.css';
 
 export default function Header() {
     return (
-        <>
+        <section id={styles.hero}>
             <div className={styles["hero-wrapper"]}>
                 <div className={styles["hero-content"]}>
                     <h1 className={styles["title"]}>Buy Or Rent Your <span>Dream Car</span> Today!</h1>
@@ -16,7 +16,6 @@ export default function Header() {
                 </div>
                 <img src='/assets/bmw-no-background1.png' alt="bmw" className={styles["header-content-image"]} />
             </div>
-
-        </>
+        </section>
     );
 }

@@ -64,8 +64,6 @@ export default function Navigation() {
                         <Link className={styles["register"]} to="/myprofile">{user.username}</Link>
                     </div>
                 )}
-
-
             </nav>
         </header>
     );

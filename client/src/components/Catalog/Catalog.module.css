@@ -1,6 +1,5 @@
 #catalog-page {
     min-height: calc(100vh - 84px - 79.33px);
-    background-color: #f5f7fb;
     display: flex;
     justify-content: center;
     gap: 1.75rem;

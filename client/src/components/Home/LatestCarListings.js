@@ -14,7 +14,8 @@ export default function LatestCarListings() {
     }, []);
 
     return (
-        <>
+        <section id={styles["car-listings"]}>
+            <h2>Latest car listings</h2>
             <div className={styles["latest-listings"]}>
                 {cars && cars.map(car => (
                     <div key={car._id} className={styles["latest-car-listing"]}>
@@ -35,6 +36,6 @@ export default function LatestCarListings() {
                 ))
                 }
             </div>
-        </>
+        </section>
     );
 }

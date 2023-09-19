@@ -9,6 +9,7 @@ import styles from './Edit.module.css';
 import EditForm from "./EditForm";
 import ImageSlider from "./ImageSlider";
 import PageSpinner from "../Spinner/PageSpinner";
+import toast from "react-hot-toast";
 
 
 export default function Edit() {
@@ -28,6 +29,10 @@ export default function Edit() {
 
                 setCar(car);
                 setIsLoading(false);
+            })
+            .catch(error => {
+                error.message.forEach(error => toast.error(error));
+                navigate('/catalog');
             });
     }, [id, navigate, user.userId]);
 
@@ -59,6 +64,6 @@ export default function Edit() {
                     </div>
                 </>
             }
-        </section >
+        </section>
     );
 }

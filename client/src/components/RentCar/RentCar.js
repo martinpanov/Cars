@@ -21,9 +21,10 @@ export default function RentCar() {
                     const filteredCars = await searchRentCars(searchParams.toString());
 
                     setCars(filteredCars);
-                    setIsLoading(false);
                 } catch (error) {
                     error.message.forEach(err => toast.error(err));
+                } finally {
+                    setIsLoading(false);
                 }
             } else {
                 const cars = await getRentCars();
