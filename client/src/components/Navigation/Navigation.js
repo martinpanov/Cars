@@ -42,7 +42,7 @@ export default function Navigation() {
                     </div>
                     :
                     <>
-                        <Link className={styles['logo']} to="/"><img src='/assets/logo-no-background-webp.webp' width="200" height="30" alt="logo" /></Link>
+                        <Link className={styles['logo']} to="/"><img src='/assets/logo-no-background.webp' width="200" height="30" alt="logo" /></Link>
                         <i onClick={toggleMenu} className={`fa-solid fa-bars ${styles["bars"]}`}></i>
                     </>}
 

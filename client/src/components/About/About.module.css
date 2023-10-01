@@ -1,6 +1,6 @@
 #about-page {
     min-height: calc(100vh - 118px - 53px);
-    background-image: url('../../../public/assets/black-car-webp.webp');
+    background-image: url('../../../public/assets/black-car.webp');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;

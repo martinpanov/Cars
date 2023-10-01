@@ -23,7 +23,7 @@ export default function formValidation(formData, setErrors) {
             if (key === 'city' && value.length < 3) {
                 errors.city = 'The city must be at least 3 characters long';
             }
-            if (key === 'phoneNumber' && value < 9) {
+            if (key === 'phoneNumber' && value.length < 9) {
                 errors.phoneNumber = 'Phone Number must be at least 9 characters long';
             }
             if (key === 'manufacturer' && value.length < 2) {

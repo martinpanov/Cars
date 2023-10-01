@@ -48,7 +48,7 @@ export default function ImageSlider({
         <div className={styles["image-slider"]}>
             <div className={styles["images"]}>
                 {car.images.length > 0 ? <img src={URL.createObjectURL(car.images[currentImage])} alt="car" className={styles['active']} /> :
-                    <img src="/assets/default-car.png" alt="car" className={styles['active']} />
+                    <img src="/assets/default-car.webp" alt="car" className={styles['active']} />
                 }
             </div>
 

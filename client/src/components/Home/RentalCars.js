@@ -156,7 +156,7 @@ export default function RentalCars() {
                 </div>
                 <div className={styles["rental-car-image"]}>
                     {rentalCar.isRented ?
-                        <img src='/assets/rented.png' alt="bmw" /> :
+                        <img src='/assets/rented.webp' alt="bmw" /> :
                         <img src={rentalCar.image} alt="bmw" />
                     }
                 </div>

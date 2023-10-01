@@ -14,7 +14,7 @@ export default function Header() {
                         <Link className={styles["header-content-rent-car"]} to="/rentcar">Rent Car</Link>
                     </div>
                 </div>
-                <img src='/assets/bmw-no-background1.png' alt="bmw" className={styles["header-content-image"]} />
+                <img src='/assets/bmw-no-background.webp' alt="bmw" className={styles["header-content-image"]} />
             </div>
         </section>
     );

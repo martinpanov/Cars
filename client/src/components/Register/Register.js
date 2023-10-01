@@ -60,7 +60,7 @@ export default function Register() {
 
                     <div className={styles["login-register-section"]}>
                         <Link to="/">
-                            <img src='/assets/logo-3-webp.webp' alt="logo" />
+                            <img src='/assets/logo-3.webp' alt="logo" />
                         </Link>
                         <div className={styles["login-register-form-wrapper"]}>
 
