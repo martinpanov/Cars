@@ -1,0 +1,67 @@
+.details {
+  border-bottom: 1px solid #adadad;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+}
+
+.details span:first-child {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.details span:last-child,
+.details p {
+  color: #939393;
+}
+
+.details input,
+.details textarea,
+.details select,
+.price-car-brand input {
+  width: 100%;
+  font-size: 16px;
+  color: #939393;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.details textarea {
+  resize: none;
+}
+
+.details .error,
+.error {
+  color: red;
+}
+
+.price-car-brand {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price-car-brand input {
+  font-size: 22px;
+  font-weight: 700;
+  color: black;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+}
+
+.price input {
+  color: black;
+  font-size: 21px;
+  font-weight: 700;
+}

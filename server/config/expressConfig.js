@@ -5,14 +5,12 @@ const cors = require('../middlwares/cors');
 const session = require('../middlwares/session');
 const trimBody = require('../middlwares/trimBody');
 
-const jwtSecret = 'VerySecretMarto%#@!';
-
 module.exports = (app) => {
-    app.use(express.json());
-    app.use(cors());
-    app.use(trimBody());
-    app.use(session());
+  app.use(express.json());
+  app.use(cors());
+  app.use(trimBody());
+  app.use(session());
 
-    app.use('/users', authController);
-    app.use('/data', dataController);
+  app.use('/api', authController);
+  app.use('/api', dataController);
 };

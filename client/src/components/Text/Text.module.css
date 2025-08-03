@@ -1,0 +1,99 @@
+.text-small {
+  font-size: var(--font-size-sm);
+  letter-spacing: var(--letter-spacing-1);
+  line-height: var(--line-height-1);
+}
+
+.text-base {
+  font-size: var(--font-size-base);
+  letter-spacing: var(--letter-spacing-1);
+  line-height: var(--line-height-2);
+}
+
+.text-md {
+  font-size: var(--font-size-md);
+  letter-spacing: var(--letter-spacing-2);
+  line-height: var(--line-height-3);
+}
+
+.text-lg {
+  font-size: var(--font-size-lg);
+  letter-spacing: var(--letter-spacing-3);
+  line-height: var(--line-height-4);
+}
+
+.text-xl {
+  font-size: var(--font-size-xl);
+  letter-spacing: var(--letter-spacing-4);
+  line-height: var(--line-height-5);
+}
+
+.text-2xl {
+  font-size: var(--font-size-2xl);
+  letter-spacing: var(--letter-spacing-5);
+  line-height: var(--line-height-6);
+}
+
+.text-3xl {
+  font-size: var(--font-size-3xl);
+  letter-spacing: var(--letter-spacing-6);
+  line-height: var(--line-height-7);
+}
+
+.text-4xl {
+  font-size: var(--font-size-4xl);
+  letter-spacing: var(--letter-spacing-7);
+  line-height: var(--line-height-8);
+}
+
+.text-align-left {
+  text-align: left;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.text-weight-light {
+  font-weight: var(--font-weight-light);
+}
+
+.text-weight-regular {
+  font-weight: var(--font-weight-regular);
+}
+
+.text-weight-medium {
+  font-weight: var(--font-weight-medium);
+}
+
+.text-weight-bold {
+  font-weight: var(--font-weight-bold);
+}
+
+.text-primary {
+  color: var(--primary-color)
+}
+
+.text-secondary {
+  color: var(--secondary-color)
+}
+
+.text-error {
+  color: var(--error-color)
+}
+
+.text-success {
+  color: var(--success-color);
+}
+
+.text-warning {
+  color: var(--warning-color);
+}
+
+.text-info {
+  color: var(--info-color);
+}
