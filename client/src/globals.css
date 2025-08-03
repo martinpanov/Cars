@@ -1,0 +1,43 @@
+:root {
+  --primary-color: #1d4ed8;
+  --secondary-color: #f3f4f6;
+  --text-color: #111827;
+  --border-color: #e5e7eb;
+  --background-color: #ffffff;
+  --error-color: #dc2626;
+  --success-color: #16a34a;
+  --warning-color: #f59e0b;
+  --info-color: #2563eb;
+
+
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-md: 18px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 30px;
+  --font-size-3xl: 36px;
+  --font-size-4xl: 60px;
+
+  --letter-spacing-1: 0em;
+  --letter-spacing-2: -0.0025em;
+  --letter-spacing-3: -0.005em;
+  --letter-spacing-4: -0.00625em;
+  --letter-spacing-5: -0.0075em;
+  --letter-spacing-6: -0.01em;
+  --letter-spacing-7: -0.025em;
+
+  --line-height-1: 20px;
+  --line-height-2: 24px;
+  --line-height-3: 26px;
+  --line-height-4: 28px;
+  --line-height-5: 30px;
+  --line-height-6: 36px;
+  --line-height-7: 40px;
+  --line-height-8: 60px;
+}

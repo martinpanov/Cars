@@ -4,13 +4,13 @@ const expressConfig = require('./config/expressConfig');
 const databaseConfig = require('./config/database');
 
 async function start() {
-    const app = express();
+  const app = express();
 
-    await databaseConfig();
-    expressConfig(app);
+  await databaseConfig();
+  expressConfig(app);
 
 
-    app.listen(3003, () => console.log('server listening on port 3003'));
+  app.listen(3003, () => console.log('server listening on port 3003'));
 }
 
 start();
