@@ -1,188 +1,218 @@
-// import { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from "react-router-dom";
 
-// import formValidation from '../../../utils/formValidation';
+import { useEditCarMutation } from "../../../api/cars";
+import { Flex } from "../../../components/Flex/Flex";
+import { Form } from "../../../components/Form/Form";
+import { FormField } from "../../../components/Form/FormField";
+import { Text } from "../../../components/Text/Text";
+import type { Car } from "../../../types/car";
+import { editSchema } from "../schema";
+import styles from "./EditForm.module.css";
 
-// import styles from './EditForm.module.css';
-// import toast from 'react-hot-toast';
-// import { edit } from '../../../api/cars';
-// import type { Car } from '../../../types/car';
-// import { Form } from '../../../components/Form/Form';
-// import { FormField } from '../../../components/Form/FormField';
-// import { editSchema } from '../schema';
+type Props = {
+  car: Car;
+  images: File[];
+  setImages: React.Dispatch<React.SetStateAction<File[]>>;
+};
 
-// type Props = {
-//   id: string;
-//   car: Car;
-//   setCar: React.Dispatch<React.SetStateAction<any>>;
-//   newImageFiles: File[];
-//   setNewImageFiles: React.Dispatch<React.SetStateAction<File[]>>;
-//   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-// };
+export const EditForm: React.FC<Props> = ({ car, images, setImages }) => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { editCar } = useEditCarMutation({ id });
 
-// export const EditForm: React.FC<Props> = ({
-//   id,
-//   car,
-//   setCar,
-//   newImageFiles,
-//   setNewImageFiles,
-//   setIsLoading
-// }) => {
-//   const navigate = useNavigate();
+  const editFormHandler = async (formData: FormData) => {
+    if (images.length === 0) {
+      formData.append("images", "");
+    } else {
+      images.forEach(image => {
+        if (image instanceof File) {
+          formData.append("images", image);
+        } else {
+          formData.append("imagesNames", image);
+        }
+      });
+    }
 
-//   const editFormHandler = async (e) => {
-//     e.preventDefault();
-//     try {
-//       setIsLoading(true);
-//       const formData = new FormData();
+    await editCar(formData);
+    navigate(`/details/${id}`);
+  };
 
-//       for (let [key, value] of Object.entries(car)) {
-//         if (key === 'imagesNames') {
-//           for (let image of car.imagesNames) {
-//             const newImageFile = newImageFiles.find(newImage => newImage.name === image);
-//             if (newImageFile) {
-//               formData.append('images', newImageFile);
-//             } else {
-//               formData.append('imagesNames', image);
-//             }
-//           }
-//         } else {
-//           formData.append(key, value);
-//         }
-//       };
-
-//       formValidation(formData, setErrors);
-
-//       await edit(id, formData);
-
-//       return navigate(`/details/${id}`);
-//     } catch (error) {
-//       if (error.name !== 'ValidationError') {
-//         error.message.forEach(err => toast.error(err));
-//       }
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   };
-
-//   const imageUploadHandler = (e) => {
-//     if (e.target.files.length <= 0) {
-//       return;
-//     }
-
-//     if (car.imagesNames.length >= 12) {
-//       return setErrors(errors => ({ ...errors, images: 'You can upload 12 images at most' }));
-//     }
-
-//     setCar(car => ({ ...car, imagesNames: [...car.imagesNames, e.target.files[0].name] }));
-//     setNewImageFiles(state => [...state, e.target.files[0]]);
-//   };
-
-//   return (
-//     <Form id="edit-form" action={`/edit/${id}`} onSubmit={editFormHandler} encType="multipart/form-data" schema={editSchema}>
-//       <div className={styles['details']}>
-//         <FormField
-//           label={<span>Year</span>}
-//           name="year"
-//           type="number"
-//           placeholder="Year"
-//         />
-//       </div>
-//       <div className={styles['details']}>
-//         <FormField
-//           label={<span>Horse Power</span>}
-//           name="horsePower"
-//           type="number"
-//           placeholder="Horse Power"
-//         />
-//       </div>
-//       <div className={styles['details']}>
-//         <FormField
-//           label={<span>Gearbox</span>}
-//           name="gearbox"
-//           type="select"
-//           options={[
-//             { value: 'Manual', label: 'Manual' },
-//             { value: 'Automatic', label: 'Automatic' }
-//           ]}
-//         />
-//       </div>
-//       <div className={styles['details']}>
-//         <FormField
-//           label={<span>Kilometers</span>}
-//           name="kilometers"
-//           type="number"
-//           placeholder="Kilometers"
-//         />
-//       </div>
-//       <div className={styles['details']}>
-//         <FormField
-//           label={<span>Fuel Type</span>}
-//           name="fuelType"
-//           type="select"
-//           options={[
-//             { value: 'Petrol', label: 'Petrol' },
-//             { value: 'Diesel', label: 'Diesel' }
-//           ]}
-//         />
-//       </div>
-//       <div className={styles['details']}>
-//         <FormField
-//           label={<span>Description</span>}
-//           name="description"
-//           type="textarea"
-//           placeholder="Description"
-//         />
-//       </div>
-//       <div className={styles['details']}>
-//         <FormField
-//           label={<span>City</span>}
-//           name="city"
-//           type="text"
-//           placeholder="City"
-//         />
-//       </div>
-//       <div className={styles['details']}>
-//         <FormField
-//           label={<span>Phone Number</span>}
-//           name="phoneNumber"
-//           type="text"
-//           placeholder="Phone Number"
-//         />
-//       </div>
-//       <div className={styles['details']}>
-//         <FormField
-//           label={<span>Pictures</span>}
-//           name="images"
-//           type="file"
-//           accept="image/*"
-//           onChange={imageUploadHandler}
-//         />
-//       </div>
-//       <div className={styles['price-car-brand']}>
-//         <div className={styles['brand']}>
-//           <FormField
-//             label={<span>Manufacturer</span>}
-//             name="manufacturer"
-//             type="text"
-//             placeholder="Manufacturer"
-//           />
-//           <FormField
-//             label={<span>Model</span>}
-//             name="model"
-//             type="text"
-//             placeholder="Model"
-//           />
-//         </div>
-//       </div>
-//       <div className={styles['price']}>
-//         <span>$</span>
-//         <FormField
-//           name="price"
-//           type="number"
-//           placeholder="Price"
-//         />
-//       </div>
-//     </Form>
-//   );
-// };
+  return (
+    <Form
+      id="edit-form"
+      action={`/edit/${id}`}
+      onSubmit={editFormHandler}
+      encType="multipart/form-data"
+      // schema={editSchema} // Temporarily disabled for backend testing
+      className={styles["edit-form"]}
+    >
+      <Flex direction="column" className={styles["edit-form__field"]}>
+        <FormField
+          label={
+            <Text size="md" weight="bold" color="black">
+              Year
+            </Text>
+          }
+          name="year"
+          type="number"
+          placeholder="Year"
+          defaultValue={car.year}
+        />
+      </Flex>
+      <Flex direction="column" className={styles["edit-form__field"]}>
+        <FormField
+          label={
+            <Text size="md" weight="bold" color="black">
+              Horse Power
+            </Text>
+          }
+          name="horsePower"
+          type="number"
+          placeholder="Horse Power"
+          defaultValue={car.horsePower}
+        />
+      </Flex>
+      <Flex direction="column" className={styles["edit-form__field"]}>
+        <FormField
+          label={
+            <Text size="md" weight="bold" color="black">
+              Gearbox
+            </Text>
+          }
+          name="gearbox"
+          type="select"
+          options={[
+            { value: "Manual", label: "Manual" },
+            { value: "Automatic", label: "Automatic" },
+          ]}
+          defaultValue={car.gearbox}
+        />
+      </Flex>
+      <Flex direction="column" className={styles["edit-form__field"]}>
+        <FormField
+          label={
+            <Text size="md" weight="bold" color="black">
+              Kilometers
+            </Text>
+          }
+          name="kilometers"
+          type="number"
+          placeholder="Kilometers"
+          defaultValue={car.kilometers}
+        />
+      </Flex>
+      <Flex direction="column" className={styles["edit-form__field"]}>
+        <FormField
+          label={
+            <Text size="md" weight="bold" color="black">
+              Fuel Type
+            </Text>
+          }
+          name="fuelType"
+          type="select"
+          options={[
+            { value: "Petrol", label: "Petrol" },
+            { value: "Diesel", label: "Diesel" },
+          ]}
+          defaultValue={car.fuelType}
+        />
+      </Flex>
+      <Flex direction="column" className={styles["edit-form__field"]}>
+        <FormField
+          label={
+            <Text size="md" weight="bold" color="black">
+              Description
+            </Text>
+          }
+          name="description"
+          type="textarea"
+          placeholder="Description"
+          defaultValue={car.description}
+        />
+      </Flex>
+      <Flex direction="column" className={styles["edit-form__field"]}>
+        <FormField
+          label={
+            <Text size="md" weight="bold" color="black">
+              City
+            </Text>
+          }
+          name="city"
+          type="text"
+          placeholder="City"
+          defaultValue={car.city}
+        />
+      </Flex>
+      <Flex direction="column" className={styles["edit-form__field"]}>
+        <FormField
+          label={
+            <Text size="md" weight="bold" color="black">
+              Phone Number
+            </Text>
+          }
+          name="phoneNumber"
+          type="text"
+          placeholder="Phone Number"
+          defaultValue={car.phoneNumber}
+        />
+      </Flex>
+      <Flex direction="column" className={styles["edit-form__field"]}>
+        <FormField
+          label={
+            <Text size="md" weight="bold" color="black">
+              Pictures
+            </Text>
+          }
+          name="images"
+          type="file"
+          accept="image/*"
+          onChange={e => setImages(images => [...images, e.target.files[0]])}
+        />
+      </Flex>
+      <Flex
+        justify="between"
+        align="center"
+        className={styles["edit-form__header"]}
+      >
+        <Flex direction="column" gap="lg">
+          <FormField
+            label={
+              <Text size="md" weight="bold" color="black">
+                Manufacturer
+              </Text>
+            }
+            name="manufacturer"
+            type="text"
+            placeholder="Manufacturer"
+            defaultValue={car.manufacturer}
+            className={`${styles["edit-form__header-input"]} ${styles["edit-form__brand-input"]}`}
+          />
+          <FormField
+            label={
+              <Text size="md" weight="bold" color="black">
+                Model
+              </Text>
+            }
+            name="model"
+            type="text"
+            placeholder="Model"
+            defaultValue={car.model}
+            className={`${styles["edit-form__header-input"]} ${styles["edit-form__brand-input"]}`}
+          />
+        </Flex>
+        <Flex align="center">
+          <Text size="xl" color="black">
+            $
+          </Text>
+          <FormField
+            name="price"
+            type="number"
+            placeholder="Price"
+            defaultValue={car.price}
+            className={`${styles["edit-form__header-input"]} ${styles["edit-form__price-input"]}`}
+          />
+        </Flex>
+      </Flex>
+    </Form>
+  );
+};

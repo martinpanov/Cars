@@ -1,37 +1,69 @@
-import { useRef } from 'react';
-import styles from '../MyProfile.module.css';
-import { useGetProfilePictureQuery, usePostProfilePictureMutation } from '../../../api/profile';
-import { IMAGES_URL } from '../../../utils/constants';
+import { useRef } from "react";
+
+import {
+  useGetProfilePictureQuery,
+  usePostProfilePictureMutation,
+} from "../../../api/profile";
+import { CloudinaryImage } from "../../../components/CloudinaryImage/CloudinaryImage";
+import { Flex } from "../../../components/Flex/Flex";
+import { RenderIf } from "../../../components/RenderIf";
+import styles from "./MyProfilePicture.module.css";
 
 export const MyProfilePicture: React.FC = () => {
   const fileInput = useRef(null);
-  const { data: profilePicture, getProfilePicture } = useGetProfilePictureQuery();
+  const { data: profilePicture, getProfilePicture } =
+    useGetProfilePictureQuery();
   const { postProfilePicture } = usePostProfilePictureMutation();
 
-  const imageUploadHandler = async (e) => {
+  const imageUploadHandler = async e => {
     if (e.target.files.length <= 0) {
       return;
     }
 
     const formData = new FormData();
-    formData.append('image', e.target.files[0]);
+    formData.append("image", e.target.files[0]);
 
     const newProfilePicture = await postProfilePicture(formData);
 
     if (newProfilePicture) {
       await getProfilePicture();
-    };
+    }
   };
 
   return (
-    <div className={styles['my-profile-image-section']}>
-      <div className={styles['my-profile-image']}>
-        {profilePicture ? <img src={`${IMAGES_URL}${profilePicture}`} alt="cool-person" /> : <img src="/assets/profile-picture.jpg" alt="cool-person" />}
-        <div className={styles["change-photo-button"]} onClick={() => fileInput.current?.click()} >
-          <input type="file" ref={fileInput} style={{ display: 'none' }} onChange={imageUploadHandler} />
-          <i className="fa-solid fa-camera"></i>
-        </div>
+    <Flex
+      justify="center"
+      align="center"
+      className={styles["my-profile__image-section"]}
+    >
+      <RenderIf condition={!!profilePicture}>
+        <CloudinaryImage
+          publicId={profilePicture!}
+          width={150}
+          height={150}
+          crop="fill"
+          alt="profile picture"
+        />
+      </RenderIf>
+      <RenderIf condition={!profilePicture}>
+        <img
+          src="/assets/profile-picture.jpg"
+          alt="default profile"
+          style={{ width: 150, height: 150, objectFit: "cover" }}
+        />
+      </RenderIf>
+      <div
+        className={styles["my-profile__button"]}
+        onClick={() => fileInput.current?.click()}
+      >
+        <input
+          type="file"
+          ref={fileInput}
+          style={{ display: "none" }}
+          onChange={imageUploadHandler}
+        />
+        <i className="fa-solid fa-camera"></i>
       </div>
-    </div>
+    </Flex>
   );
 };

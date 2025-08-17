@@ -1,14 +1,19 @@
 :root {
-  --primary-color: #1d4ed8;
+  --primary-color: #3a86ff;
   --secondary-color: #f3f4f6;
-  --text-color: #111827;
-  --border-color: #e5e7eb;
-  --background-color: #ffffff;
   --error-color: #dc2626;
   --success-color: #16a34a;
   --warning-color: #f59e0b;
-  --info-color: #2563eb;
+  --black-color: #24252a;
+  --white-color: #fff;
 
+  --border-color: #e5e7eb;
+  --border-color-error: var(--error-color);
+  --border-color-active: #ffffff;
+
+  --box-shadow-color: rgba(0, 0, 0, 0.1);
+
+  --spacing: 4px;
 
   --font-weight-light: 300;
   --font-weight-regular: 400;
@@ -22,7 +27,8 @@
   --font-size-xl: 24px;
   --font-size-2xl: 30px;
   --font-size-3xl: 36px;
-  --font-size-4xl: 60px;
+  --font-size-4xl: 48px;
+  --font-size-5xl: 60px;
 
   --letter-spacing-1: 0em;
   --letter-spacing-2: -0.0025em;
@@ -40,4 +46,9 @@
   --line-height-6: 36px;
   --line-height-7: 40px;
   --line-height-8: 60px;
+
+  --breakpoint-sm: 520px;
+  --breakpoint-md: 1024px;
+  --breakpoint-lg: 1280px;
+  --breakpoint-xl: 1640px;
 }

@@ -1,35 +1,35 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from '../../contexts/UserContext';
-import { useRegisterMutation } from '../../api/users';
-import styles from './Register.module.css';
-import { PageSpinner } from '../../components/Spinner/PageSpinner';
+
+import { useRegisterMutation } from "../../api/users";
+import { Button } from "../../components/Button/Button";
+import { Flex } from "../../components/Flex/Flex";
+import { Form } from "../../components/Form/Form";
+import { FormField } from "../../components/Form/FormField";
+import { PageSpinner } from "../../components/Spinner/PageSpinner";
+import { Text } from "../../components/Text/Text";
+import { UserContext } from "../../contexts/UserContext";
+import styles from "./Register.module.css";
+import { registerSchema } from "./schema";
 
 export const Register: React.FC = () => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
   const { isLoading, register } = useRegisterMutation();
-  const [errors, setErrors] = useState([]);
 
-  const registerFormHandler = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
+  const registerFormHandler = async (formData: FormData) => {
     const values = Object.fromEntries(formData.entries());
     const username = (values.username as string).trim();
     const password = (values.password as string).trim();
     const repass = (values.repass as string).trim();
 
-    try {
-      const result = await register({ username, password, repass });
-      setUser({
-        accessToken: result.accessToken.accessToken,
-        username: result.username,
-        userId: result._id
-      });
-      navigate('/');
-    } catch (error) {
-      setErrors(error.message);
-    }
+    const result = await register({ username, password, repass });
+    setUser({
+      tokens: result.tokens,
+      username: result.username,
+      userId: result._id,
+    });
+    navigate("/");
   };
 
   if (isLoading) {
@@ -37,36 +37,106 @@ export const Register: React.FC = () => {
   }
 
   return (
-    <div id={styles["login-register-page"]}>
-      <div className={styles["image-section"]}>
-        <div className={styles["text-and-button"]}>
-          <h1>You already have an account?</h1>
-          <Link to="/login"><button>Login</button></Link>
-        </div>
-      </div>
+    <Flex className={styles["register-page"]}>
+      <Flex
+        justify="center"
+        align="center"
+        className={styles["register-page__image-section"]}
+      >
+        <img
+          src="/assets/bmw-register.webp"
+          alt="BMW car - Register background"
+          className={styles["register-page__background-image"]}
+        />
+        <Flex
+          direction="column"
+          align="center"
+          gap="lg"
+          className={styles["register-page__cta"]}
+        >
+          <Text
+            tag="h1"
+            size="2xl"
+            color="secondary"
+            className={styles["register-page__cta-heading"]}
+          >
+            You already have an account?
+          </Text>
+          <Button variant="primary" size="lg" to="/login">
+            Login
+          </Button>
+        </Flex>
+      </Flex>
 
-      <div className={styles["login-register-section"]}>
+      <Flex
+        direction="column"
+        justify="center"
+        align="center"
+        className={styles["register-page__content-section"]}
+      >
         <Link to="/">
-          <img src='/assets/logo-3.webp' alt="logo" />
+          <img
+            src="/assets/logo-3.webp"
+            alt="logo"
+            className={styles["register-page__logo"]}
+          />
         </Link>
-        <div className={styles["login-register-form-wrapper"]}>
 
-          <div className={styles["errors"]}>
-            {errors.length > 0 ? errors.map((error, index) => <p key={index}>{error}</p>) : <p>{errors}</p>}
-          </div>
+        <Flex
+          direction="column"
+          align="center"
+          justify="center"
+          gap="lg"
+          className={styles["register-page__form-wrapper"]}
+        >
+          <Form
+            onSubmit={registerFormHandler}
+            // schema={registerSchema} // Temporarily disabled for backend testing
+            className={styles["register-page__form"]}
+          >
+            <FormField
+              label={
+                <Text size="md" color="black">
+                  Username:
+                </Text>
+              }
+              name="username"
+              type="text"
+              className={styles["register-page__input"]}
+            />
 
-          <form action="/register" method="post" onSubmit={registerFormHandler}>
-            <label htmlFor="username">Username:</label>
-            <input id="username" type="text" name="username" />
-            <label htmlFor="password">Password:</label>
-            <input id="password" type="password" name="password" />
-            <label htmlFor="repass">Repeat Password:</label>
-            <input id="repass" type="password" name="repass" />
-            <button>Register</button>
-          </form>
-          <p>You already have an account? <Link to="/login">Login</Link></p>
-        </div>
-      </div>
-    </div>
+            <FormField
+              label={
+                <Text size="md" color="black">
+                  Password:
+                </Text>
+              }
+              name="password"
+              type="password"
+              className={styles["register-page__input"]}
+            />
+
+            <FormField
+              label={
+                <Text size="md" color="black">
+                  Repeat Password:
+                </Text>
+              }
+              name="repass"
+              type="password"
+              className={styles["register-page__input"]}
+            />
+
+            <Button variant="secondary" size="lg">
+              Register
+            </Button>
+          </Form>
+
+          <Text className={styles["register-page__mobile-link"]}>
+            You already have an account? <Link to="/login">Login</Link>
+          </Text>
+        </Flex>
+      </Flex>
+    </Flex>
   );
 };

@@ -1,42 +1,64 @@
 import { useSearchParams } from "react-router-dom";
 
-import styles from './Pagination.module.css';
+import { Button } from "../../../components/Button/Button";
+import { Flex } from "../../../components/Flex/Flex";
+import styles from "./Pagination.module.css";
 
-export const Pagination: React.FC<{ totalPages: number; }> = ({ totalPages }) => {
+export const Pagination: React.FC<{ totalPages: number }> = ({
+  totalPages,
+}) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = Number(searchParams.get('page')) || 1;
+  const currentPage = Number(searchParams.get("page")) || 1;
 
-  const handlePageChange = async (nextPage) => {
+  const handlePageChange = async nextPage => {
     if (currentPage < 1 || nextPage > totalPages) {
       return;
     }
 
     setSearchParams(prev => {
       const params = new URLSearchParams(prev);
-      params.set('page', nextPage);
+      params.set("page", nextPage);
       return params;
     });
   };
 
   return (
-    <div className={styles["pagination"]}>
-      <p className={styles["pages"]}>1 - {currentPage} of {totalPages}</p>
-      <div className={styles["actions"]}>
-        <button onClick={() => handlePageChange(1)} className={styles["btn"]} title="First Page">
+    <Flex justify="end" align="center" className={styles["pagination"]}>
+      <p>
+        1 - {currentPage} of {totalPages}
+      </p>
+      <Flex gap="xs">
+        <Button
+          onClick={() => handlePageChange(1)}
+          variant="secondary"
+          size="sm"
+        >
           <i className="fa-solid fa-angles-left"></i>
-        </button>
+        </Button>
 
-        <button onClick={() => handlePageChange(currentPage - 1)} className={styles["btn"]} title="Previous Page">
+        <Button
+          onClick={() => handlePageChange(currentPage - 1)}
+          variant="secondary"
+          size="sm"
+        >
           <i className="fa-solid fa-arrow-left"></i>
-        </button>
-        <button onClick={() => handlePageChange(currentPage + 1)} className={styles["btn"]} title="Next Page">
+        </Button>
+        <Button
+          onClick={() => handlePageChange(currentPage + 1)}
+          variant="secondary"
+          size="sm"
+        >
           <i className="fa-solid fa-arrow-right"></i>
-        </button>
+        </Button>
 
-        <button onClick={() => handlePageChange(totalPages)} className={styles["btn"]} title="Last Page">
+        <Button
+          onClick={() => handlePageChange(totalPages)}
+          variant="secondary"
+          size="sm"
+        >
           <i className="fa-solid fa-angles-right"></i>
-        </button>
-      </div>
-    </div>
+        </Button>
+      </Flex>
+    </Flex>
   );
 };

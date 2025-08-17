@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
-import styles from './CatalogCardCard.module.css';
-import { IMAGES_URL } from "../../../utils/constants";
+
+import { CloudinaryImage } from "../../../components/CloudinaryImage/CloudinaryImage";
+import { Flex } from "../../../components/Flex/Flex";
+import { Text } from "../../../components/Text/Text";
 import type { Car } from "../../../types/car";
+import styles from "./CatalogCardCard.module.css";
 
 export const CatalogCarCard: React.FC<Car> = ({
   _id,
@@ -14,31 +17,63 @@ export const CatalogCarCard: React.FC<Car> = ({
   gearbox,
   fuelType,
   horsePower,
-  imagesNames
+  imagesNames,
 }) => {
   return (
-    <div className={styles["car-listing"]}>
-      <div className={styles["car-listing-image"]}>
-        <Link to={`/details/${_id}`}><img src={`${IMAGES_URL}${imagesNames[0]}`} alt="bmw" /></Link>
-      </div>
-      <div className={styles["car-listing-information"]}>
-        <h2>
-          <Link to={`/details/${_id}`}><span>{manufacturer} {model}</span></Link>
-        </h2>
-        <p>
+    <Flex justify="between" className={styles["car-card"]}>
+      <Link to={`/details/${_id}`}>
+        <CloudinaryImage
+          publicId={imagesNames[0]}
+          width={200}
+          height={150}
+          crop="fill"
+          alt="car"
+          className={styles["car-card__image"]}
+        />
+      </Link>
+      <Flex
+        direction="column"
+        justify="between"
+        padding="sm"
+        className={styles["car-card__information"]}
+      >
+        <Text tag="h2" size="xl" color="primary">
+          <Link to={`/details/${_id}`}>
+            <span>
+              {manufacturer} {model}
+            </span>
+          </Link>
+        </Text>
+        <Text size="sm" color="black">
           {description.slice(0, 66)}
-        </p>
-        <div className={styles["car-specs"]}>
-          <span><i className="fa-solid fa-road"></i> {kilometers} km </span>
-          <span><i className="fa-solid fa-horse"></i> {horsePower} hp </span>
-          <span><i className="fa fa-gears"></i> {gearbox} </span>
-          <span><i className="fa fa-gas-pump"></i> {fuelType} </span>
-          <span><i className="fa fa-city"></i> {city} </span>
-        </div>
-      </div>
-      <div className={styles["car-listing-price"]}>
-        <span>${price}</span>
-      </div>
-    </div>
+        </Text>
+        <Flex wrap="wrap" gap="sm" className={styles["car-card__specs"]}>
+          <Text color="black" tag="span">
+            <i className="fa-solid fa-road"></i> {kilometers} km
+          </Text>
+          <Text color="black" tag="span">
+            <i className="fa-solid fa-horse"></i> {horsePower} hp
+          </Text>
+          <Text color="black" tag="span">
+            <i className="fa fa-gears"></i> {gearbox}
+          </Text>
+          <Text color="black" tag="span">
+            <i className="fa fa-gas-pump"></i> {fuelType}
+          </Text>
+          <Text color="black" tag="span">
+            <i className="fa fa-city"></i> {city}
+          </Text>
+        </Flex>
+      </Flex>
+      <Flex
+        justify="center"
+        align="center"
+        className={styles["car-card__price"]}
+      >
+        <Text tag="span" size="lg" color="black">
+          ${price}
+        </Text>
+      </Flex>
+    </Flex>
   );
 };

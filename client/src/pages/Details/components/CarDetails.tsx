@@ -1,71 +1,101 @@
-import styles from './CarDetails.module.css';
-import type { Car } from '../../../types/car';
+import { Flex } from "../../../components/Flex/Flex";
+import { Text } from "../../../components/Text/Text";
+import type { Car } from "../../../types/car";
+import styles from "./CarDetails.module.css";
 
-export const CarDetails: React.FC<{ car: Car; }> = ({ car }) => {
+export const CarDetails: React.FC<{ car: Car }> = ({ car }) => {
   return (
-    <div className={styles['car-details-section']}>
-      <div className={styles['details']}>
-        <span>Year</span>
-        <span>
+    <div className={styles["car-details"]}>
+      <Flex direction="column" gap="md" className={styles["car-details__item"]}>
+        <Text weight="bold" size="md" color="black">
+          Year
+        </Text>
+        <Text color="black" size="md">
           {car.year}
-        </span>
-      </div>
+        </Text>
+      </Flex>
 
-      <div className={styles['details']}>
-        <span>Horse Power</span>
-        <span>
+      <Flex direction="column" gap="md" className={styles["car-details__item"]}>
+        <Text weight="bold" size="md" color="black">
+          Horse Power
+        </Text>
+        <Text color="black" size="md">
           {car.horsePower}
-        </span>
-      </div>
+        </Text>
+      </Flex>
 
-      <div className={styles['details']}>
-        <span>Gearbox</span>
-        <span>
+      <Flex direction="column" gap="md" className={styles["car-details__item"]}>
+        <Text weight="bold" size="md" color="black">
+          Gearbox
+        </Text>
+        <Text color="black" size="md">
           {car.gearbox}
-        </span>
-      </div>
+        </Text>
+      </Flex>
 
-      <div className={styles['details']}>
-        <span>Kilometers</span>
-        <span>
+      <Flex direction="column" gap="md" className={styles["car-details__item"]}>
+        <Text weight="bold" size="md" color="black">
+          Kilometers
+        </Text>
+        <Text color="black" size="md">
           {car.kilometers}
-        </span>
-      </div>
+        </Text>
+      </Flex>
 
-      <div className={styles['details']}>
-        <span>Fuel Type</span>
-        <span>
+      <Flex direction="column" gap="md" className={styles["car-details__item"]}>
+        <Text weight="bold" size="md" color="black">
+          Fuel Type
+        </Text>
+        <Text color="black" size="md">
           {car.fuelType}
-        </span>
-      </div>
+        </Text>
+      </Flex>
 
-      <div className={styles['details']}>
-        <span>Description</span>
-        <p>
+      <Flex direction="column" gap="md" className={styles["car-details__item"]}>
+        <Text weight="bold" size="md" color="black">
+          Description
+        </Text>
+        <Text color="black" size="md">
           {car.description}
-        </p>
-      </div>
+        </Text>
+      </Flex>
 
-      <div className={styles['details']}>
-        <span>City</span>
-        <span>
+      <Flex direction="column" gap="md" className={styles["car-details__item"]}>
+        <Text weight="bold" size="md" color="black">
+          City
+        </Text>
+        <Text color="black" size="md">
           {car.city}
-        </span>
-      </div>
+        </Text>
+      </Flex>
 
-      <div className={styles['details']}>
-        <span>Phone Number</span>
-        <span>
+      <Flex direction="column" gap="md" className={styles["car-details__item"]}>
+        <Text weight="bold" size="md" color="black">
+          Phone Number
+        </Text>
+        <Text color="black" size="md">
           {car.phoneNumber}
-        </span>
-      </div>
+        </Text>
+      </Flex>
 
-      <div className={styles['price-car-brand']}>
-        <h2>{car.manufacturer} {car.model}</h2>
-        <h3>
+      <Flex
+        justify="between"
+        align="center"
+        className={styles["car-details__header"]}
+      >
+        <Text tag="h2" color="black" size="xl" weight="bold">
+          {car.manufacturer} {car.model}
+        </Text>
+        <Text
+          tag="h3"
+          size="xl"
+          weight="bold"
+          color="secondary"
+          className={styles["car-details__price"]}
+        >
           ${car.price}
-        </h3>
-      </div>
+        </Text>
+      </Flex>
     </div>
   );
 };

@@ -1,27 +1,32 @@
 import React, { useMemo, useState } from "react";
-import styles from './CatalogForm.module.css';
+import { useSearchParams } from "react-router-dom";
+
+import { Button } from "../../../components/Button/Button";
+import { Flex } from "../../../components/Flex/Flex";
 import { Form } from "../../../components/Form/Form";
 import { FormField } from "../../../components/Form/FormField";
+import { Text } from "../../../components/Text/Text";
 import type { Car } from "../../../types/car";
-import { useSearchParams } from "react-router-dom";
+import styles from "./CatalogForm.module.css";
 
 export const CatalogForm: React.FC<{ cars: Car[]; }> = ({ cars }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [manufacturer, setManufacturer] = useState('');
+  const [manufacturer, setManufacturer] = useState("");
   const uniqueCities: string[] = [...new Set(cars.map(car => car.city))];
-  const uniqueManufacturers: string[] = [...new Set(cars.map(car => car.manufacturer))];
+  const uniqueManufacturers: string[] = [
+    ...new Set(cars.map(car => car.manufacturer)),
+  ];
   const earliestYear = Math.min(...cars.map(car => car.year));
-  const availableModels = useMemo(() =>
-    manufacturer
-      ? cars.filter(car => car.manufacturer === manufacturer)
-      : [],
+  const availableModels = useMemo(
+    () =>
+      manufacturer ? cars.filter(car => car.manufacturer === manufacturer) : [],
     [cars, manufacturer]
   );
 
   const searchFormHandler = async (formData: FormData) => {
     const searchParamsObj = Object.fromEntries(
       Array.from(formData.entries())
-        .filter(([, value]) => value !== '')
+        .filter(([, value]) => value !== "")
         .map(([key, value]) => [key, String(value)])
     );
 
@@ -29,157 +34,181 @@ export const CatalogForm: React.FC<{ cars: Car[]; }> = ({ cars }) => {
   };
 
   return (
-    <Form onSubmit={searchFormHandler} className={styles["search-form"]}>
-      <div className={styles["form-column"]}>
+    <Form onSubmit={searchFormHandler} className={styles["catalog-form"]}>
+      <Flex direction="column" gap="lg">
         <FormField
-          onChange={(e) => setManufacturer(e.target.value)}
+          onChange={e => setManufacturer(e.target.value)}
           label={
-            <React.Fragment>
+            <Text size="md" color="black">
               <i className="fa-solid fa-car" />
               <span> Manufacturer</span>
-            </React.Fragment>
+            </Text>
           }
           name="manufacturer"
           type="select"
           placeholder="Any"
-          options={uniqueManufacturers.map(manufacturer => ({ value: manufacturer, label: manufacturer }))}
+          options={uniqueManufacturers.map(manufacturer => ({
+            value: manufacturer,
+            label: manufacturer,
+          }))}
+          className={styles["catalog-form__field"]}
         />
         <FormField
           label={
-            <React.Fragment>
+            <Text size="md" color="black">
               <i className="fa-solid fa-car" />
               <span> Model</span>
-            </React.Fragment>
+            </Text>
           }
           name="model"
           type="select"
           placeholder="Any"
-          options={availableModels.map(car => ({ value: car.model, label: car.model }))}
+          options={availableModels.map(car => ({
+            value: car.model,
+            label: car.model,
+          }))}
+          className={styles["catalog-form__field"]}
         />
         <FormField
           label={
-            <React.Fragment>
+            <Text size="md" color="black">
               <i className="fa fa-calendar" />
               <span> Year</span>
-            </React.Fragment>
+            </Text>
           }
           name="year"
           type="select"
           placeholder="Any"
           options={[{ value: earliestYear, label: `After ${earliestYear}` }]}
+          className={styles["catalog-form__field"]}
         />
         <FormField
           label={
-            <React.Fragment>
+            <Text size="md" color="black">
               <i className="fa-solid fa-money-bill" />
               <span> From Price</span>
-            </React.Fragment>
+            </Text>
           }
           name="fromPrice"
           type="number"
           placeholder="From Price"
+          className={styles["catalog-form__field"]}
         />
         <FormField
           label={
-            <React.Fragment>
+            <Text size="md" color="black">
               <i className="fa-solid fa-money-bill" />
               <span> To Price</span>
-            </React.Fragment>
+            </Text>
           }
           name="toPrice"
           type="number"
           placeholder="To Price"
+          className={styles["catalog-form__field"]}
         />
         <FormField
           label={
-            <React.Fragment>
+            <Text size="md" color="black">
               <i className="fa fa-gears" />
               <span> Gearbox</span>
-            </React.Fragment>
+            </Text>
           }
           name="gearbox"
           type="select"
           placeholder="Any"
           options={[
-            { value: 'Manual', label: 'Manual' },
-            { value: 'Automatic', label: 'Automatic' }
+            { value: "Manual", label: "Manual" },
+            { value: "Automatic", label: "Automatic" },
           ]}
+          className={styles["catalog-form__field"]}
         />
-      </div>
-      <div className={styles["form-column"]}>
+      </Flex>
+      <Flex direction="column" gap="lg">
         <FormField
           label={
-            <React.Fragment>
+            <Text size="md" color="black">
               <i className="fa-solid fa-city" />
               <span> City</span>
-            </React.Fragment>
+            </Text>
           }
           name="city"
           type="select"
           placeholder="Any"
           options={uniqueCities.map(city => ({ value: city, label: city }))}
+          className={styles["catalog-form__field"]}
         />
         <FormField
           label={
-            <React.Fragment>
+            <Text size="md" color="black">
               <i className="fa-solid fa-gas-pump" />
               <span> Fuel Type</span>
-            </React.Fragment>
+            </Text>
           }
           name="fuelType"
           type="select"
           placeholder="Any"
           options={[
-            { value: 'Petrol', label: 'Petrol' },
-            { value: 'Diesel', label: 'Diesel' }
+            { value: "Petrol", label: "Petrol" },
+            { value: "Diesel", label: "Diesel" },
           ]}
+          className={styles["catalog-form__field"]}
         />
         <FormField
           label={
-            <React.Fragment>
+            <Text size="md" color="black">
               <i className="fa-solid fa-horse" />
               <span> From HP</span>
-            </React.Fragment>
+            </Text>
           }
           name="fromHp"
           type="number"
           placeholder="From HP"
+          className={styles["catalog-form__field"]}
         />
         <FormField
           label={
-            <React.Fragment>
+            <Text size="md" color="black">
               <i className="fa-solid fa-horse" />
               <span> To HP</span>
-            </React.Fragment>
+            </Text>
           }
           name="toHp"
           type="number"
           placeholder="To HP"
+          className={styles["catalog-form__field"]}
         />
         <FormField
           label={
-            <React.Fragment>
+            <Text size="md" color="black">
               <i className="fa-solid fa-road" />
               <span> From KM</span>
-            </React.Fragment>
+            </Text>
           }
           name="fromKm"
           type="number"
           placeholder="From KM"
+          className={styles["catalog-form__field"]}
         />
         <FormField
           label={
-            <React.Fragment>
+            <Text size="md" color="black">
               <i className="fa-solid fa-road" />
               <span> To KM</span>
-            </React.Fragment>
+            </Text>
           }
           name="toKm"
           type="number"
           placeholder="To KM"
+          className={styles["catalog-form__field"]}
         />
-      </div>
-      <button type="submit">Search</button>
+      </Flex>
+      <Button
+        variant="primary"
+        size="md"
+        className={styles["catalog-form__submit-button"]}
+      >
+        Search
+      </Button>
     </Form>
   );
 };

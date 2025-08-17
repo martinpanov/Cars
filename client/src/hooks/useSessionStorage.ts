@@ -10,13 +10,13 @@ export const useSessionStorage = (key, initialValue) => {
     return initialValue;
   });
 
-  const setSessionStorageState = (value) => {
+  const setSessionStorageState = value => {
     setValue(value);
     sessionStorage.setItem(key, JSON.stringify(value));
   };
 
   return {
     user: value,
-    setUser: setSessionStorageState
+    setUser: setSessionStorageState,
   };
 };

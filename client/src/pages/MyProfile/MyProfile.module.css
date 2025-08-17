@@ -1,112 +1,20 @@
-#my-profile {
-    display: flex;
-    justify-content: center;
-    min-height: calc(100vh - 118px - 53px);
-    background-color: #24252A;
-    border-top: 1px solid #545454;
-    border-bottom: 1px solid #545454;
-    color: white;
+.my-profile {
+  min-height: 100vh;
+  background-color: var(--black-color);
+  border-top: 1px solid #545454;
+  border-bottom: 1px solid #545454;
+  color: var(--secondary-color);
+  padding: calc(var(--spacing) * 8) 0;
 }
 
-.my-profile-content {
-    margin-top: 30px;
-    width: 940px;
-    min-height: 960px;
+.my-profile__content {
+  width: 940px;
 }
 
-.my-profile-details {
-    display: flex;
-    gap: 1.25rem;
-    border-bottom: 1px solid #545454;
-}
-
-.my-profile-info {
-    width: 60%;
-}
-
-.my-profile-info span:last-child {
-    margin-left: 1rem;
-}
-
-.my-profile-image-section {
-    display: flex;
-    justify-content: center;
-    width: 40%;
-    margin-bottom: 40px;
-}
-
-.my-profile-image {
-    position: relative;
-}
-
-.my-profile-image img {
-    object-fit: contain;
-    border-radius: 50%;
-    height: 180px;
-    width: 180px;
-}
-
-.change-photo-button {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    padding: 0.5rem 0.5rem;
-    display: flex;
-    border-radius: 50%;
-    background-color: #555555;
-    font-size: 40px;
-}
-
-.change-photo-button:hover {
-    cursor: pointer;
-    background-color: #6f6f6f;
-    transition: all 300ms ease-in-out;
-}
-
-.change-photo-button i {
-    font-size: 20px;
-    color: #FFFFF7;
-}
-
-.car-types {
-    display: flex;
-    justify-content: center;
-    gap: 1.25rem;
-    height: 2.25rem;
-}
-
-.car-types button {
-    background-color: #24252A;
-    color: white;
-    border: none;
-}
-
-.car-types button:focus {
-    border-top: 1px solid white;
-}
-
-.cars {
-    align-items: center;
-    display: grid;
-    gap: 40px 20px;
-    grid-template-columns: repeat(3, 1fr);
-    padding: 20px 0;
-    text-align: center;
-}
-
-@media (max-width: 940px) {
-    .cars {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 500px) {
-    .cars {
-        grid-template-columns: 1fr;
-    }
-
-    .my-profile-image img {
-        width: 140px;
-        height: 140px;
-    }
+.my-profile__details {
+  border-bottom: 1px solid #545454;
+  padding-bottom: calc(var(--spacing) * 5);
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+  gap: var(--spacing-lg);
 }

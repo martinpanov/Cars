@@ -1,0 +1,33 @@
+.my-profile__image-section {
+  position: relative;
+}
+
+.my-profile__image-section img {
+  object-fit: contain;
+  border-radius: 50%;
+  height: 180px;
+  width: 180px;
+}
+
+.my-profile__button {
+  position: absolute;
+  top: 5px;
+  right: 100px;
+  padding: var(--spacing) calc(var(--spacing) * 2);
+  border-radius: 50%;
+  background-color: #555555;
+  font-size: var(--font-size-xl);
+}
+
+.my-profile__button:hover {
+  cursor: pointer;
+  background-color: #6f6f6f;
+  transition: all 300ms ease-in-out;
+}
+
+@media (max-width: 520px) {
+  .my-profile__image-section img {
+    width: 140px;
+    height: 140px;
+  }
+}

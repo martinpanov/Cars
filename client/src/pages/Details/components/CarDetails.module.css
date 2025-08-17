@@ -1,49 +1,30 @@
-.car-details-section {
+.car-details {
   width: 40%;
-  background-color: #ffff;
+  background-color: var(--secondary-color);
 }
 
-.details {
+.car-details__item {
   border-bottom: 1px solid #adadad;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1.25rem 1.5rem;
+  padding: calc(var(--spacing) * 5) calc(var(--spacing) * 6);
 }
 
-.details span:first-child {
-  font-size: 17px;
-  font-weight: 700;
+.car-details__item p {
+  color: var(--black-color);
+  font-size: var(--font-size-md);
 }
 
-.details span:last-child,
-.details p {
-  color: #939393;
+.car-details__header {
+  padding: calc(var(--spacing) * 5) calc(var(--spacing) * 6);
 }
 
-.price-car-brand {
-  padding: 1.25rem 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.price-car-brand h2 {
-  font-size: 22px;
-  font-weight: 700;
-}
-
-.price-car-brand h3 {
-  background-color: #3a86ff;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  padding: 15px 40px;
-  font-size: 21px;
-  font-weight: 700;
-  color: white;
+.car-details__price {
+  background-color: var(--primary-color);
+  box-shadow: 0 0 20px var(--box-shadow-color);
+  padding: calc(var(--spacing) * 4) calc(var(--spacing) * 10);
 }
 
 @media (max-width: 1240px) {
-  .car-details-section {
+  .car-details {
     width: 100%;
   }
 }

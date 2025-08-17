@@ -1,12 +1,16 @@
-import { useContext, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useDeleteCarMutation, useGetCarQuery } from '../../api/cars';
-import { UserContext } from '../../contexts/UserContext';
-import styles from './Details.module.css';
-import { RenderIf } from '../../components/RenderIf';
-import { PageSpinner } from '../../components/Spinner/PageSpinner';
-import { CarDetails } from './components/CarDetails';
-import { ImageSlider } from '../../components/ImageSlider/ImageSlider';
+import { useContext, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
+import { useDeleteCarMutation, useGetCarQuery } from "../../api/cars";
+import { Button } from "../../components/Button/Button";
+import { Flex } from "../../components/Flex/Flex";
+import { ImageSlider } from "../../components/ImageSlider/ImageSlider";
+import { RenderIf } from "../../components/RenderIf";
+import { PageSpinner } from "../../components/Spinner/PageSpinner";
+import { Text } from "../../components/Text/Text";
+import { UserContext } from "../../contexts/UserContext";
+import { CarDetails } from "./components/CarDetails";
+import styles from "./Details.module.css";
 
 export const Details: React.FC = () => {
   const { id } = useParams();
@@ -19,47 +23,58 @@ export const Details: React.FC = () => {
 
   useEffect(() => {
     if (error) {
-      navigate('/catalog');
+      navigate("/catalog");
     }
   }, [error, navigate]);
-
 
   const deletedHandler = async () => {
     await deleteCar({ id });
 
-    navigate('/catalog');
+    navigate("/catalog");
   };
 
   return (
-    <section id={styles["details-page"]}>
+    <Flex tag="section" className={styles["details-page"]}>
       <RenderIf condition={isLoading}>
         <PageSpinner />
       </RenderIf>
       <RenderIf condition={!isLoading && car}>
-        <div className={styles['image-slider-section']}>
-          <div className={styles['image-slider-details']}>
-            <div className={styles['image-slider-model-and-brand']}>
-              <h1 className={styles['brand-slider']}>{car.manufacturer} {car.model}</h1>
-              <h2 className={styles['price-slider']}>${car.price}</h2>
+        <div className={styles["details-page__image-section"]}>
+          <Flex
+            justify="between"
+            align="center"
+            className={styles["details-page__header"]}
+          >
+            <div>
+              <Text tag="h1" size="3xl" weight="bold">
+                {car.manufacturer} {car.model}
+              </Text>
+              <Text tag="h2" size="xl" weight="bold" color="info">
+                ${car.price}
+              </Text>
             </div>
 
             <RenderIf condition={isOwner}>
-              <div className={styles['edit-and-delete']}>
-                <button onClick={() => navigate(`/edit/${id}`)}>
+              <Flex className={styles["details-page__actions"]}>
+                <Button
+                  variant="success"
+                  size="lg"
+                  onClick={() => navigate(`/edit/${id}`)}
+                >
                   Edit
-                </button>
-                <button onClick={deletedHandler}>
+                </Button>
+                <Button variant="error" size="lg" onClick={deletedHandler}>
                   Delete
-                </button>
-              </div>
+                </Button>
+              </Flex>
             </RenderIf>
-          </div>
+          </Flex>
 
           <ImageSlider imageSources={car.imageNames} />
         </div>
 
         <CarDetails car={car} />
       </RenderIf>
-    </section>
+    </Flex>
   );
 };

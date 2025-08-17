@@ -1,69 +1,70 @@
-#catalog-page {
-  min-height: calc(100vh - 84px - 79.33px);
-  display: flex;
-  justify-content: center;
-  gap: 1.75rem;
-  padding: 0rem 1rem;
+.catalog {
+  min-height: 100vh;
+  padding: calc(var(--spacing) * 4);
 }
 
-.cars-listings {
-  display: flex;
-  flex-direction: column;
-  min-height: 700px;
-  margin: 30px 0px;
-  gap: 1.5rem;
-}
-
-.no-listings {
-  min-height: calc(100vh - 112px - 79.33px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.catalog__container {
+  max-width: 1280px;
   width: 100%;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: calc(var(--spacing) * 8);
 }
 
-.no-listings h1 {
-  margin: 0px 0px 15px 0px;
-  font-size: 50px;
+.catalog__form {
+  grid-column: span 3;
 }
 
-.no-listings a {
-  text-decoration: none;
-  outline: none;
-  color: #24252A;
-  font-size: 25px;
+.catalog__cars-listing {
+  grid-column: span 7;
+  margin-block: calc(var(--spacing) * 8);
 }
 
-.no-listings button {
-  padding: 15px 30px;
+.catalog__no-listings {
+  grid-column: span 10;
+}
+
+.catalog__no-listings a {
+  padding: calc(var(--spacing) * 4) calc(var(--spacing) * 5);
   border-radius: 20px;
   border: none;
-  background-color: white;
+  background-color: var(--secondary-color);
+  color: var(--black-color);
+  font-size: var(--font-size-xl);
 }
 
-.no-listings button:hover {
-  background-color: #e63946;
+.catalog__no-listings a:hover {
+  background-color: var(--error-color);
   transition: all 0.5s ease 0s;
-  cursor: pointer;
 }
 
-@media (max-width: 1060px) {
-  #catalog-page {
-    flex-direction: column;
-    align-items: center;
+@media (max-width: 1280px) {
+  .catalog__container {
+    grid-template-columns: repeat(3, 1fr);
   }
-}
 
-@media (max-width: 768px) {
-  .cars-listings {
+  .catalog__form,
+  .catalog__cars-listing,
+  .catalog__no-listings {
+    grid-column: span 3;
+  }
+
+  .catalog__cars-listing > div:first-child {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: calc(var(--spacing) * 4);
   }
 }
 
-@media (max-width: 650px) {
-  .cars-listings {
-    grid-template-columns: 1fr
+@media (max-width: 520px) {
+  .catalog__container,
+  .catalog__cars-listing > div:first-child {
+    grid-template-columns: 1fr;
+  }
+
+  .catalog__form,
+  .catalog__cars-listing,
+  .catalog__no-listings {
+    grid-column: span 1;
   }
 }

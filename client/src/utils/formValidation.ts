@@ -7,7 +7,7 @@ export function formValidation({ formData, schema }: Params) {
   const errors = {};
   let isValid = true;
   const validationRules = {
-    required: (value) => !value,
+    required: value => !value,
     minLength: (value, rule) => value?.length < rule,
     maxLength: (value, rule) => value?.length > rule,
     pattern: (value, rule) => !new RegExp(rule).test(value),
@@ -15,9 +15,9 @@ export function formValidation({ formData, schema }: Params) {
     max: (value, rule) => Number(value) > rule,
     enum: (value, rule) => !rule.includes(value),
     type: (value, rule) => {
-      if (rule === 'number') return isNaN(Number(value));
-      if (rule === 'string') return typeof value !== 'string';
-      if (rule === 'array') return !Array.isArray(value);
+      if (rule === "number") return isNaN(Number(value));
+      if (rule === "string") return typeof value !== "string";
+      if (rule === "array") return !Array.isArray(value);
       return false;
     },
     minItems: (value, rule) => Array.isArray(value) && value.length < rule,
@@ -27,7 +27,9 @@ export function formValidation({ formData, schema }: Params) {
 
       const files = Array.isArray(value) ? value : [value];
 
-      return !files.every(file => file instanceof File && allowedTypes.includes(file.type));
+      return !files.every(
+        file => file instanceof File && allowedTypes.includes(file.type)
+      );
     },
 
     maxSize: (value, maxBytes) => {
@@ -35,12 +37,15 @@ export function formValidation({ formData, schema }: Params) {
 
       const files = Array.isArray(value) ? value : [value];
 
-      return !files.every(file => file instanceof File && file.size <= maxBytes);
-    }
+      return !files.every(
+        file => file instanceof File && file.size <= maxBytes
+      );
+    },
   };
 
   Object.entries(schema).forEach(([key, validation]) => {
-    const value = formData.get(key);
+    // Use getAll for array types, get for single values
+    const value = validation.type === "array" ? formData.getAll(key) : formData.get(key);
 
     // Find the first validation that fails
     const failedRule = Object.entries(validation).find(([rule, ruleValue]) => {
@@ -52,8 +57,12 @@ export function formValidation({ formData, schema }: Params) {
       const [failedRuleName] = failedRule;
 
       // If errorMessage is an object, pick the message for the failed rule
-      if (validation.errorMessage && typeof validation.errorMessage === 'object') {
-        errors[key] = validation.errorMessage[failedRuleName] || `Invalid value for ${key}`;
+      if (
+        validation.errorMessage &&
+        typeof validation.errorMessage === "object"
+      ) {
+        errors[key] =
+          validation.errorMessage[failedRuleName] || `Invalid value for ${key}`;
       } else {
         // Otherwise fallback to generic message or default
         errors[key] = validation.errorMessage || `Invalid value for ${key}`;
