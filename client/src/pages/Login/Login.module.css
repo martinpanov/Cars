@@ -1,163 +1,88 @@
-#login-register-page {
-    display: flex;
-    height: 100vh;
+.login-page {
+  height: 100vh;
 }
 
-.image-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    background-image: url('../../../public/assets/audi-login.webp');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
+.login-page__image-section {
+  position: relative;
+  width: 50%;
 }
 
-.image-section button a {
-    color: #24252A;
+.login-page__background-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.login-register-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 50%;
-    background-color: #f9f9f9;
+.login-page__cta {
+  position: relative;
 }
 
-.login-register-section img {
-    height: 100px;
-    width: 300px;
+.login-page__content-section {
+  width: 50%;
+  background-color: var(--secondary-color);
 }
 
-.login-register-form-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    height: 500px;
-    width: 500px;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    background-color: #ffff;
+.login-page__logo {
+  height: 100px;
+  width: 300px;
 }
 
-.login-register-form-wrapper>p {
-    display: none;
+.login-page__form-wrapper {
+  height: 500px;
+  width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px var(--box-shadow-color);
+  background-color: var(--white-color);
 }
 
-.errors {
-    display: flex;
-    gap: 0.75rem;
-    font-weight: bold;
-    color: #e63946;
+.login-page__mobile-link {
+  display: none;
 }
 
-.login-register-form-wrapper form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 65%;
+.login-page__form {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 4);
 }
 
-.login-register-form-wrapper form button {
-    font-size: 1.25rem;
-    padding: 15px 0px;
-    border-radius: 20px;
-    border: none;
-    color: #ffff;
-    background-color: #24252A;
+.login-page__input {
+  padding: calc(var(--spacing) * 4) calc(var(--spacing) * 8);
+  border-radius: 20px;
+  font-size: var(--font-size-md);
+  border-width: 1px;
 }
 
-.login-register-form-wrapper form button:hover {
-    background-color: #3a86ff;
-    transition: all 0.5s ease 0s;
-    cursor: pointer;
+.login-page__input:focus {
+  outline: none;
 }
 
-.login-register-form-wrapper form input {
-    padding: 15px 30px;
-    border-radius: 20px;
-    font-size: 18px;
-    border-width: 1px;
-}
-
-.login-register-form-wrapper form input:focus {
-    outline: none;
-}
-
-.login-register-form-wrapper form label {
-    font-size: 1.25rem;
-}
-
-.text-and-button {
-    text-align: center;
-}
-
-.text-and-button h1 {
-    color: white;
-    font-size: 1.75rem;
-    text-shadow: 0px 0px 5px black;
-}
-
-.text-and-button button {
-    font-size: 1.25rem;
-    padding: 0.75rem 5.75rem;
-    border-radius: 20px;
-    border: none;
-    color: #24252A;
-    background-color: #ffff;
-}
-
-.text-and-button button:hover {
-    background-color: #3a86ff;
-    transition: all 0.5s ease 0s;
-    cursor: pointer;
+.login-page__cta-heading {
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
 }
 
 @media (max-width: 1024px) {
-    .image-section {
-        display: none;
-    }
+  .login-page__image-section {
+    display: none;
+  }
 
-    .login-register-section {
-        width: 100%;
-    }
+  .login-page__content-section {
+    width: 100%;
+  }
 
-    .login-register-form-wrapper>p {
-        display: inline-block;
-    }
-
-    .login-register-form-wrapper>p>a {
-        color: blue;
-    }
+  .login-page__mobile-link {
+    display: block;
+  }
 }
 
-@media (max-width: 500px) {
-    .login-register-form-wrapper {
-        height: 360px;
-        width: 360px;
-        gap: 0.75rem;
-    }
+@media (max-width: 520px) {
+  .login-page__form-wrapper {
+    height: 360px;
+    width: 360px;
+  }
 
-    .login-register-form-wrapper form {
-        gap: 0.75rem;
-    }
-
-    .login-register-form-wrapper form input {
-        padding: 10px 25px;
-    }
-
-    .login-register-form-wrapper form label {
-        font-size: 1rem;
-    }
-
-    .login-register-form-wrapper form button {
-        font-size: 1rem;
-        padding: 10px 0px;
-    }
+  .login-page__input {
+    padding: calc(var(--spacing) * 3) calc(var(--spacing) * 6);
+  }
 }

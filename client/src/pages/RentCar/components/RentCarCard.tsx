@@ -1,14 +1,18 @@
-import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../../contexts/UserContext';
-import { useRentCarMutation } from '../../../api/rent-car';
-import styles from './RentCarCard.module.css';
-import { ButtonSpinner } from '../../../components/Spinner/ButtonSpinner';
-import type { RentalCar } from '../../../types/car';
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { useRentCarMutation } from "../../../api/rent-car";
+import { Button } from "../../../components/Button/Button";
+import { Flex } from "../../../components/Flex/Flex";
+import { ButtonSpinner } from "../../../components/Spinner/ButtonSpinner";
+import { Text } from "../../../components/Text/Text";
+import { UserContext } from "../../../contexts/UserContext";
+import type { RentalCar } from "../../../types/car";
+import styles from "./RentCarCard.module.css";
 
 type Props = {
   car: RentalCar;
-  getRentCars: () => void;
+  getRentCars: () => Promise<void>;
 };
 
 export const RentCarCard: React.FC<Props> = ({ car, getRentCars }) => {
@@ -19,7 +23,7 @@ export const RentCarCard: React.FC<Props> = ({ car, getRentCars }) => {
 
   const rentClickHandler = async () => {
     if (!user) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
 
@@ -32,37 +36,65 @@ export const RentCarCard: React.FC<Props> = ({ car, getRentCars }) => {
       return null;
     }
 
-    const buttonText = (user && car.rentedBy && isOwner) ? 'Cancel Rent' : 'Rent Now';
+    const buttonText =
+      user && car.rentedBy && isOwner ? "Cancel Rent" : "Rent Now";
 
     return (
-      <button onClick={rentClickHandler} disabled={isLoading}>
-        {isLoading ? <ButtonSpinner /> : buttonText}
-      </button>
+      <Button
+        onClick={rentClickHandler}
+        disabled={isLoading}
+        variant="primary"
+        size="lg"
+      >
+        {isLoading ? <ButtonSpinner height="30" /> : buttonText}
+      </Button>
     );
   };
 
   return (
-    <div className={styles["car"]}>
-      <div className={styles["car-image"]}>
-        <img src={car.rentedBy ? '/assets/rented.webp' : car.img} alt="car" />
-      </div>
-      <div className={styles["details"]}>
-        <h2>{car.manufacturer} {car.model}</h2>
+    <Flex
+      direction="column"
+      justify="between"
+      gap="none"
+      className={styles["rent-car-card"]}
+    >
+      <img
+        src={car.rentedBy ? "/assets/rented.webp" : car.img}
+        alt={`${car.manufacturer} ${car.model} rental car`}
+        className={styles["rent-car-card__image"]}
+      />
 
-        <div className={styles["car-specs"]}>
-          <span className={styles["seats"]}><i className="fa-sharp fa-solid fa-users"></i> {car.seats} seats </span>
-          <span className={styles["doors"]}><i className="fa-solid fa-door-open"></i> {car.doors} doors </span>
-          <span className={styles["ac"]}><i className="fa-solid fa-snowflake"></i> A/C </span>
-          <span className={styles["gearbox"]}><i className="fa fa-gears"></i> {car.gearbox} </span>
-          <span className={styles["fuel"]}><i className="fa fa-gas-pump"></i> {car.fuelType} </span>
-          <span className={styles["city"]}><i className="fa fa-city"></i> {car.city} </span>
-        </div>
+      <Flex direction="column" gap="lg" padding="md">
+        <Text textAlign="center" size="xl" weight="bold" color="primary">
+          {car.manufacturer} {car.model}
+        </Text>
 
-        <div className={styles["car-listing-price"]}>
-          <span>${car.price} / day</span>
-        </div>
+        <Flex wrap="wrap" justify="between" gap="lg">
+          <Text color="black" className={styles["rent-car-card__spec"]}>
+            <i className="fa-sharp fa-solid fa-users"></i> {car.seats} seats
+          </Text>
+          <Text color="black" className={styles["rent-car-card__spec"]}>
+            <i className="fa-solid fa-door-open"></i> {car.doors} doors
+          </Text>
+          <Text color="black" className={styles["rent-car-card__spec"]}>
+            <i className="fa-solid fa-snowflake"></i> A/C
+          </Text>
+          <Text color="black" className={styles["rent-car-card__spec"]}>
+            <i className="fa fa-gears"></i> {car.gearbox}
+          </Text>
+          <Text color="black" className={styles["rent-car-card__spec"]}>
+            <i className="fa fa-gas-pump"></i> {car.fuelType}
+          </Text>
+          <Text color="black" className={styles["rent-car-card__spec"]}>
+            <i className="fa fa-city"></i> {car.city}
+          </Text>
+        </Flex>
+
+        <Text textAlign="center" className={styles["rent-car-card__price"]}>
+          ${car.price} / day
+        </Text>
         {renderConditionalButton()}
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   );
 };

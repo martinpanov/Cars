@@ -4,14 +4,14 @@ export const MyProfileSpinner: React.FC = () => {
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       style={{
-        margin: 'auto',
-        background: 'rgb(36, 37, 42)',
-        display: 'block',
-        shapeRendering: 'auto',
-        position: 'absolute',
-        top: '75%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)'
+        margin: "auto",
+        background: "rgb(36, 37, 42)",
+        display: "block",
+        shapeRendering: "auto",
+        position: "absolute",
+        top: "75%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
       }}
       width="200px"
       height="200px"

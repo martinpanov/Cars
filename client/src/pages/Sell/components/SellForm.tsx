@@ -1,139 +1,207 @@
-import { useNavigate } from 'react-router-dom';
-import { useSellCarMutation } from '../../../api/cars';
-import styles from './SellForm.module.css';
-import { sellSchema } from '../schema';
-import { Form } from '../../../components/Form/Form';
-import { FormField } from '../../../components/Form/FormField';
+import { useNavigate } from "react-router-dom";
+
+import { useSellCarMutation } from "../../../api/cars";
+import { Flex } from "../../../components/Flex/Flex";
+import { Form } from "../../../components/Form/Form";
+import { FormField } from "../../../components/Form/FormField";
+import { Text } from "../../../components/Text/Text";
+import { sellSchema } from "../schema";
+import styles from "./SellForm.module.css";
 
 type Props = {
   images: File[];
   setImages: React.Dispatch<React.SetStateAction<File[]>>;
 };
 
-export const SellForm: React.FC<Props> = ({
-  images,
-  setImages,
-}) => {
+export const SellForm: React.FC<Props> = ({ images, setImages }) => {
   const navigate = useNavigate();
   const { sellCar } = useSellCarMutation();
 
   const sellFormHandler = async (formData: FormData) => {
     if (images.length === 0) {
-      formData.append('images', '');
+      formData.append("images", "");
     } else {
-      images.forEach(image => formData.append('images', image));
+      images.forEach(image => formData.append("images", image));
     }
 
     await sellCar(formData);
-    navigate('/catalog');
+    navigate("/catalog");
   };
 
   return (
-    <Form id="sell-form" action='/sell' onSubmit={sellFormHandler} schema={sellSchema} encType="multipart/form-data">
-      <div className={styles['details']}>
+    <Form
+      id="sell-form"
+      action="/sell"
+      onSubmit={sellFormHandler}
+      // schema={sellSchema} // Temporarily disabled for backend testing
+      encType="multipart/form-data"
+      className={styles["sell-form"]}
+    >
+      <Flex direction="column" gap="md" className={styles["sell-form__item"]}>
         <FormField
-          label={<span>Year</span>}
+          label={
+            <Text size="md" weight="bold" color="black">
+              Year
+            </Text>
+          }
           name="year"
           type="number"
           placeholder="Year"
         />
-      </div>
-      <div className={styles['details']}>
+      </Flex>
+
+      <Flex direction="column" gap="md" className={styles["sell-form__item"]}>
         <FormField
-          label={<span>Horse Power</span>}
+          label={
+            <Text size="md" weight="bold" color="black">
+              Horse Power
+            </Text>
+          }
           name="horsePower"
           type="number"
           placeholder="Horse Power"
         />
-      </div>
-      <div className={styles['details']}>
+      </Flex>
+
+      <Flex direction="column" gap="md" className={styles["sell-form__item"]}>
         <FormField
-          label={<span>Gearbox</span>}
+          label={
+            <Text size="md" weight="bold" color="black">
+              Gearbox
+            </Text>
+          }
           name="gearbox"
           type="select"
           options={[
-            { value: 'Manual', label: 'Manual' },
-            { value: 'Automatic', label: 'Automatic' }
+            { value: "Manual", label: "Manual" },
+            { value: "Automatic", label: "Automatic" },
           ]}
         />
-      </div>
-      <div className={styles['details']}>
+      </Flex>
+
+      <Flex direction="column" gap="md" className={styles["sell-form__item"]}>
         <FormField
-          label={<span>Kilometers</span>}
+          label={
+            <Text size="md" weight="bold" color="black">
+              Kilometers
+            </Text>
+          }
           name="kilometers"
           type="number"
           placeholder="Kilometers"
         />
-      </div>
-      <div className={styles['details']}>
+      </Flex>
+
+      <Flex direction="column" gap="md" className={styles["sell-form__item"]}>
         <FormField
-          label={<span>Fuel Type</span>}
+          label={
+            <Text size="md" weight="bold" color="black">
+              Fuel Type
+            </Text>
+          }
           name="fuelType"
           type="select"
           options={[
-            { value: 'Petrol', label: 'Petrol' },
-            { value: 'Diesel', label: 'Diesel' }
+            { value: "Petrol", label: "Petrol" },
+            { value: "Diesel", label: "Diesel" },
           ]}
         />
-      </div>
-      <div className={styles['details']}>
+      </Flex>
+
+      <Flex direction="column" gap="md" className={styles["sell-form__item"]}>
         <FormField
-          label={<span>Description</span>}
+          label={
+            <Text size="md" weight="bold" color="black">
+              Description
+            </Text>
+          }
           name="description"
           type="textarea"
           placeholder="Description"
         />
-      </div>
-      <div className={styles['details']}>
+      </Flex>
+
+      <Flex direction="column" gap="md" className={styles["sell-form__item"]}>
         <FormField
-          label={<span>City</span>}
+          label={
+            <Text size="md" weight="bold" color="black">
+              City
+            </Text>
+          }
           name="city"
           type="text"
           placeholder="City"
         />
-      </div>
-      <div className={styles['details']}>
+      </Flex>
+
+      <Flex direction="column" gap="md" className={styles["sell-form__item"]}>
         <FormField
-          label={<span>Phone Number</span>}
+          label={
+            <Text size="md" weight="bold" color="black">
+              Phone Number
+            </Text>
+          }
           name="phoneNumber"
           type="text"
           placeholder="Phone Number"
         />
-      </div>
-      <div className={styles['details']}>
+      </Flex>
+
+      <Flex direction="column" gap="md" className={styles["sell-form__item"]}>
         <FormField
-          label={<span>Pictures</span>}
+          label={
+            <Text size="md" weight="bold" color="black">
+              Pictures
+            </Text>
+          }
           name="images"
           type="file"
           accept="image/*"
-          onChange={(e) => setImages(images => ([...images, e.target.files[0]]))}
+          onChange={e => setImages(images => [...images, e.target.files[0]])}
         />
-      </div>
-      <div className={styles['price-car-brand']}>
-        <div className={styles['brand']}>
+      </Flex>
+
+      <Flex
+        justify="between"
+        align="center"
+        className={styles["sell-form__header"]}
+      >
+        <Flex direction="column" gap="lg">
           <FormField
-            label={<span>Manufacturer</span>}
+            label={
+              <Text size="md" weight="bold" color="black">
+                Manufacturer
+              </Text>
+            }
             name="manufacturer"
             type="text"
             placeholder="Manufacturer"
+            className={`${styles["sell-form__header-input"]} ${styles["sell-form__brand-input"]}`}
           />
           <FormField
-            label={<span>Model</span>}
+            label={
+              <Text size="md" weight="bold" color="black">
+                Model
+              </Text>
+            }
             name="model"
             type="text"
             placeholder="Model"
+            className={`${styles["sell-form__header-input"]} ${styles["sell-form__brand-input"]}`}
           />
-        </div>
-        <div className={styles['price']}>
-          <span>$</span>
+        </Flex>
+        <Flex align="center">
+          <Text color="black" size="xl">
+            $
+          </Text>
           <FormField
-            label={<span>Price</span>}
             name="price"
             type="number"
             placeholder="Price"
+            className={`${styles["sell-form__header-input"]} ${styles["sell-form__price-input"]}`}
           />
-        </div>
-      </div>
+        </Flex>
+      </Flex>
     </Form>
   );
 };

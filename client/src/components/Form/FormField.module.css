@@ -1,0 +1,49 @@
+.form-field {
+  width: 100%;
+  padding-inline: calc(var(--spacing) * 3);
+  padding-block: calc(var(--spacing) * 2);
+  border-width: 1px solid var(--border-color);
+  border-radius: 6px;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.form-field:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+.form-field.error {
+  border-color: var(--error-color);
+}
+
+.form-field.error:focus {
+  border-color: var(--error-color);
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.5);
+}
+
+.form-field__checkbox {
+  width: 16px;
+  height: 16px;
+  color: var(--primary-color);
+  border: 1px solid var(--secondary-color);
+  border-radius: 4px;
+}
+
+.form-field__checkbox:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #3b82f6;
+}
+
+/* Remove number input spinners */
+.form-field[type="number"]::-webkit-outer-spin-button,
+.form-field[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.form-field[type="number"] {
+  -moz-appearance: textfield;
+}

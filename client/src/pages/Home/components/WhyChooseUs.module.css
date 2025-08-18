@@ -1,41 +1,23 @@
-#why-choose-us {
-  background-color: #f8f8f8;
-  padding: 5rem 0rem;
+.why-choose-us {
+  padding: calc(var(--spacing) * 30) calc(var(--spacing) * 8);
 }
 
-#why-choose-us h2 {
-  font-size: 35px;
-  text-align: center;
-  margin-bottom: 3rem;
+.why-choose-us__reasons {
+  gap: calc(var(--spacing) * 30);
 }
 
-.reasons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10rem;
-}
-
-.reason {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+.why-choose-us__reason {
   width: 300px;
 }
 
-.reason img {
+.why-choose-us__reason img {
   width: 120px;
   height: 120px;
 }
 
-.reason h3 {
-  font-size: 30px;
-}
-
-@media (max-width: 1076px) {
-  .reasons {
+@media (max-width: 1024px) {
+  .why-choose-us__reasons {
     flex-direction: column;
-    gap: 3rem;
+    gap: calc(var(--spacing) * 18);
   }
 }

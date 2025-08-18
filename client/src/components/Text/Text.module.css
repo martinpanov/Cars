@@ -1,4 +1,4 @@
-.text-small {
+.text-sm {
   font-size: var(--font-size-sm);
   letter-spacing: var(--letter-spacing-1);
   line-height: var(--line-height-1);
@@ -46,6 +46,12 @@
   line-height: var(--line-height-8);
 }
 
+.text-5xl {
+  font-size: var(--font-size-5xl);
+  letter-spacing: var(--letter-spacing-7);
+  line-height: var(--line-height-8);
+}
+
 .text-align-left {
   text-align: left;
 }
@@ -75,15 +81,15 @@
 }
 
 .text-primary {
-  color: var(--primary-color)
+  color: var(--primary-color);
 }
 
 .text-secondary {
-  color: var(--secondary-color)
+  color: var(--secondary-color);
 }
 
 .text-error {
-  color: var(--error-color)
+  color: var(--error-color);
 }
 
 .text-success {
@@ -95,5 +101,9 @@
 }
 
 .text-info {
-  color: var(--info-color);
+  color: var(--primary-color);
+}
+
+.text-black {
+  color: var(--black-color);
 }

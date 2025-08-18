@@ -1,91 +1,56 @@
-#car-listings {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3rem;
-  background-color: #3a86ff;
+.latest-car-listings {
+  background-color: var(--primary-color);
+  padding: calc(var(--spacing) * 30) calc(var(--spacing) * 8);
 }
 
-#car-listings h2 {
-  font-size: 2.75rem;
-}
-
-.latest-listings {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 0rem 3rem;
-  gap: 50px;
-}
-
-.latest-car-listing {
-  display: flex;
-  flex-direction: column;
+.latest-car-listings__card {
   height: 400px;
   width: 300px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  background-color: white
+  box-shadow: 0 0 20px var(--box-shadow-color);
+  background-color: var(--secondary-color);
+  transition: box-shadow 0.3s ease;
 }
 
-.latest-car-listing:hover {
+.latest-car-listings__card:hover {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
-.car-listing-image {
-  height: 45%;
+.latest-car-listings__image-container {
+  height: 60%;
 }
 
-.car-listing-image img {
+.latest-car-listings__image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.car-specs {
-  height: 55%;
+.latest-car-listings__specs {
   display: grid;
-  grid-template-areas:
-    "manufacturer manufacturer"
-    "kilometers horse-power"
-    "gearbox fuel-type"
-    "price price";
+  grid-template-columns: 1fr 1fr;
   text-align: center;
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+  gap: calc(var(--spacing) * 2);
 }
 
-.manufacturer {
-  grid-area: manufacturer;
-}
-
-.kilometers {
-  grid-area: kilometers;
-}
-
-.horse-power {
-  grid-area: horse-power;
-}
-
-.gearbox {
-  grid-area: gearbox;
-}
-
-.fuel-type {
-  grid-area: fuel-type;
-}
-
-.price {
-  grid-area: price;
-  font-size: 25px;
-  font-weight: 700;
-}
-
-.manufacturer a {
-  font-size: 1.75rem;
+.latest-car-listings__manufacturer {
+  grid-column: span 2;
+  font-size: var(--font-size-xl);
   text-decoration: none;
-  color: #3a86ff;
+  color: var(--primary-color);
+  font-weight: var(--font-weight-bold);
 }
 
-@media (max-width: 745px) {
-  .latest-car-listing {
+.latest-car-listings__price {
+  grid-column: span 2;
+}
+
+.latest-car-listings i {
+  color: var(--primary-color);
+}
+
+@media (max-width: 1024px) {
+  .latest-car-listings__card {
     height: 300px;
     width: 200px;
   }

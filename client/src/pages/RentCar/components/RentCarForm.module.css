@@ -1,59 +1,30 @@
 .rent-car-form {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    width: 210px;
-    gap: 1rem;
-    padding: 30px 30px;
-    height: 600px;
-    margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--secondary-color);
+  box-shadow: 0 0 20px var(--box-shadow-color);
+  margin-top: calc(var(--spacing) * 12);
+  padding: calc(var(--spacing) * 5);
+  gap: calc(var(--spacing) * 4);
 }
 
-.rent-car-form label {
-    font-size: 18px;
+.rent-car-form__field {
+  border: 1px solid var(--border-color);
+  padding: calc(var(--spacing) * 2);
 }
 
-.rent-car-form select {
-    font-size: 16px;
-    border: 1px solid #ccd7e6;
-    padding: 8px 8px;
+.rent-car-form i {
+  color: var(--primary-color);
 }
 
-.rent-car-form label i {
-    color: #3a86ff
+@media (max-width: 1024px) {
+  .rent-car-form {
+    width: 100%;
+  }
 }
 
-.form-button {
-    font-size: 20px;
-    font-weight: 700;
-    padding: 15px 40px;
-    background-color: #3a86ff;
-    color: white;
-    border: none;
-}
-
-.form-button:hover {
-    cursor: pointer;
-}
-
-@media (max-width: 600px) {
-    .rent-car-form {
-        padding: 0.75rem 0.75rem;
-        width: 100%;
-        flex-wrap: wrap;
-        height: 210px;
-    }
-
-    .form-button {
-        font-size: 18px;
-        padding: 28px 28px;
-    }
-
-    .rent-car-form label {
-        font-size: 16px;
-    }
-
-    .rent-car-form select {
-        padding: 6px 0px;
-    }
+@media (max-width: 520px) {
+  .rent-car-form {
+    width: 100%;
+  }
 }

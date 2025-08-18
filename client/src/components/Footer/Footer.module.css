@@ -1,13 +1,6 @@
-#footer {
+.footer {
   position: relative;
   bottom: 0;
-  width: 100%;
-  padding: 14.5px;
-  text-align: center;
-  background-color: #24252A;
-  z-index: -1;
-}
-
-#footer p {
-  color: #ffff;
+  padding: calc(var(--spacing) * 4);
+  background-color: var(--black-color);
 }

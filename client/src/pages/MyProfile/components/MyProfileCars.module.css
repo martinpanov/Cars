@@ -1,19 +1,14 @@
-a {
-    text-decoration: none;
-    color: white;
+.my-profile-car-card {
+  width: 100%;
+  transition: transform 0.3s ease;
 }
 
-.car {
-    width: 100%;
-    height: 300px;
+.my-profile-car-card:hover {
+  transform: translateY(-2px);
 }
 
-.car img {
-    width: 100%;
-    height: 270px;
-    object-fit: contain;
-}
-
-.car span {
-    font-size: 20px;
+.my-profile-car-card__image {
+  width: 100%;
+  height: 270px;
+  object-fit: contain;
 }

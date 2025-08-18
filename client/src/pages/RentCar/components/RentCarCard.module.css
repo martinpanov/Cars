@@ -1,67 +1,38 @@
-.car {
-    height: 540px;
-    width: 330px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    background-color: white
+.rent-car-card {
+  box-shadow: 0 0 20px var(--box-shadow-color);
+  background-color: var(--secondary-color);
+  transition: box-shadow 0.3s ease;
 }
 
-.car:hover {
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+.rent-car-card:hover {
+  box-shadow: 0 0 40px var(--box-shadow-color);
 }
 
-.car-image img {
+.rent-car-card__image {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+}
+
+.rent-car-card__spec {
+  color: var(--text-color);
+  font-size: var(--font-size-sm);
+}
+
+.rent-car-card__spec i {
+  color: var(--primary-color);
+  margin-right: var(--spacing);
+}
+
+.rent-car-card__price {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--primary-color);
+}
+
+@media (max-width: 520px) {
+  .rent-car-card {
     width: 100%;
-    height: 230px;
-    object-fit: cover;
-}
-
-.details {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 0rem 1rem;
-}
-
-.car h2 span {
-    margin-bottom: 18px;
-    font-size: 30px;
-    text-decoration: none;
-    color: #3a86ff;
-}
-
-.car-specs {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 1.75rem;
-}
-
-.car-listing-price {
-    font-size: 25px;
-    font-weight: 700;
-}
-
-.car button {
-    font-size: 23px;
-    font-weight: 700;
-    height: 64.50px;
-    padding: 0px 75px;
-    background-color: #3a86ff;
-    color: black;
-    border: none;
-}
-
-.car button:hover {
-    background-color: #3a86ff;
-    color: white;
-    box-shadow: 0 0 7px 0 rgba(58, 134, 255);
-    transition: all 0.5s ease 0s;
-    cursor: pointer;
-}
-
-.car button a {
-    height: 100%;
-    width: 100%;
-    text-decoration: none;
-    color: black;
+    height: auto;
+  }
 }

@@ -1,5 +1,7 @@
-import { createContext, useState } from 'react';
-import { formValidation } from '../../utils/formValidation';
+import { useState } from "react";
+
+import { FormContext } from "../../contexts/FormContext";
+import { formValidation } from "../../utils/formValidation";
 
 type Props = {
   action?: string;
@@ -11,12 +13,18 @@ type Props = {
   [key: string]: any;
 };
 
-export const FormContext = createContext({});
-
-export const Form: React.FC<Props> = ({ action, method, schema, onSubmit, className, children, ...props }) => {
+export const Form: React.FC<Props> = ({
+  action,
+  method,
+  schema,
+  onSubmit,
+  className,
+  children,
+  ...props
+}) => {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const submitHandler = (e) => {
+  const submitHandler = e => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
@@ -35,7 +43,13 @@ export const Form: React.FC<Props> = ({ action, method, schema, onSubmit, classN
 
   return (
     <FormContext.Provider value={errors}>
-      <form action={action} method={method} onSubmit={submitHandler} className={className} {...props}>
+      <form
+        action={action}
+        method={method}
+        onSubmit={submitHandler}
+        className={className}
+        {...props}
+      >
         {children}
       </form>
     </FormContext.Provider>

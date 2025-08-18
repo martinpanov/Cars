@@ -1,7 +1,9 @@
 import { useState } from "react";
-import styles from './ImageSlider.module.css';
-import { IMAGES_URL } from "../../utils/constants";
+
+import { CloudinaryImage } from "../CloudinaryImage/CloudinaryImage";
+import { Flex } from "../Flex/Flex";
 import { RenderIf } from "../RenderIf";
+import styles from "./ImageSlider.module.css";
 
 type Props = {
   imageSources: (File | string)[];
@@ -18,26 +20,58 @@ export const ImageSlider: React.FC<Props> = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const getImageSrc = (image) => image instanceof File ? URL.createObjectURL(image) : `${IMAGES_URL}${image}`;
+  const renderImage = (
+    image: File | string,
+    width: number,
+    height: number,
+    onClick?: () => void
+  ) => {
+    if (image instanceof File) {
+      return (
+        <img
+          src={URL.createObjectURL(image)}
+          alt="car"
+          style={{
+            width,
+            height,
+            objectFit: "cover",
+            cursor: onClick ? "pointer" : "default",
+          }}
+          onClick={onClick}
+        />
+      );
+    }
+
+    return (
+      <CloudinaryImage
+        publicId={image}
+        width={width}
+        height={height}
+        onClick={onClick}
+      />
+    );
+  };
 
   const hasImages = imageSources.length > 0;
 
   const nextImage = () => {
-    setCurrentIndex((prev) => (prev + 1) % imageSources.length);
+    setCurrentIndex(prev => (prev + 1) % imageSources.length);
   };
 
   const previousImage = () => {
-    setCurrentIndex((prev) => (prev - 1 + imageSources.length) % imageSources.length);
+    setCurrentIndex(
+      prev => (prev - 1 + imageSources.length) % imageSources.length
+    );
   };
 
-  const deleteImage = (index) => {
+  const deleteImage = index => {
     if (!onDeleteImage) {
       return;
     }
 
     onDeleteImage(index);
 
-    setCurrentIndex((prev) => {
+    setCurrentIndex(prev => {
       if (prev >= imageSources.length - 1) {
         return Math.max(0, imageSources.length - 2);
       }
@@ -47,7 +81,13 @@ export const ImageSlider: React.FC<Props> = ({
 
   const renderThumbnails = () => {
     if (!hasImages) {
-      return <img src={DEFAULT_IMAGE} alt="default" className={styles["active"]} />;
+      return (
+        <img
+          src={DEFAULT_IMAGE}
+          alt="default"
+          className={styles["image-slider__thumbnail-image--active"]}
+        />
+      );
     }
 
     return imageSources.map((image, index) => {
@@ -55,24 +95,28 @@ export const ImageSlider: React.FC<Props> = ({
 
       if (isActive) {
         return (
-          <img
+          <div
             key={index}
-            src={getImageSrc(image)}
-            alt="carThumbnail"
-            className={styles["active"]}
-          />
+            className={styles["image-slider__thumbnail-image--active"]}
+          >
+            {renderImage(image, 120, 80)}
+          </div>
         );
       }
 
       return (
-        <div key={index} className={styles["thumbnail-container"]}>
-          <img
-            src={getImageSrc(image)}
-            alt="carThumbnail"
-            onClick={() => setCurrentIndex(index)}
-          />
+        <div
+          key={index}
+          className={styles["image-slider__thumbnail-container"]}
+        >
+          <div className={styles["image-slider__thumbnail-image"]}>
+            {renderImage(image, 120, 80, () => setCurrentIndex(index))}
+          </div>
           <RenderIf condition={isEditable}>
-            <div className={styles["delete-btn"]} onClick={() => deleteImage(index)}>
+            <div
+              className={styles["image-slider__delete-btn"]}
+              onClick={() => deleteImage(index)}
+            >
               X
             </div>
           </RenderIf>
@@ -83,25 +127,35 @@ export const ImageSlider: React.FC<Props> = ({
 
   return (
     <div className={styles["image-slider"]}>
-      <div className={styles["images"]}>
-        <img
-          src={hasImages ? getImageSrc(imageSources[currentIndex]) : DEFAULT_IMAGE}
-          alt="car"
-          className={styles["active"]}
-        />
+      <div className={styles["image-slider__images"]}>
+        <div className={styles["image-slider__active-image"]}>
+          {hasImages ? (
+            renderImage(imageSources[currentIndex], 600, 400)
+          ) : (
+            <img
+              src={DEFAULT_IMAGE}
+              alt="car"
+              style={{ width: 600, height: 400, objectFit: "cover" }}
+            />
+          )}
+        </div>
       </div>
 
-      <div className={styles["back-btn"]} onClick={previousImage}>
+      <div className={styles["image-slider__back-btn"]} onClick={previousImage}>
         <i className="fa-solid fa-arrow-left"></i>
       </div>
 
-      <div className={styles["next-btn"]} onClick={nextImage}>
+      <div className={styles["image-slider__next-btn"]} onClick={nextImage}>
         <i className="fa-sharp fa-solid fa-arrow-right"></i>
       </div>
 
-      <div className={styles["thumbnails"]}>
+      <Flex
+        justify="center"
+        gap="xs"
+        className={styles["image-slider__thumbnails"]}
+      >
         {renderThumbnails()}
-      </div>
+      </Flex>
     </div>
   );
 };

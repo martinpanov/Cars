@@ -1,56 +1,41 @@
-#sell-page {
-    min-height: calc(100vh - 118px - 53px);
-    display: flex;
+.sell-page {
+  min-height: 100vh;
 }
 
-.image-slider-section {
-    width: 60%;
-    padding: 1.25rem 3rem;
+.sell-page__image-section {
+  width: 60%;
+  padding: calc(var(--spacing) * 5) calc(var(--spacing) * 12);
 }
 
-.image-slider-section button {
-    font-size: 22px;
-    font-weight: 700;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    border: none;
-    height: 56px;
-    width: 143px;
-    background-color: green;
+.sell-page__content-section {
+  width: 40%;
+  background-color: var(--secondary-color);
+  padding-top: calc(var(--spacing) * 8);
 }
 
-.car-details-section {
-    width: 40%;
-    background-color: #ffff;
+@media (max-width: 1280px) {
+  .sell-page {
+    flex-direction: column-reverse;
+  }
+
+  .sell-page__image-section {
+    width: 100%;
+    height: 90vh;
+  }
+
+  .sell-page__content-section {
+    width: 100%;
+  }
 }
 
-.car-details-section h1 {
-    text-align: center;
-    margin-bottom: 0;
+@media (max-width: 1024px) {
+  .sell-page__image-section {
+    height: 80vh;
+  }
 }
 
-@media (max-width: 1240px) {
-    #sell-page {
-        flex-direction: column-reverse;
-    }
-
-    .image-slider-section {
-        width: 100%;
-        height: 90vh;
-    }
-
-    .car-details-section {
-        width: 100%;
-    }
-}
-
-@media (max-width: 768px) {
-    .image-slider-section {
-        height: 80vh;
-    }
-}
-
-@media (max-width: 500px) {
-    .image-slider-section {
-        height: 60vh;
-    }
+@media (max-width: 520px) {
+  .sell-page__image-section {
+    height: 60vh;
+  }
 }

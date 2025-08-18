@@ -1,10 +1,15 @@
-export const ButtonSpinner: React.FC = () => {
+type Props = {
+  width?: string;
+  height?: string;
+};
+
+export const ButtonSpinner: React.FC<Props> = ({ width, height }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       style={{ margin: "auto" }}
-      width="50"
-      height="50"
+      width={width || "50"}
+      height={height || "50"}
       display="block"
       preserveAspectRatio="xMidYMid"
       viewBox="0 0 100 100"

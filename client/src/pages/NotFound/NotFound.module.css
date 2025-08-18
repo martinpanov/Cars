@@ -1,31 +1,22 @@
-#chetiri-page {
-    min-height: calc(100vh - 118px - 53px);
-    background-color: #24252A;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.not-found-page {
+  min-height: 100vh;
+  background-color: var(--black-color);
 }
 
-#chetiri-page h1 {
-    color: #ffff;
-    font-size: 9rem;
-    opacity: 0.5;
+.not-found-page__error-code {
+  opacity: 0.5;
 }
 
-#chetiri-page h2 {
-    text-align: center;
-    color: #ffff;
-    font-size: 4rem;
-    opacity: 0.5;
+.not-found-page__message {
+  opacity: 0.5;
 }
 
-@media (max-width: 768px) {
-    #chetiri-page h1 {
-        font-size: 6rem;
-    }
+@media (max-width: 1024px) {
+  .not-found-page__error-code {
+    font-size: var(--font-size-5xl);
+  }
 
-    #chetiri-page h2 {
-        font-size: 2rem;
-    }
+  .not-found-page__message {
+    font-size: var(--font-size-2xl);
+  }
 }

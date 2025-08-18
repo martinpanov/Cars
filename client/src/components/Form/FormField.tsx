@@ -1,59 +1,69 @@
 import { useContext } from "react";
-import { FormContext } from "./Form";
+
+import { FormContext } from "../../contexts/FormContext";
+import { Flex } from "../Flex/Flex";
 import { Text } from "../Text/Text";
+import styles from "./FormField.module.css";
 
 type Props = {
   name: string;
   type?: string;
   label?: string | React.ReactNode;
   placeholder?: string;
-  options?: { value: string | number; label: string; }[];
+  options?: { value: string | number; label: string }[];
   className?: string;
+  defaultValue?: any;
   [key: string]: any;
 };
 
 export const FormField: React.FC<Props> = ({
   name,
-  type = 'text',
+  type = "text",
   label,
   placeholder,
   options = [],
-  className = '',
-  defaultValue = '',
+  className = "",
+  defaultValue = "",
   ...props
 }) => {
   const errors = useContext(FormContext);
 
   const error = errors[name];
   const hasError = Boolean(error);
-
-  const inputClassName = `w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${hasError ? 'border-red-500 focus:ring-red-500' : 'border-gray-300'
-    } ${className}`;
+  const inputClassName = [
+    styles["form-field"],
+    hasError && styles["error"],
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   const renderInput = () => {
     switch (type) {
-      case 'textarea':
+      case "textarea":
         return (
           <textarea
             name={name}
             id={name}
             placeholder={placeholder}
-            className={`${inputClassName} resize-vertical`}
+            className={inputClassName}
             rows={4}
+            defaultValue={defaultValue}
             {...props}
           />
         );
 
-      case 'select':
+      case "select":
         return (
           <select
             name={name}
             id={name}
             className={inputClassName}
+            defaultValue={defaultValue}
             {...props}
           >
-            <option value="">{placeholder || 'Select an option'}</option>
-            {options.map((option) => (
+            <option value="">{placeholder || "Select an option"}</option>
+            {options.map(option => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
@@ -61,42 +71,50 @@ export const FormField: React.FC<Props> = ({
           </select>
         );
 
-      case 'checkbox':
+      case "checkbox":
         return (
-          <div className="flex items-center">
+          <Flex align="center">
             <input
               type="checkbox"
               name={name}
               id={name}
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              className={styles["form-field__checkbox"]}
+              defaultValue={defaultValue}
               {...props}
             />
             {label && (
-              <label htmlFor={name} className="ml-2 block text-sm text-gray-900">
+              <label
+                htmlFor={name}
+                className="ml-2 block text-sm text-gray-900"
+              >
                 {label}
               </label>
             )}
-          </div>
+          </Flex>
         );
 
-      case 'radio':
+      case "radio":
         return (
           <div className="space-y-2">
-            {options.map((option) => (
-              <div key={option.value} className="flex items-center">
+            {options.map(option => (
+              <Flex key={option.value} align="center">
                 <input
                   type="radio"
                   name={name}
                   id={`${name}-${option.value}`}
                   value={option.value}
                   defaultChecked={defaultValue === option.value}
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                  className={styles["form-field__checkbox"]}
+                  defaultValue={defaultValue}
                   {...props}
                 />
-                <label htmlFor={`${name}-${option.value}`} className="ml-2 block text-sm text-gray-900">
+                <label
+                  htmlFor={`${name}-${option.value}`}
+                  className="ml-2 block text-sm text-gray-900"
+                >
                   {option.label}
                 </label>
-              </div>
+              </Flex>
             ))}
           </div>
         );
@@ -109,6 +127,7 @@ export const FormField: React.FC<Props> = ({
             id={name}
             placeholder={placeholder}
             className={inputClassName}
+            defaultValue={defaultValue}
             {...props}
           />
         );
@@ -117,19 +136,18 @@ export const FormField: React.FC<Props> = ({
 
   return (
     <div className="form-field">
-      {label && type !== 'checkbox' && (
-        <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1">
+      {label && type !== "checkbox" && (
+        <label
+          htmlFor={name}
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
           {label}
         </label>
       )}
 
       {renderInput()}
 
-      {hasError && (
-        <Text color="error">
-          {error}
-        </Text>
-      )}
+      {hasError && <Text color="error">{error}</Text>}
     </div>
   );
 };
