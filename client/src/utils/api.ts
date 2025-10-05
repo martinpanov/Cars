@@ -54,9 +54,11 @@ const rateLimitTracker: Record<string, number> = {}; // endpoint -> timestamp wh
 // Helper functions
 function checkRateLimit(method: HTTPMethod, endpoint: string) {
   // Group auth endpoints together since they share rate limits
-  const authEndpoints = ['/login', '/register', '/refresh'];
-  const normalizedEndpoint = authEndpoints.includes(endpoint) ? 'auth' : endpoint;
-  
+  const authEndpoints = ["/login", "/register", "/refresh"];
+  const normalizedEndpoint = authEndpoints.includes(endpoint)
+    ? "auth"
+    : endpoint;
+
   const rateLimitKey = `${method}:${normalizedEndpoint}`;
   const rateLimitExpiry = rateLimitTracker[rateLimitKey];
 
@@ -65,11 +67,13 @@ function checkRateLimit(method: HTTPMethod, endpoint: string) {
   }
 
   const remainingTime = Math.ceil((rateLimitExpiry - Date.now()) / 1000);
-  throw new Error(`Rate limited. Please wait ${remainingTime} seconds before trying again.`);
+  throw new Error(
+    `Rate limited. Please wait ${remainingTime} seconds before trying again.`
+  );
 }
 
 function buildRequestOptions(data?: string | FormData): RequestInit {
-  const options: RequestInit = { method: 'POST' };
+  const options: RequestInit = { method: "POST" };
 
   if (!data) {
     return options;
@@ -104,7 +108,7 @@ function addAuthHeaders(options: RequestInit): RequestInit {
     headers: {
       ...options.headers,
       Authorization: token,
-    }
+    },
   };
 }
 
@@ -128,20 +132,20 @@ async function handleTokenRefresh(
   user: any
 ): Promise<any> {
   const refreshResponse = await fetch(`${API_URL}/refresh`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ refreshToken: user.tokens.refreshToken }),
   });
 
   if (!refreshResponse.ok) {
     sessionStorage.removeItem("user");
-    window.location.href = '/login';
-    throw new Error('Session expired. Please log in again.');
+    window.location.href = "/login";
+    throw new Error("Session expired. Please log in again.");
   }
 
   const refreshResult = await refreshResponse.json();
 
-  // Update stored user data
+  // Update stored user data - refreshResult IS the tokens object
   const updatedUser = { ...user, tokens: refreshResult };
   sessionStorage.setItem("user", JSON.stringify(updatedUser));
 
@@ -151,7 +155,7 @@ async function handleTokenRefresh(
     headers: {
       ...options.headers,
       Authorization: refreshResult.accessToken,
-    }
+    },
   };
 
   const retryResponse = await fetch(`${API_URL}${endpoint}`, retryOptions);
@@ -185,13 +189,18 @@ export async function api({ method, endpoint, data }: API) {
   const userData = sessionStorage.getItem("user");
   const user = userData ? JSON.parse(userData) : null;
 
-  if (response.status === 401 && user?.tokens?.refreshToken && endpoint !== '/refresh' && endpoint !== '/login') {
+  if (
+    response.status === 401 &&
+    user?.tokens?.refreshToken &&
+    endpoint !== "/refresh" &&
+    endpoint !== "/login"
+  ) {
     try {
       return await handleTokenRefresh(endpoint, options, user);
-    } catch (refreshError) {
+    } catch {
       sessionStorage.removeItem("user");
-      window.location.href = '/login';
-      throw new Error('Session expired. Please log in again.');
+      window.location.href = "/login";
+      throw new Error("Session expired. Please log in again.");
     }
   }
 

@@ -16,8 +16,9 @@ export const Details: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
-  const { data, isLoading, error } = useGetCarQuery({ id });
-  const { deleteCar } = useDeleteCarMutation();
+  const { data, isLoading: isLoadingQuery, error } = useGetCarQuery({ id });
+  const { deleteCar, isLoading: isLoadingMutation } = useDeleteCarMutation();
+  const isLoading = isLoadingQuery || isLoadingMutation;
   const car = data || {};
   const isOwner = user && user.userId === car._ownerId;
 
@@ -28,9 +29,10 @@ export const Details: React.FC = () => {
   }, [error, navigate]);
 
   const deletedHandler = async () => {
-    await deleteCar({ id });
-
-    navigate("/catalog");
+    const result = await deleteCar({ id });
+    if (result) {
+      navigate("/catalog");
+    }
   };
 
   return (
@@ -70,7 +72,7 @@ export const Details: React.FC = () => {
             </RenderIf>
           </Flex>
 
-          <ImageSlider imageSources={car.imageNames} />
+          <ImageSlider imageSources={car.imagesNames} />
         </div>
 
         <CarDetails car={car} />

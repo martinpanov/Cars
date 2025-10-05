@@ -21,7 +21,7 @@ export default () => (req: AuthenticatedRequest, _res: Response, next: NextFunct
         username: payload.username
       };
       req.token = token;
-    } catch (error) {
+    } catch {
       // Don't return 401 here - let route-specific middleware handle authentication requirements
       // This allows public endpoints to work even with invalid tokens
       delete req.user;

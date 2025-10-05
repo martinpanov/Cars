@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import toast from "react-hot-toast";
 
 import { api, type HTTPMethod } from "../utils/api";
+import { showErrorToast } from "../utils/errorHandler";
 
 type Params = {
   method: HTTPMethod;
@@ -26,25 +26,25 @@ export const useApi = ({ method, endpoint, name, skip }: Params) => {
         setError(err);
 
         // Handle validation errors - don't show toast, let form handle them
-        if (err.errors && typeof err.errors === 'object') {
-          console.log('Validation errors:', err.errors);
+        if (err.errors && typeof err.errors === "object") {
+          console.log("Validation errors:", err.errors);
           return;
         }
 
         // Handle single error message
         if (err.error || err.message) {
-          toast.error(err.error || err.message);
+          showErrorToast(err.error || err.message);
           return;
         }
 
         // Handle array of error messages
         if (Array.isArray(err.errors)) {
-          err.errors.forEach(msg => toast.error(msg));
+          err.errors.forEach(msg => showErrorToast(msg));
           return;
         }
 
         // Fallback for unknown error format
-        toast.error('An unexpected error occurred');
+        showErrorToast("An unexpected error occurred");
       } finally {
         setIsLoading(false);
       }

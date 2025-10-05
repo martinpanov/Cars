@@ -24,7 +24,7 @@
 }
 
 .rent-car-page__no-results {
-  grid-column: span 10;
+  grid-column: span 8;
   margin-top: calc(var(--spacing) * 4);
 }
 

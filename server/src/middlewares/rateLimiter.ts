@@ -73,7 +73,7 @@ export const uploadRateLimit = createRateLimit({
 // Authentication rate limiting - stricter to prevent brute force attacks
 export const authRateLimit = createRateLimit({
   windowMs: 5 * 60 * 1000, // 5 minutes
-  max: 3, // limit each IP to 30 login/register attempts per windowMs
+  max: 30, // limit each IP to 30 login/register attempts per windowMs
   message: 'Too many authentication attempts. Please try again later.',
   keyGenerator: (req: Request) => {
     return `auth_${req.ip || 'unknown'}`;

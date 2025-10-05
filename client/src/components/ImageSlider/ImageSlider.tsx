@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { Button } from "../Button/Button";
 import { CloudinaryImage } from "../CloudinaryImage/CloudinaryImage";
 import { Flex } from "../Flex/Flex";
 import { RenderIf } from "../RenderIf";
@@ -20,36 +21,22 @@ export const ImageSlider: React.FC<Props> = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const renderImage = (
-    image: File | string,
-    width: number,
-    height: number,
-    onClick?: () => void
-  ) => {
+  const renderImage = (image: File | string, width: number, height: number) => {
     if (image instanceof File) {
       return (
         <img
           src={URL.createObjectURL(image)}
           alt="car"
           style={{
-            width,
-            height,
-            objectFit: "cover",
-            cursor: onClick ? "pointer" : "default",
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
           }}
-          onClick={onClick}
         />
       );
     }
 
-    return (
-      <CloudinaryImage
-        publicId={image}
-        width={width}
-        height={height}
-        onClick={onClick}
-      />
-    );
+    return <CloudinaryImage publicId={image} width={width} height={height} />;
   };
 
   const hasImages = imageSources.length > 0;
@@ -97,9 +84,22 @@ export const ImageSlider: React.FC<Props> = ({
         return (
           <div
             key={index}
-            className={styles["image-slider__thumbnail-image--active"]}
+            className={styles["image-slider__thumbnail-container"]}
           >
-            {renderImage(image, 120, 80)}
+            <div
+              className={`${styles["image-slider__thumbnail-image"]} ${styles["image-slider__thumbnail-image--active"]}`}
+              onClick={() => setCurrentIndex(index)}
+            >
+              {renderImage(image, 120, 80)}
+            </div>
+            <RenderIf condition={isEditable}>
+              <div
+                className={styles["image-slider__delete-btn"]}
+                onClick={() => deleteImage(index)}
+              >
+                X
+              </div>
+            </RenderIf>
           </div>
         );
       }
@@ -109,8 +109,11 @@ export const ImageSlider: React.FC<Props> = ({
           key={index}
           className={styles["image-slider__thumbnail-container"]}
         >
-          <div className={styles["image-slider__thumbnail-image"]}>
-            {renderImage(image, 120, 80, () => setCurrentIndex(index))}
+          <div
+            className={styles["image-slider__thumbnail-image"]}
+            onClick={() => setCurrentIndex(index)}
+          >
+            {renderImage(image, 120, 80)}
           </div>
           <RenderIf condition={isEditable}>
             <div
@@ -129,25 +132,36 @@ export const ImageSlider: React.FC<Props> = ({
     <div className={styles["image-slider"]}>
       <div className={styles["image-slider__images"]}>
         <div className={styles["image-slider__active-image"]}>
-          {hasImages ? (
-            renderImage(imageSources[currentIndex], 600, 400)
-          ) : (
+          <RenderIf condition={hasImages}>
+            {renderImage(imageSources[currentIndex], 800, 600)}
+          </RenderIf>
+          <RenderIf condition={!hasImages}>
             <img
               src={DEFAULT_IMAGE}
               alt="car"
-              style={{ width: 600, height: 400, objectFit: "cover" }}
+              style={{ width: "100%", height: "100%", objectFit: "contain" }}
             />
-          )}
+          </RenderIf>
         </div>
       </div>
 
-      <div className={styles["image-slider__back-btn"]} onClick={previousImage}>
+      <Button
+        variant="tertiary"
+        size="xs"
+        className={styles["image-slider__back-btn"]}
+        onClick={previousImage}
+      >
         <i className="fa-solid fa-arrow-left"></i>
-      </div>
+      </Button>
 
-      <div className={styles["image-slider__next-btn"]} onClick={nextImage}>
+      <Button
+        variant="tertiary"
+        size="xs"
+        className={styles["image-slider__next-btn"]}
+        onClick={nextImage}
+      >
         <i className="fa-sharp fa-solid fa-arrow-right"></i>
-      </div>
+      </Button>
 
       <Flex
         justify="center"

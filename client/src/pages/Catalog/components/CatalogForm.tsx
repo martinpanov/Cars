@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
+import { useGetCarsQuery } from "../../../api/cars";
 import { Button } from "../../../components/Button/Button";
 import { Flex } from "../../../components/Flex/Flex";
 import { Form } from "../../../components/Form/Form";
@@ -9,14 +10,23 @@ import { Text } from "../../../components/Text/Text";
 import type { Car } from "../../../types/car";
 import styles from "./CatalogForm.module.css";
 
-export const CatalogForm: React.FC<{ cars: Car[]; }> = ({ cars }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+export const CatalogForm: React.FC<{ cars: Car[] }> = ({ cars }) => {
+  const [_searchParams, setSearchParams] = useSearchParams();
   const [manufacturer, setManufacturer] = useState("");
-  const uniqueCities: string[] = [...new Set(cars.map(car => car.city))];
-  const uniqueManufacturers: string[] = [
-    ...new Set(cars.map(car => car.manufacturer)),
+  const { data: allCarsData } = useGetCarsQuery();
+  const allCars: Car[] = allCarsData?.cars || [];
+
+  const uniqueCities: string[] = [
+    ...new Set(allCars.map((car: Car) => car.city)),
   ];
-  const earliestYear = Math.min(...cars.map(car => car.year));
+  const uniqueManufacturers: string[] = [
+    ...new Set(allCars.map((car: Car) => car.manufacturer)),
+  ];
+  const earliestYear = Math.min(
+    ...(allCars.length > 0
+      ? allCars.map((car: Car) => car.year)
+      : [new Date().getFullYear()])
+  );
   const availableModels = useMemo(
     () =>
       manufacturer ? cars.filter(car => car.manufacturer === manufacturer) : [],

@@ -9,6 +9,11 @@
 
 .my-profile-car-card__image {
   width: 100%;
-  height: 270px;
+  height: 100%;
   object-fit: contain;
+}
+
+.my-profile-car-card__image-container {
+  width: 250px;
+  height: 180px;
 }

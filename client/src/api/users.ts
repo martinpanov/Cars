@@ -9,5 +9,9 @@ const usersApi = createCustomApi({
   },
 });
 
-export const { useRegisterMutation, useLoginMutation, useLogoutMutation, useRefreshMutation } =
-  usersApi;
+export const {
+  useRegisterMutation,
+  useLoginMutation,
+  useLogoutMutation,
+  useRefreshMutation,
+} = usersApi;

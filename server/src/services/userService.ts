@@ -1,14 +1,14 @@
 import bcrypt from 'bcrypt';
 
 import User, { IUser } from '../models/User';
-import { 
-  generateTokenPair, 
-  verifyAccessToken, 
-  verifyRefreshToken, 
-  refreshTokens, 
-  blacklistAccessToken, 
+import {
+  generateTokenPair,
+  verifyAccessToken,
+  verifyRefreshToken,
+  refreshTokens,
+  blacklistAccessToken,
   isAccessTokenBlacklisted,
-  TokenPair 
+  TokenPair
 } from '../utils/jwtHelpers';
 
 export async function getUser(username: string): Promise<IUser> {
@@ -72,14 +72,14 @@ export async function refreshUserTokens(refreshToken: string): Promise<TokenPair
   try {
     const payload = verifyRefreshToken(refreshToken);
     const user = await User.findById(payload._id);
-    
+
     if (!user) {
       throw new Error('User not found');
     }
 
     return refreshTokens(refreshToken, user);
-  } catch (error) {
-    throw new Error('Invalid refresh token');
+  } catch (error: any) {
+    throw new Error(error.message);
   }
 }
 
@@ -87,6 +87,6 @@ export function parseToken(token: string) {
   if (isAccessTokenBlacklisted(token)) {
     throw new Error('Token has been revoked');
   }
-  
+
   return verifyAccessToken(token);
 }

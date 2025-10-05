@@ -23,7 +23,7 @@ export default (app: Application) => {
   app.use('/api/myprofile', profileController);
 
   // Global error handler - must be last
-  app.use((error: any, _req: Request, res: Response) => {
+  app.use((error: any, _req: Request, res: Response, _next: any) => {
     handleError(res, error, error.status || 500);
   });
 };

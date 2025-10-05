@@ -23,7 +23,6 @@ export const WhyChooseUs: React.FC = () => {
         <Flex
           direction="column"
           align="center"
-          textAlign="center"
           className={styles["why-choose-us__reason"]}
         >
           <img
@@ -33,7 +32,7 @@ export const WhyChooseUs: React.FC = () => {
           <Text tag="h3" color="black" size="2xl">
             Select Car
           </Text>
-          <Text color="black">
+          <Text textAlign="center" color="black">
             We offer a big range of vehicles for all your driving needs. We have
             the perfect car to meet your needs
           </Text>
@@ -42,14 +41,13 @@ export const WhyChooseUs: React.FC = () => {
         <Flex
           direction="column"
           align="center"
-          textAlign="center"
           className={styles["why-choose-us__reason"]}
         >
           <img src="/assets/customer_care-icon.svg" alt="Customer care icon" />
           <Text tag="h3" color="black" size="2xl">
             Contact Operator
           </Text>
-          <Text color="black">
+          <Text textAlign="center" color="black">
             Our knowledgeable and friendly operators are always ready to help
             with any questions or concerns
           </Text>
@@ -58,7 +56,6 @@ export const WhyChooseUs: React.FC = () => {
         <Flex
           direction="column"
           align="center"
-          textAlign="center"
           className={styles["why-choose-us__reason"]}
         >
           <img
@@ -68,7 +65,7 @@ export const WhyChooseUs: React.FC = () => {
           <Text tag="h3" color="black" size="2xl">
             Let's Drive
           </Text>
-          <Text color="black">
+          <Text textAlign="center" color="black">
             Whether you're hitting the open road, we've got you covered with our
             wide range of cars
           </Text>

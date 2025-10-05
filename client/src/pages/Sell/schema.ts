@@ -36,8 +36,9 @@ export const sellSchema = {
   description: {
     type: "string",
     required: false,
+    minLength: 5,
     maxLength: 500,
-    errorMessage: "Description must not exceed 500 characters.",
+    errorMessage: "Description must be between 5 and 500 characters long.",
   },
   gearbox: {
     type: "string",

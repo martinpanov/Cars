@@ -16,14 +16,28 @@ const allowedExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
 
 // Check file signature (magic numbers) to prevent MIME type spoofing
 const getFileTypeFromBuffer = (buffer: Buffer): string | null => {
-  const signatures: { [key: string]: string; } = {
-    'ffd8ff': 'image/jpeg',
-    '89504e47': 'image/png',
-    '52494646': 'image/webp'
-  };
-
   const header = buffer.toString('hex', 0, 4);
-  return signatures[header] || null;
+  
+  // JPEG files start with FFD8 (and can have different third bytes)
+  if (header.startsWith('ffd8')) {
+    return 'image/jpeg';
+  }
+  
+  // PNG files start with 89504E47
+  if (header === '89504e47') {
+    return 'image/png';
+  }
+  
+  // WebP files start with 52494646 (RIFF)
+  if (header === '52494646') {
+    // Need to check more bytes for WebP - WEBP should appear at bytes 8-11
+    const webpHeader = buffer.toString('hex', 8, 12);
+    if (webpHeader === '57454250') { // 'WEBP'
+      return 'image/webp';
+    }
+  }
+  
+  return null;
 };
 
 const secureFileFilter = (_req: Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {

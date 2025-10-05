@@ -45,7 +45,8 @@ export function formValidation({ formData, schema }: Params) {
 
   Object.entries(schema).forEach(([key, validation]) => {
     // Use getAll for array types, get for single values
-    const value = validation.type === "array" ? formData.getAll(key) : formData.get(key);
+    const value =
+      validation.type === "array" ? formData.getAll(key) : formData.get(key);
 
     // Find the first validation that fails
     const failedRule = Object.entries(validation).find(([rule, ruleValue]) => {

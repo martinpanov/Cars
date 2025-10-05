@@ -13,6 +13,12 @@
 }
 
 /* Sizes */
+.button--xs {
+  font-size: var(--font-size-sm);
+  padding: var(--spacing) calc(var(--spacing) * 2);
+  height: 36px;
+}
+
 .button--sm {
   font-size: var(--font-size-base);
   padding: calc(var(--spacing) * 2) calc(var(--spacing) * 4);
@@ -51,6 +57,17 @@
 
 .button--secondary:hover {
   background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.button--tertiary {
+  background-color: var(--secondary-color);
+  color: var(--black-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.button--tertiary:hover {
+  background-color: var(--black-color);
   color: var(--secondary-color);
 }
 

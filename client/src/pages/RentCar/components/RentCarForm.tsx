@@ -8,7 +8,7 @@ import { Text } from "../../../components/Text/Text";
 import styles from "./RentCarForm.module.css";
 
 export const RentCarForm: React.FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [_searchParams, setSearchParams] = useSearchParams();
 
   const formHandler = (formData: FormData) => {
     const searchParamsObj = Object.fromEntries(

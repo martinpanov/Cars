@@ -4,8 +4,14 @@ import styles from "./Button.module.css";
 
 type ButtonProps = {
   children: React.ReactNode;
-  variant?: "primary" | "secondary" | "success" | "error" | "ghost";
-  size?: "sm" | "md" | "lg";
+  variant?:
+    | "primary"
+    | "secondary"
+    | "tertiary"
+    | "success"
+    | "error"
+    | "ghost";
+  size?: "xs" | "sm" | "md" | "lg";
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;

@@ -18,37 +18,69 @@ export type ICar = Document & {
 }
 
 const carSchema = new Schema({
-  manufacturer: { type: String, required: true, minLength: [2, 'Manufacturer must be at least 2 characters long'] },
-  model: { type: String, required: true, minLength: [1, 'Model must be at least 1 character long'] },
-  price: { type: Number, required: true, min: [0.01, 'Price must be positive number'] },
-  year: {
-    type: Number, required: true, validate: {
-      validator: (value: number) => value >= 1900 && value <= 2023,
-      message: 'Year must be between 1900 and 2023'
+  manufacturer: {
+    type: String, required: true,
+    validate: {
+      validator: (value: string) => value.length >= 2 && value.length <= 50,
+      message: 'Manufacturer must be between 2 and 50 characters long'
     }
   },
-  phoneNumber: { type: String, required: true, minLength: [9, 'Phone Number must be at least 9 characters long'] },
-  description: { type: String, minLength: [5, 'Description must be at least 5 characters long'] },
+  model: {
+    type: String, required: true,
+    validate: {
+      validator: (value: string) => value.length >= 1 && value.length <= 50,
+      message: 'Model must be between 1 and 50 characters long'
+    }
+  },
+  price: { type: Number, required: true, min: [0, 'Price must be a positive number'] },
+  year: {
+    type: Number, required: true, validate: {
+      validator: (value: number) => value >= 1886 && value <= new Date().getFullYear(),
+      message: `Year must be between 1886 and ${new Date().getFullYear()}`
+    }
+  },
+  phoneNumber: {
+    type: String, required: true, validate: {
+      validator: (value: string) => /^\+?[0-9\s\-()]{7,15}$/.test(value),
+      message: 'Phone number must be between 7 and 15 characters long and can include digits, spaces, dashes, and parentheses'
+    }
+  },
+  description: {
+    type: String,
+    validate: {
+      validator: function(value: string) {
+        if (!value) return true; // Optional field
+        return value.length >= 5 && value.length <= 500;
+      },
+      message: 'Description must be between 5 and 500 characters long'
+    }
+  },
   gearbox: {
     type: String, required: true, validate: {
       validator: (value: string) => value === 'Manual' || value === 'Automatic',
-      message: 'Gearbox must be either manual or automatic'
+      message: 'Gearbox must be either Manual or Automatic'
     }
   },
-  city: { type: String, required: true, minLength: [3, 'The city must be at least 3 characters long'] },
+  city: {
+    type: String, required: true,
+    validate: {
+      validator: (value: string) => value.length >= 2 && value.length <= 50,
+      message: 'City must be between 2 and 50 characters long'
+    }
+  },
   fuelType: {
     type: String, required: true, validate: {
       validator: (value: string) => value === 'Petrol' || value === 'Diesel',
-      message: 'Fuel type must be either petrol or diesel'
+      message: 'Fuel type must be either Petrol or Diesel'
     }
   },
-  horsePower: { type: Number, required: true, min: [1, 'HP must be at least 1'] },
-  kilometers: { type: Number, required: true, min: [1, 'kilometers must be at least 1'] },
+  horsePower: { type: Number, required: true, min: [0, 'Horsepower must be a positive number'] },
+  kilometers: { type: Number, required: true, min: [0, 'Kilometers must be a positive number'] },
   imagesNames: {
     type: [{ type: String, required: true }],
     validate: {
-      validator: (images: string[]) => images.length > 0,
-      message: 'At least one image is required'
+      validator: (images: string[]) => images.length >= 1,
+      message: 'You must upload at least one image'
     }
   },
   _ownerId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
