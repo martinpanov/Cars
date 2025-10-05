@@ -1,7 +1,7 @@
 .image-slider {
   position: relative;
   margin-top: calc(var(--spacing) * 5);
-  height: 80%;
+  height: 800px;
   border-radius: 4px;
   box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.4);
 }
@@ -52,6 +52,10 @@
 
 .image-slider__thumbnail-image--active {
   border: 2px solid var(--border-color-active);
+  height: 100%;
+  width: 60px;
+  cursor: pointer;
+  object-fit: cover;
 }
 
 .image-slider__thumbnail-container {

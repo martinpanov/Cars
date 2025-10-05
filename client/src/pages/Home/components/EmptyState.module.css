@@ -1,0 +1,23 @@
+.empty-state--default {
+  min-height: 400px;
+  background-color: var(--background-secondary, #f8f9fa);
+  border: 1px solid var(--border-color, #e9ecef);
+}
+
+.empty-state--primary {
+  min-height: 400px;
+  background-color: var(--primary-color, #007bff);
+  border: 1px solid var(--primary-color, #007bff);
+}
+
+.empty-state--default i,
+.empty-state--primary i {
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.empty-state--default:hover i,
+.empty-state--primary:hover i {
+  opacity: 1;
+  transform: scale(1.1);
+}

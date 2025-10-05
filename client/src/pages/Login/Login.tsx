@@ -60,7 +60,7 @@ export const Login: React.FC = () => {
         >
           <Form
             onSubmit={loginFormHandler}
-            // schema={loginSchema} // Temporarily disabled for backend testing
+            schema={loginSchema}
             className={styles["login-page__form"]}
           >
             <FormField

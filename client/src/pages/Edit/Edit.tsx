@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { useGetCarQuery } from "../../api/cars";
+import { useEditCarMutation, useGetCarQuery } from "../../api/cars";
 import { Button } from "../../components/Button/Button";
 import { Flex } from "../../components/Flex/Flex";
 import { ImageSlider } from "../../components/ImageSlider/ImageSlider";
@@ -13,9 +13,17 @@ import styles from "./Edit.module.css";
 
 export const Edit: React.FC = () => {
   const { id } = useParams();
-  const { data, isLoading } = useGetCarQuery({ id });
-  const car = data || [];
-  const [images, setImages] = useState(car.imagesNames || []);
+  const { data, isLoading: isLoadingQuery } = useGetCarQuery({ id });
+  const { editCar, isLoading: isLoadingMutation } = useEditCarMutation({ id });
+  const isLoading = isLoadingQuery || isLoadingMutation;
+  const car = data || {};
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    if (car.imagesNames) {
+      setImages(car.imagesNames);
+    }
+  }, [car.imagesNames]);
 
   return (
     <Flex tag="section" className={styles["edit-page"]}>
@@ -31,7 +39,7 @@ export const Edit: React.FC = () => {
             <Text tag="h1" size="2xl" textAlign="center">
               Edit Car Ad
             </Text>
-            <EditForm car={car} images={images} setImages={setImages} />
+            <EditForm car={car} images={images} setImages={setImages} editCar={editCar} />
           </Flex>
 
           <Flex

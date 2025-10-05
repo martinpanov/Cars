@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import { CloudinaryImage } from "../../../components/CloudinaryImage/CloudinaryImage";
 import { Flex } from "../../../components/Flex/Flex";
+import { RenderIf } from "../../../components/RenderIf";
 import { Text } from "../../../components/Text/Text";
 import type { Car } from "../../../types/car";
 import styles from "./CatalogCardCard.module.css";
@@ -21,16 +22,28 @@ export const CatalogCarCard: React.FC<Car> = ({
 }) => {
   return (
     <Flex justify="between" className={styles["car-card"]}>
-      <Link to={`/details/${_id}`}>
-        <CloudinaryImage
-          publicId={imagesNames[0]}
-          width={200}
-          height={150}
-          crop="fill"
-          alt="car"
-          className={styles["car-card__image"]}
-        />
-      </Link>
+      <div className={styles["car-card__image-container"]}>
+        <Link to={`/details/${_id}`}>
+          <RenderIf condition={imagesNames[0]}>
+            <CloudinaryImage
+              publicId={imagesNames[0]}
+              width={200}
+              height={150}
+              crop="fill"
+              alt="car"
+              className={styles["car-card__image"]}
+            />
+          </RenderIf>
+
+          <RenderIf condition={!imagesNames[0]}>
+            <img
+              src="/assets/default-car.webp"
+              alt="car"
+              className={styles["car-card__image"]}
+            />
+          </RenderIf>
+        </Link>
+      </div>
       <Flex
         direction="column"
         justify="between"

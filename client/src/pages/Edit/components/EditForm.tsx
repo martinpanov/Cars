@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
 
-import { useEditCarMutation } from "../../../api/cars";
 import { Flex } from "../../../components/Flex/Flex";
 import { Form } from "../../../components/Form/Form";
 import { FormField } from "../../../components/Form/FormField";
@@ -13,12 +12,12 @@ type Props = {
   car: Car;
   images: File[];
   setImages: React.Dispatch<React.SetStateAction<File[]>>;
+  editCar: (formData: FormData) => Promise<any>;
 };
 
-export const EditForm: React.FC<Props> = ({ car, images, setImages }) => {
+export const EditForm: React.FC<Props> = ({ car, images, setImages, editCar }) => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { editCar } = useEditCarMutation({ id });
 
   const editFormHandler = async (formData: FormData) => {
     if (images.length === 0) {
@@ -33,8 +32,10 @@ export const EditForm: React.FC<Props> = ({ car, images, setImages }) => {
       });
     }
 
-    await editCar(formData);
-    navigate(`/details/${id}`);
+    const result = await editCar(formData);
+    if (result) {
+      navigate(`/details/${id}`);
+    }
   };
 
   return (
@@ -43,7 +44,7 @@ export const EditForm: React.FC<Props> = ({ car, images, setImages }) => {
       action={`/edit/${id}`}
       onSubmit={editFormHandler}
       encType="multipart/form-data"
-      // schema={editSchema} // Temporarily disabled for backend testing
+      schema={editSchema}
       className={styles["edit-form"]}
     >
       <Flex direction="column" className={styles["edit-form__field"]}>

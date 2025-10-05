@@ -6,7 +6,7 @@ import { Text } from "../Text/Text";
 import styles from "./FormField.module.css";
 
 type Props = {
-  name: string;
+  name?: string;
   type?: string;
   label?: string | React.ReactNode;
   placeholder?: string;

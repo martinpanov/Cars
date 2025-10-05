@@ -91,7 +91,7 @@ export const Register: React.FC = () => {
         >
           <Form
             onSubmit={registerFormHandler}
-            // schema={registerSchema} // Temporarily disabled for backend testing
+            schema={registerSchema}
             className={styles["register-page__form"]}
           >
             <FormField

@@ -36,14 +36,16 @@ export const MyProfilePicture: React.FC = () => {
       align="center"
       className={styles["my-profile__image-section"]}
     >
-      <RenderIf condition={!!profilePicture}>
-        <CloudinaryImage
-          publicId={profilePicture!}
-          width={150}
-          height={150}
-          crop="fill"
-          alt="profile picture"
-        />
+      <RenderIf condition={profilePicture}>
+        <div className={styles["my-profile__image-wrapper"]}>
+          <CloudinaryImage
+            publicId={profilePicture}
+            width={150}
+            height={150}
+            crop="fill"
+            alt="profile picture"
+          />
+        </div>
       </RenderIf>
       <RenderIf condition={!profilePicture}>
         <img

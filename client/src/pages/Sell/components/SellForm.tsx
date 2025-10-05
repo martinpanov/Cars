@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 
-import { useSellCarMutation } from "../../../api/cars";
 import { Flex } from "../../../components/Flex/Flex";
 import { Form } from "../../../components/Form/Form";
 import { FormField } from "../../../components/Form/FormField";
@@ -11,11 +10,11 @@ import styles from "./SellForm.module.css";
 type Props = {
   images: File[];
   setImages: React.Dispatch<React.SetStateAction<File[]>>;
+  sellCar: (formData: FormData) => Promise<any>;
 };
 
-export const SellForm: React.FC<Props> = ({ images, setImages }) => {
+export const SellForm: React.FC<Props> = ({ images, setImages, sellCar }) => {
   const navigate = useNavigate();
-  const { sellCar } = useSellCarMutation();
 
   const sellFormHandler = async (formData: FormData) => {
     if (images.length === 0) {
@@ -24,8 +23,10 @@ export const SellForm: React.FC<Props> = ({ images, setImages }) => {
       images.forEach(image => formData.append("images", image));
     }
 
-    await sellCar(formData);
-    navigate("/catalog");
+    const result = await sellCar(formData);
+    if (result) {
+      navigate("/catalog");
+    }
   };
 
   return (
@@ -33,7 +34,7 @@ export const SellForm: React.FC<Props> = ({ images, setImages }) => {
       id="sell-form"
       action="/sell"
       onSubmit={sellFormHandler}
-      // schema={sellSchema} // Temporarily disabled for backend testing
+      schema={sellSchema}
       encType="multipart/form-data"
       className={styles["sell-form"]}
     >

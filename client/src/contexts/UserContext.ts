@@ -17,7 +17,7 @@ const UserContext = createContext<UserContextType>({
     username: "",
     tokens: "",
   },
-  setUser: () => { },
+  setUser: () => {},
 });
 
 export { UserContext };

@@ -11,7 +11,7 @@ import { SellForm } from "./components/SellForm";
 import styles from "./Sell.module.css";
 
 export const Sell: React.FC = () => {
-  const { isLoading } = useSellCarMutation();
+  const { isLoading, sellCar } = useSellCarMutation();
   const [images, setImages] = useState([]);
 
   return (
@@ -20,26 +20,28 @@ export const Sell: React.FC = () => {
         <PageSpinner />
       </RenderIf>
 
-      <Flex className={styles["sell-page__content-section"]} direction="column">
-        <Text tag="h1" size="2xl" textAlign="center">
-          Post Car Ad
-        </Text>
-        <SellForm images={images} setImages={setImages} />
-      </Flex>
-
-      <Flex className={styles["sell-page__image-section"]} direction="column">
-        <Flex justify="start">
-          <Button variant="primary" size="lg" form="sell-form">
-            Post
-          </Button>
+      <RenderIf condition={!isLoading}>
+        <Flex className={styles["sell-page__content-section"]} direction="column">
+          <Text tag="h1" size="2xl" textAlign="center">
+            Post Car Ad
+          </Text>
+          <SellForm images={images} setImages={setImages} sellCar={sellCar} />
         </Flex>
-        <ImageSlider
-          imageSources={images}
-          onDeleteImage={index => {
-            setImages(prev => prev.filter((_, i) => i !== index));
-          }}
-        />
-      </Flex>
+
+        <Flex className={styles["sell-page__image-section"]} direction="column">
+          <Flex justify="start">
+            <Button variant="primary" size="lg" form="sell-form">
+              Post
+            </Button>
+          </Flex>
+          <ImageSlider
+            imageSources={images}
+            onDeleteImage={index => {
+              setImages(prev => prev.filter((_, i) => i !== index));
+            }}
+          />
+        </Flex>
+      </RenderIf>
     </Flex>
   );
 };

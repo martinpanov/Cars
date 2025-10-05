@@ -20,24 +20,33 @@ export const MyProfileCarCard: React.FC<Props> = ({ car, isRental }) => {
         gap="lg"
         className={styles["my-profile-car-card"]}
       >
-        <RenderIf condition={!isRental}>
-          <CloudinaryImage
-            publicId={(car as Car).imagesNames[0]}
-            width={250}
-            height={180}
-            crop="fill"
-            alt={`${car.manufacturer} ${car.model}`}
-            className={styles["my-profile-car-card__image"]}
-          />
-        </RenderIf>
-        <RenderIf condition={isRental}>
-          <img
-            src={(car as RentalCar).img}
-            alt={`${car.manufacturer} ${car.model}`}
-            className={styles["my-profile-car-card__image"]}
-          />
-        </RenderIf>
-        <Text size="lg" color="secondary">
+        <div className={styles["my-profile-car-card__image-container"]}>
+          <RenderIf condition={!isRental && (car as Car).imagesNames[0]}>
+            <CloudinaryImage
+              publicId={(car as Car).imagesNames?.[0]}
+              width={250}
+              height={180}
+              crop="fit"
+              alt={`${car.manufacturer} ${car.model}`}
+              className={styles["my-profile-car-card__image"]}
+            />
+          </RenderIf>
+          <RenderIf condition={!isRental && !(car as Car).imagesNames[0]}>
+            <img
+              src="/assets/default-car.webp"
+              alt="car"
+              className={styles["my-profile-car-card__image"]}
+            />
+          </RenderIf>
+          <RenderIf condition={isRental}>
+            <img
+              src={(car as RentalCar).img}
+              alt={`${car.manufacturer} ${car.model}`}
+              className={styles["my-profile-car-card__image"]}
+            />
+          </RenderIf>
+        </div>
+        <Text textAlign="center" size="lg" color="secondary">
           {car.manufacturer} {car.model}
         </Text>
       </Flex>

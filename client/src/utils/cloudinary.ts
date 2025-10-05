@@ -1,6 +1,6 @@
 import { Cloudinary } from "@cloudinary/url-gen";
-import { dpr,format, quality } from "@cloudinary/url-gen/actions/delivery";
-import { crop,fill, fit, scale } from "@cloudinary/url-gen/actions/resize";
+import { dpr, format, quality } from "@cloudinary/url-gen/actions/delivery";
+import { crop, fill, fit, scale } from "@cloudinary/url-gen/actions/resize";
 
 import { CLOUDINARY_CLOUD_NAME } from "./constants";
 

@@ -44,8 +44,8 @@ export const carValidationRules: ValidationChain[] = [
   body('description')
     .optional()
     .trim()
-    .isLength({ max: 500 })
-    .withMessage('Description must not exceed 500 characters'),
+    .isLength({ min: 5, max: 500 })
+    .withMessage('Description must be between 5 and 500 characters long'),
 
   body('gearbox')
     .trim()

@@ -2,9 +2,9 @@ import { NextFunction, Request, Response } from 'express';
 
 const ALLOWED_ORIGINS = [
   'http://localhost:5173', // Vite dev server
-  'http://localhost:4173', // Vite preview
   'http://localhost:3000', // Alternative dev port
-  process.env.CLIENT_URL, // Production client URL
+  process.env.DEV_CLIENT_URL, // Dev client URL
+  process.env.PROD_CLIENT_URL // Prod client URL
 ].filter(Boolean); // Remove undefined values
 
 const ALLOWED_USER_AGENTS = [

@@ -1,4 +1,4 @@
-import { UploadApiResponse,v2 as cloudinary } from 'cloudinary';
+import { UploadApiResponse, v2 as cloudinary } from 'cloudinary';
 import crypto from 'crypto';
 
 // Validate required environment variables
@@ -10,7 +10,7 @@ const folder = 'cars';
 const resourceType = 'image';
 
 if (!cloudName || !apiKey || !apiSecret) {
-  throw new Error('Missing required Cloudinary environment variables');
+  throw new Error("Missing required Cloudinary environment variables: cloudName, apiKey, apiSecret");
 }
 
 // Configure Cloudinary
@@ -26,16 +26,33 @@ type CloudinaryFile = {
 };
 
 // Generate upload signature for secure uploads
-function generateUploadSignature(publicId: string, timestamp: number): string {
-  const paramsToSign = `folder=${folder}&public_id=${publicId}&timestamp=${timestamp}`;
+function generateUploadSignature(publicId: string, timestamp: number, userId?: string): string {
+  const params: Record<string, string> = {
+    folder: folder,
+    invalidate: 'true',
+    public_id: publicId,
+    timestamp: timestamp.toString()
+  };
+
+  // Add context if userId is provided
+  if (userId) {
+    params.context = `user_id=${userId}`;
+  }
+
+  // Sort parameters alphabetically and create query string
+  const sortedParams = Object.keys(params)
+    .sort()
+    .map(key => `${key}=${params[key]}`)
+    .join('&');
+
   return crypto
     .createHash('sha1')
-    .update(paramsToSign + apiSecret)
+    .update(sortedParams + apiSecret)
     .digest('hex');
 }
 
 // Generate secure upload parameters
-export function generateSecureUploadParams(filename: string): {
+export function generateSecureUploadParams(filename: string, userId?: string): {
   timestamp: number;
   signature: string;
   public_id: string;
@@ -44,8 +61,8 @@ export function generateSecureUploadParams(filename: string): {
 } {
   const timestamp = Math.round(Date.now() / 1000);
   const public_id = `${timestamp}_${filename.split('.')[0]}`;
-  const signature = generateUploadSignature(public_id, timestamp);
-  
+  const signature = generateUploadSignature(public_id, timestamp, userId);
+
   return {
     timestamp,
     signature,
@@ -58,14 +75,15 @@ export function generateSecureUploadParams(filename: string): {
 export async function cloudinaryUpload(files: CloudinaryFile | CloudinaryFile[], userId?: string): Promise<UploadApiResponse | UploadApiResponse[]> {
   // Handle single file upload
   if (!Array.isArray(files)) {
-    const uploadParams = generateSecureUploadParams(files.originalname);
-    
+    const uploadParams = generateSecureUploadParams(files.originalname, userId);
+
     return new Promise((resolve, reject) => {
       cloudinary.uploader.upload_stream(
         {
           resource_type: resourceType,
           public_id: uploadParams.public_id,
           folder: uploadParams.folder,
+          api_key: uploadParams.api_key,
           signature: uploadParams.signature,
           timestamp: uploadParams.timestamp,
           // Add user context for tracking
@@ -86,14 +104,15 @@ export async function cloudinaryUpload(files: CloudinaryFile | CloudinaryFile[],
 
   // Handle multiple file upload
   const uploadPromises = files.map(file => {
-    const uploadParams = generateSecureUploadParams(file.originalname);
-    
+    const uploadParams = generateSecureUploadParams(file.originalname, userId);
+
     return new Promise<UploadApiResponse>((resolve, reject) => {
       cloudinary.uploader.upload_stream(
         {
           resource_type: resourceType,
           public_id: uploadParams.public_id,
           folder: uploadParams.folder,
+          api_key: uploadParams.api_key,
           signature: uploadParams.signature,
           timestamp: uploadParams.timestamp,
           context: userId ? `user_id=${userId}` : undefined,

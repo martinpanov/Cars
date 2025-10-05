@@ -2,12 +2,16 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import { IUser } from '../models/User';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'VerySecretMarto%#@!';
-const REFRESH_SECRET = process.env.REFRESH_SECRET || 'RefreshSecretMarto%#@!';
+const JWT_SECRET = process.env.JWT_SECRET!;
+const REFRESH_SECRET = process.env.REFRESH_SECRET!;
+
+if (!JWT_SECRET || !REFRESH_SECRET) {
+  throw new Error("Missing required environment variables: JWT_SECRET, RESFRESH_SECRET");
+}
 
 // Token expiration times
-const ACCESS_TOKEN_EXPIRY = '15m'; // 15 minutes
-const REFRESH_TOKEN_EXPIRY = '7d'; // 7 days
+const ACCESS_TOKEN_EXPIRY = '1m'; // 15 minutes
+const REFRESH_TOKEN_EXPIRY = '3d'; // 3 days
 
 // In-memory storage for refresh tokens (use Redis in production)
 const refreshTokenStore = new Map<string, {
@@ -82,7 +86,7 @@ export function generateTokenPair(user: IUser): TokenPair {
 
   // Store refresh token metadata
   const expiresAt = new Date();
-  expiresAt.setDate(expiresAt.getDate() + 7); // 7 days from now
+  expiresAt.setTime(expiresAt.getTime() + (3 * 24 * 60 * 60 * 1000)); // 3 days from now
 
   refreshTokenStore.set(tokenId, {
     userId,
@@ -110,7 +114,7 @@ export function verifyAccessToken(token: string): AccessTokenPayload {
     }
 
     return payload;
-  } catch (error) {
+  } catch {
     throw new Error('Invalid access token');
   }
 }
@@ -133,7 +137,7 @@ export function verifyRefreshToken(token: string): RefreshTokenPayload {
     }
 
     return payload;
-  } catch (error) {
+  } catch {
     throw new Error('Invalid refresh token');
   }
 }
@@ -181,7 +185,7 @@ export function refreshTokens(refreshToken: string, user: IUser): TokenPair {
 
   // Store new refresh token metadata
   const expiresAt = new Date();
-  expiresAt.setDate(expiresAt.getDate() + 7);
+  expiresAt.setTime(expiresAt.getTime() + (3 * 24 * 60 * 60 * 1000)); // 3 days from now
 
   refreshTokenStore.set(newTokenId, {
     userId,
@@ -195,22 +199,6 @@ export function refreshTokens(refreshToken: string, user: IUser): TokenPair {
     refreshToken: newRefreshToken,
     expiresIn: 15 * 60
   };
-}
-
-export function revokeRefreshToken(tokenId: string): void {
-  const tokenData = refreshTokenStore.get(tokenId);
-  if (tokenData) {
-    tokenData.isValid = false;
-  }
-}
-
-
-export function revokeTokenFamily(tokenFamily: string): void {
-  for (const [_tokenId, data] of refreshTokenStore.entries()) {
-    if (data.tokenFamily === tokenFamily) {
-      data.isValid = false;
-    }
-  }
 }
 
 // Blacklist for compromised access tokens (keep until expiry)

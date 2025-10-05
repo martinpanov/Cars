@@ -5,10 +5,12 @@ import { CloudinaryImage } from "../../../components/CloudinaryImage/CloudinaryI
 import { Flex } from "../../../components/Flex/Flex";
 import { RenderIf } from "../../../components/RenderIf";
 import { Text } from "../../../components/Text/Text";
+import { EmptyState } from "../components/EmptyState";
+import { CarListingsLoading } from "./CarListingsLoading";
 import styles from "./LatestCarListings.module.css";
 
 export const LatestCarListings: React.FC = () => {
-  const { data = [] } = useGetCarsQuery();
+  const { data, isLoading } = useGetCarsQuery();
 
   return (
     <Flex
@@ -22,9 +24,12 @@ export const LatestCarListings: React.FC = () => {
       <Text tag="h2" size="3xl" color="secondary">
         Latest car listings
       </Text>
-      <RenderIf condition={data?.cars && data.cars.length > 0}>
+      <RenderIf condition={isLoading}>
+        <CarListingsLoading />
+      </RenderIf>
+      <RenderIf condition={!isLoading && data?.cars && data.cars.length > 0}>
         <Flex wrap="wrap" justify="center" gap="lg">
-          {data?.cars?.map(car => (
+          {data?.cars.map(car => (
             <Flex
               key={car._id}
               direction="column"
@@ -33,14 +38,23 @@ export const LatestCarListings: React.FC = () => {
             >
               <div className={styles["latest-car-listings__image-container"]}>
                 <Link to={`/details/${car._id}`}>
-                  <CloudinaryImage
-                    publicId={car.imagesNames[0]}
-                    width={300}
-                    height={240}
-                    crop="fill"
-                    alt={`${car.manufacturer} ${car.model}`}
-                    className={styles["latest-car-listings__image"]}
-                  />
+                  <RenderIf condition={!car.imagesNames[0]}>
+                    <img
+                      src="/assets/default-car.webp"
+                      alt="car"
+                      className={styles["latest-car-listings__image"]}
+                    />
+                  </RenderIf>
+                  <RenderIf condition={car.imagesNames[0]}>
+                    <CloudinaryImage
+                      publicId={car.imagesNames[0]}
+                      width={300}
+                      height={240}
+                      crop="fill"
+                      alt={`${car.manufacturer} ${car.model}`}
+                      className={styles["latest-car-listings__image"]}
+                    />
+                  </RenderIf>
                 </Link>
               </div>
               <div className={styles["latest-car-listings__specs"]}>
@@ -74,6 +88,18 @@ export const LatestCarListings: React.FC = () => {
             </Flex>
           ))}
         </Flex>
+      </RenderIf>
+      <RenderIf
+        condition={!isLoading && (!data?.cars || data?.cars?.length === 0)}
+      >
+        <EmptyState
+          icon="fa-solid fa-car-side"
+          title="No car listings yet"
+          description="Be the first to share your vehicle with the community"
+          buttonText="List Your Car"
+          buttonTo="/sell"
+          variant="default"
+        />
       </RenderIf>
     </Flex>
   );

@@ -2,11 +2,13 @@
   position: relative;
 }
 
+.my-profile__image-wrapper {
+  width: 150px;
+  height: 150px;
+}
+
 .my-profile__image-section img {
-  object-fit: contain;
   border-radius: 50%;
-  height: 180px;
-  width: 180px;
 }
 
 .my-profile__button {
