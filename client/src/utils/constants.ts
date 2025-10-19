@@ -1,5 +1,5 @@
 export const URL = import.meta.env.PROD
-  ? "https://begachka.donttouchmydomain.com:3003"
+  ? "https://cars.yoannabest.com"
   : "http://localhost:3003";
 export const API_URL = `${URL}/api`;
 export const CLOUDINARY_CLOUD_NAME = "dbunbye7y";

@@ -20,6 +20,12 @@ export function validateOrigin() {
     const origin = req.get('Origin') || req.get('Referer');
     const userAgent = req.get('User-Agent') || '';
 
+    // Allow healthcheck requests from localhost (Docker internal checks)
+    const isHealthCheck = req.hostname === 'localhost' && /wget/i.test(userAgent);
+    if (isHealthCheck) {
+      return next();
+    }
+
     // Check origin (for CORS requests)
     if (origin && !ALLOWED_ORIGINS.includes(origin)) {
       return res.status(403).json({

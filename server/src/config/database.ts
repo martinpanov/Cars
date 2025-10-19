@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const connectionString = 'mongodb://localhost:27017/carsdb';
+const connectionString = process.env.MONGODB_URI || 'mongodb://localhost:27017/cars';
 
 export default async () => {
   try {

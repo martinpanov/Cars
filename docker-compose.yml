@@ -1,0 +1,59 @@
+services:
+  # MongoDB Database
+  cars-mongodb:
+    image: mongo:8
+    container_name: cars-mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: ${MONGO_DB_NAME}
+    volumes:
+      - cars-mongodb-data:/data/db
+      - cars-mongodb-config:/data/configdb
+    networks:
+      - shared-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # Cars Application Backend
+  cars-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cars-server:latest
+    container_name: cars-server
+    restart: unless-stopped
+    depends_on:
+      cars-mongodb:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      MONGODB_URI: ${MONGODB_URI}
+      JWT_SECRET: ${JWT_SECRET}
+      REFRESH_SECRET: ${REFRESH_SECRET}
+      CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME}
+      CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY}
+      CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
+      PROD_CLIENT_URL: ${PROD_CLIENT_URL}
+      DEV_CLIENT_URL: ${DEV_CLIENT_URL}
+    networks:
+      - shared-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3003/api/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  cars-mongodb-data:
+    driver: local
+  cars-mongodb-config:
+    driver: local
+
+networks:
+  shared-network:
+    external: true
